@@ -1,0 +1,100 @@
+package com.teamproject.www.Kim.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.teamproject.www.Kim.domain.AttachBoardDto;
+import com.teamproject.www.Kim.domain.InformationBoardVo;
+import com.teamproject.www.Kim.domain.InformationCriteria;
+import com.teamproject.www.Kim.mapper.AttachMapper;
+import com.teamproject.www.Kim.mapper.BoardMapper;
+
+@Service("kimBoardService")
+public class BoardServiceImpl implements BoardService{
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	@Autowired
+	private AttachMapper attachMapper;
+	
+
+	// getlistksy
+	@Override
+    public List<InformationBoardVo> getListKsy(InformationCriteria criteria) {
+		System.out.println("getInfoList...");
+		List<InformationBoardVo> list = boardMapper.getListWithPagingKsy(criteria);
+        return list;
+	}
+	
+	// gettotalksy
+    @Override
+    public int getTotalKsy(InformationCriteria criteria) {
+    	int count = boardMapper.getTotalCountKsy(criteria);
+        return count;
+    }
+    
+    // 정보게시판 주간 베스트 게시물 가져오기 김세영
+    @Override
+    public List<InformationBoardVo> getWeeklyBest() {
+        return boardMapper.getWeeklyBest();
+    }
+    
+    // 오늘의 통합 best 게시물 가져오기 김세영
+    @Override
+    public List<InformationBoardVo> getTodayBest() {
+        return boardMapper.getTodayBest();
+    }
+    
+    //상단 공지 2개  가져오기 김세영
+    @Override
+    public List<InformationBoardVo> getLatestAnnounce() {
+        return boardMapper.getLatestAnnounce();
+    }
+    
+    // 김세영 글등록
+	@Override
+	public Long write(InformationBoardVo vo) {
+		System.out.println("글등록 김세영");
+		int count = boardMapper.insertSelectKeyKsy(vo);
+		
+		// 첨부파일 insert
+		List<AttachBoardDto> list = vo.getAttachList();
+		if (list != null && list.size() > 0) {
+			list.forEach(dto -> {
+				dto.setB_i_no(vo.getB_i_no());
+				attachMapper.insertKsy(dto);
+			});
+		}
+		
+		
+		if (count > 0) {
+			return vo.getB_i_no();
+		}
+		return 0L;
+	}
+	// 김세영 글보기
+	@Override
+	public InformationBoardVo get(Long bno) {
+		System.out.println("get...");
+		InformationBoardVo vo = boardMapper.selectByBnoKsy(bno);
+		return vo;
+	}
+
+	@Override
+	public Long modify(InformationBoardVo vo) {
+		System.out.println("글수정 김세영");
+		int count = boardMapper.modifySelectKeyKsy(vo);
+		if (count > 0) {
+			return vo.getB_i_no();
+		}
+		return 0L;
+	}
+	
+	@Override
+	public void delete(Long b_i_no) {
+	    boardMapper.deleteKsy(b_i_no);
+	}
+
+}

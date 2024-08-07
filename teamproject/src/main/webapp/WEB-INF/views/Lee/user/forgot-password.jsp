@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인:차박차박</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/user/login.css">
+<script src="/resources/js/user/login.js"></script>
+</head>
+<body>
+	<div class="logoContainer">
+		<a href="/"><img alt="logo" src="/resources/image/logo2.png"></a>
+	</div>
+    <div class="form-content">
+   		<h4>비밀번호 찾기</h4>
+   		<span>회원정보에 등록한 아이디로 새로운 비밀번호를 발송합니다.</span>
+	    <form class="form-item" id="form-login" action="/user/resetPassword" method="post">
+	        <input type="text" id="u_id" placeholder="아이디" name="u_id" required>
+		    <button type="submit" class="btn" id="btnFindPw">비밀번호 찾기</button>
+		    <a href="/user/login" class="btn">로그인</a>
+	    </form>
+   </div>
+
+</body>
+</html>

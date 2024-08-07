@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Lee.mapper.ReplyMapper">
+<!-- 	댓글달기 -->
+	<insert id="insertReply">
+<!-- 		insert into tbl_b_f_reply(b_f_r_no, b_f_no, reply, replyer) -->
+<!-- 		values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer}) -->
+		
+<!-- 		insert into tbl_b_f_reply (b_f_r_no, b_f_no , reply, replyer, rereply_no) -->
+<!-- 		values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer}, #{b_f_r_no}) -->
+		<choose>
+			<when test="b_f_r_no != null">
+				insert into tbl_b_f_reply (b_f_r_no, b_f_no , reply, replyer, rereply_no)
+				values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer} ,#{b_f_r_no})
+			
+			</when>
+			<otherwise>
+				insert into tbl_b_f_reply (b_f_r_no, b_f_no , reply, replyer)
+				values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer})
+			</otherwise>
+		</choose>
+	</insert>
+
+<!-- 	댓글리스트 가져오기 -->
+	<select id="getList" resultType="ReplyListDto">
+<!-- 			select b_f_no, b_f_r_no, reply, replyer, good, replydate, updatedate  -->
+<!-- 			from tbl_b_f_reply -->
+<!-- 			where b_f_no = #{b_f_no} -->
+			
+<!-- 			select /*+ index_desc (tbl_b_f_reply pk_b_f_reply) */  -->
+<!-- 			b_f_no, b_f_r_no, reply, replyer, good, replydate, updatedate, rereply_no   -->
+<!-- 			from tbl_b_f_reply -->
+<!-- 			where b_f_no = #{b_f_no} -->
+
+				SELECT
+				    b_f_no,
+				    b_f_r_no,
+				    reply,
+				    replyer,
+				    good,
+				    replydate,
+				    updatedate,
+				    rereply_no,
+				    LEVEL AS reply_level
+				FROM
+				    tbl_b_f_reply
+				WHERE
+				    b_f_no = #{b_f_no}
+				START WITH
+				    rereply_no IS NULL
+				CONNECT BY
+				    PRIOR b_f_r_no = rereply_no
+				ORDER SIBLINGS BY
+				    replydate
+	</select>
+	
+<!-- 	댓글삭제 -->
+	<delete id="delete">
+		delete tbl_b_f_reply
+		where b_f_r_no = #{b_f_r_no}
+	</delete>
+<!-- 	댓글 게시판번호로 삭제 -->
+	<delete id="deleteByBoardNo">
+		delete tbl_b_f_reply
+		where b_f_no = #{b_f_no}
+	</delete>
+	
+<!-- 	댓글수정 -->
+	<update id="update">
+		update tbl_b_f_reply
+		set reply = #{reply}
+		where b_f_r_no = #{b_f_r_no}
+	</update>
+	
+<!-- 	댓글 좋아요 -->
+	<update id="like">
+		update tbl_b_f_reply
+		set	good = (select good from tbl_b_f_reply where b_f_r_no = #{b_f_r_no}) +1
+		where b_f_r_no = #{b_f_r_no}
+	</update>
+</mapper>

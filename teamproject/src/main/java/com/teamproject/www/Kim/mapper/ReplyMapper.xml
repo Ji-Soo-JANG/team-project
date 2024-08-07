@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamproject.www.Kim.mapper.ReplyMapper">
+	
+	<!-- 김세영 정보공유 댓글 불러오기  -->
+	<insert id="insert">
+		insert into tbl_b_i_reply
+			(b_i_r_no, b_i_no, reply, replyer)
+		values
+			(seq_reply.nextval, #{b_i_no}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="read" resultType="InformationReplyVo">
+		select * from tbl_b_i_reply
+		where b_i_r_no = #{b_i_r_no}
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_b_i_reply
+		where b_i_r_no = #{b_i_r_no}
+	</delete>
+	
+    <update id="update" parameterType="InformationReplyVo">
+        update tbl_b_i_reply
+        set reply = #{reply},
+            replyer = #{replyer},
+            updatedate = sysdate
+        where b_i_r_no = #{b_i_r_no}
+    </update>
+	<!-- 김세영 정보공유 댓글 불러오기 -->
+	<select id="getList" resultType="InformationReplyVo">
+		select /*+ index_asc (tbl_b_i_reply pk_b_i_reply) */
+				* 
+		from tbl_b_i_reply
+		where b_i_no = #{b_i_no}
+	</select>
+</mapper>

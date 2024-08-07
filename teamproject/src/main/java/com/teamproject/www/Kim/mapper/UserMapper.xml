@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Kim.mapper.UserMapper">
+	<!-- 	회원가입 -->
+	<insert id="join">
+		insert into tbl_user
+		values(#{u_id}, #{u_pw}, #{u_nickname}, #{u_email})
+	</insert>
+</mapper>

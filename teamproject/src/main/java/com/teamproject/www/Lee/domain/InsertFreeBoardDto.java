@@ -1,0 +1,16 @@
+package com.teamproject.www.Lee.domain;
+
+
+import java.util.List;
+
+import lombok.Data;
+
+@Data
+public class InsertFreeBoardDto {
+	private int b_f_no;
+	private String b_f_title;
+	private String b_f_content;
+	private String b_f_writer;
+	private char b_f_img;
+	private List<AttachFileDto> pathList;
+}

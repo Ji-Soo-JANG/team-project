@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Jang.mapper.BoardMapper">
+<!-- DB에서의 column명과 Class의 필드명이 일치해야 값을 제대로 메핑함 -->            
+<!-- join 한 테이블에서는 b.bno와 같은 컬럼명이 결과로 나오므로 이것을 mybatis를 통해 메핑을 하던가 별칭을 줘야함 -->
+	
+	<!-- 리스트 가져오기 -->
+	<select id="getNoticeList" resultType="NoticeDto">
+		select b.bno, b.title, b.content, u.u_id, b.regdate
+		from tbl_board b
+		join tbl_user u on b.writer = u.uno
+		where b.btype = 1
+	</select>
+
+	<!-- 공지사항 입력하기 -->
+	<insert id="insertNotice">
+		<selectKey keyProperty="bno" resultType="long" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		
+		insert into tbl_board(bno, title, content, writer, btype)
+		values(#{bno}, #{title}, #{content}, ${writer}, 1)
+	</insert>
+	
+	<!-- 공지사항 하나 가져오기 -->
+	<select id="getNotice" resultType="NoticeDto">
+		select b.bno bno, b.title title, b.content content, u.u_id writer, b.regdate regdate
+		from tbl_board b
+		join tbl_user u on b.writer = u.uno
+		where b.btype = 1
+		and b.bno=#{bno}
+	</select>
+	
+	
+	<!-- 총 갯수 가져오기 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from tbl_board b, tbl_user u
+		where b.writer = u.uno
+		 <if test="type != null">
+		        	<choose>
+		        		<when test="type == 'T'.toString()">
+		        		and b.title like '%' || #{keyword} || '%'
+		        		</when>
+		        		
+		        		<when test="type == 'I'.toString()">
+		        		and u.u_id like '%' || #{keyword} || '%'
+		        		</when>
+		        		
+		        		<when test="type == 'C'.toString()">
+		        		and b.content like '%' || #{keyword} || '%'
+		        		</when>
+		        	</choose>
+		        </if>
+	</select>
+	
+	
+	<!-- 페이징하며 리스트 가져오기 -->
+	<select id="getListWithPaging" resultType="NoticeDto">
+	select * from (
+	  <!-- 3개의 테이블을 조인한 서브쿼리 생성-->
+		    select 
+		        b.bno bno, 
+		        b.title title, 
+		        b.content content, 
+<!-- 		        bt.btname,  -->
+		        u.u_id as writer, 
+		        b.regdate regdate,
+		        b.views views,
+		        <!-- rownum을 bno의 내림차순으로 정렬 -->
+		        <!-- ${} 컬럼명으로써 적용 -->
+		        row_number() over (
+		        <choose>
+		        	<when test="sort != null and sort != '' and order != null and order != ''">
+	        		  order by b.${sort} ${order}
+		        	</when>
+		        	<otherwise>
+					  order by bno desc		        	
+		        	</otherwise>
+		        </choose>
+		        ) as rn
+		    from 
+		        tbl_board b
+<!-- 		    join  -->
+<!-- 		        tblboardtype bt on b.btype = bt.btno -->
+		    join 
+		        tbl_user u on b.writer = u.uno
+		    where 
+		        b.btype = 1 <!-- 공지사항 : btype = 1 -->
+		        <if test="type != null">
+		        	<choose>
+		        		<when test="type == 'T'.toString()">
+		        			and b.title like '%' || #{keyword} || '%'
+		        		</when>
+		        		
+		        		<when test="type == 'I'.toString()">
+		        			and u.u_id like '%' || #{keyword} || '%'
+		        		</when>
+		        		
+		        		<when test="type == 'C'.toString()">
+		        			and b.content like '%' || #{keyword} || '%'
+		        		</when>
+		        	</choose>
+		        </if>
+		)
+		where rn between (#{pageNum} - 1) * #{amount} + 1 and #{pageNum} * #{amount}
+		order by rn
+
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewsUp">
+		update tbl_board
+		set views = views + 1
+		where bno = #{bno}
+	</update>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice">
+		update tbl_board
+		set content = #{content},
+		    UPDATEDATE = sysdate
+		where bno = #{bno}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice">
+		delete from tbl_board
+		where bno = #{bno}
+	</delete>
+	
+</mapper>

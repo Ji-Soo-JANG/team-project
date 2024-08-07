@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- form에서 enctype="multipart/form-data" 로 들어오는 요청 -->
+	<beans:bean
+		id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="maxUploadSize" value="10000000"/> <!-- 10M -->
+		<beans:property name="maxUploadSizePerFile" value="2000000"/> <!-- 2M -->
+		<beans:property name="uploadTempDir" value="file:/D:/upload/tmp"/>
+		<beans:property name="maxInMemorySize" value="10000000"/> <!-- 10M -->
+	</beans:bean>
+	
+	 <!-- Controller 패키지 스캔 설정 -->
+	
+	<context:component-scan base-package="com.teamproject.www.Jang.controller" />
+	<context:component-scan base-package="com.teamproject.www.Lee.controller" />
+	<context:component-scan base-package="com.teamproject.www.Kim.controller" />
+	
+	<beans:bean id="loginInterceptor" class="com.teamproject.www.Lee.interceptor.LoginInterceptor"/>
+	<beans:bean id="authInterceptor" class="com.teamproject.www.Lee.interceptor.AuthInterceptor"/>
+	
+	<!-- interceptor -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/loginRun"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+		    <!-- /* 매핑하면 ckEditor로 이미지 못불러오는 경우가 생기는듯 -->
+<!-- 			<mapping path="/*"/> -->
+			<mapping path="/user/profile"/>
+			<mapping path="/write"/>
+			<mapping path="/metaverse"/>
+			<mapping path="/report"/>
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/board/*"/>
+			<exclude-mapping path="/board/*/*"/>
+			<exclude-mapping path="/board/*/free"/>
+			<exclude-mapping path="/board/*/free/*"/>
+			<exclude-mapping path="/board/*/detail"/>
+			<exclude-mapping path="/board/*/detail/**"/>
+			<exclude-mapping path="/display?fileName=/*"/>
+			<exclude-mapping path="/display?fileName=/**"/>
+			<exclude-mapping path="/display?fileName=/D:/upload/board-img/*/*/*/*"/>
+
+			<exclude-mapping path="/user/*"/>
+			<exclude-mapping path="/user/**"/>
+			<exclude-mapping path="/user/loginRun"/>
+			<exclude-mapping path="/user/checkUser"/>
+<!-- 			<exclude-mapping path="/user/join"/> -->
+<!-- 			<exclude-mapping path="/user/forgot-id"/> -->
+<!-- 			<exclude-mapping path="/user/forgot-password"/> -->
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+</beans:beans>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Kim.mapper.BoardMapper">
+	
+	
+<!-- 상단 공지 게시물 2개 노출 김세영 -->
+<select id="getLatestAnnounce" resultType="InformationBoardVo">
+    SELECT *
+    FROM ( 
+        SELECT
+        	<!--  --> 
+            B_R_NO as b_a_no,
+            B_R_TITLE as title,
+            B_R_WRITER as writer,
+            B_R_REGDATE as regdate,
+            B_R_UPDATEDATE as updatedate,
+            B_R_CATEGORY as category,
+            B_R_RECOMMENDED as recommended,
+            B_R_VIEWS as views,
+            REPLYCNT as replycnt,
+            '리뷰' as boardName
+        FROM TBL_BOARD_review
+        ORDER BY B_R_REGDATE DESC
+    ) 
+    WHERE ROWNUM &lt;= 2 
+</select>
+	
+   <!-- 김세영 글 목록 (페이징) -->
+<select id="getListWithPagingKsy" resultType="InformationBoardVo">
+    SELECT * FROM (
+        SELECT 
+            ROWNUM rn,
+            B_I_NO as b_i_no,
+            B_I_TITLE as b_i_title,
+            B_I_WRITER as b_i_writer,
+            B_I_REGDATE as b_i_regdate,
+            B_I_UPDATEDATE as b_i_updatedate,
+            B_I_CATEGORY as b_i_category,
+            B_I_RECOMMENDED as b_i_recommended,
+            B_I_VIEWS as b_i_views,
+            REPLYCNT
+        FROM (
+            SELECT 
+                B_I_NO,
+                B_I_TITLE,
+                B_I_WRITER,
+                B_I_REGDATE,
+                B_I_UPDATEDATE,
+                B_I_CATEGORY,
+                B_I_RECOMMENDED,
+                B_I_VIEWS,
+                REPLYCNT
+            FROM 
+                TBL_BOARD_info
+            <where>
+                <!-- 검색 조건 -->
+                <if test="type != null and keyword != null">
+                    <trim prefix="(" suffix=")" prefixOverrides="or">
+                        <foreach item="type" collection="typeArr">
+                            <trim prefix="or">
+                                <choose>
+                                    <when test="type == 'T'.toString()">
+                                        B_I_TITLE like '%' || #{keyword} || '%'
+                                    </when>
+                                    <when test="type == 'C'.toString()">
+                                        B_I_CONTENT like '%' || #{keyword} || '%'
+                                    </when>
+                                    <when test="type == 'W'.toString()">
+                                        B_I_WRITER like '%' || #{keyword} || '%'
+                                    </when>
+                                </choose>
+                            </trim>
+                        </foreach>
+                    </trim>
+                </if>
+                <!-- 카테고리 조건 -->
+                <if test="category != null and category != ''">
+                    AND B_I_CATEGORY = #{category}
+                </if>
+            </where>
+            <choose>
+                <when test="sort == 'recommended'">
+                    ORDER BY B_I_RECOMMENDED DESC
+                </when>
+                <when test="sort == 'views'">
+                    ORDER BY B_I_VIEWS DESC
+                </when>
+                <when test="sort == 'recent'">
+                    ORDER BY B_I_NO DESC
+                </when>
+                <otherwise>
+                    ORDER BY B_I_NO DESC
+                </otherwise>
+            </choose>
+        ) 
+        WHERE ROWNUM &lt;= #{pageNum} * #{amount}
+    ) 
+    WHERE rn &gt; (#{pageNum} - 1) * #{amount}
+</select>
+
+<!-- 김세영 getTotalKsy 쿼리 정의 -->
+<select id="getTotalCountKsy" resultType="int" parameterType="InformationCriteria">
+    SELECT COUNT(*) 
+    FROM TBL_BOARD_info 
+    <where>
+        <if test="type != null and keyword != null">
+            <trim prefix="(" suffix=")" prefixOverrides="or">
+                <foreach item="type" collection="typeArr">
+                    <trim prefix="or">
+                        <choose>
+                            <when test="type == 'T'.toString()">
+                                B_I_TITLE like '%' || #{keyword} || '%'
+                            </when>
+                            <when test="type == 'C'.toString()">
+                                B_I_CONTENT like '%' || #{keyword} || '%'
+                            </when>
+                            <when test="type == 'W'.toString()">
+                                B_I_WRITER like '%' || #{keyword} || '%'
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </if>
+        <if test="category != null and category != ''">
+            AND B_I_CATEGORY = #{category}
+        </if>
+    </where>
+</select>
+
+<!-- 김세영 주간 베스트 게시물 가져오기 -->
+    <select id="getWeeklyBest" resultType="InformationBoardVo">
+        SELECT * FROM (
+            SELECT 
+                B_I_NO,
+                B_I_TITLE,
+                B_I_WRITER,
+                B_I_REGDATE,
+                B_I_UPDATEDATE,
+                B_I_CATEGORY,
+                B_I_RECOMMENDED,
+                B_I_VIEWS,
+                REPLYCNT
+            FROM 
+                TBL_BOARD_info
+            WHERE B_I_REGDATE >= SYSDATE - 7
+            ORDER BY B_I_VIEWS DESC, B_I_RECOMMENDED DESC
+        ) WHERE ROWNUM &lt;= 10
+    </select>
+    
+    <!-- 오늘의 BEST 게시물 가져오기 김세영 -->
+<select id="getTodayBest" resultType="InformationBoardVo">
+    SELECT *
+    FROM (
+        SELECT 
+            b_ib_no,
+            title,
+            writer,
+            regdate,
+            updatedate,
+            category,
+            recommended,
+            views,
+            replycnt,
+            boardName,
+            ROWNUM AS rnum
+        FROM (
+            SELECT 
+                B_I_NO as b_ib_no,
+                B_I_TITLE as title,
+                B_I_WRITER as writer,
+                B_I_REGDATE as regdate,
+                B_I_UPDATEDATE as updatedate,
+                B_I_CATEGORY as category,
+                B_I_RECOMMENDED as recommended,
+                B_I_VIEWS as views,
+                REPLYCNT as replycnt,
+                '정보공유' as boardName
+            FROM TBL_BOARD_info
+            WHERE B_I_REGDATE >= TRUNC(SYSDATE)
+            UNION ALL
+            SELECT 
+                B_R_NO as b_ib_no,
+                B_R_TITLE as title,
+                B_R_WRITER as writer,
+                B_R_REGDATE as regdate,
+                B_R_UPDATEDATE as updatedate,
+                B_R_CATEGORY as category,
+                B_R_RECOMMENDED as recommended,
+                B_R_VIEWS as views,
+                REPLYCNT as replycnt,
+                '리뷰' as boardName
+            FROM TBL_BOARD_review
+            WHERE B_R_REGDATE >= TRUNC(SYSDATE)
+            ORDER BY views DESC, recommended DESC
+        )
+    )
+    WHERE rnum &lt;= 4
+</select>
+
+		<!-- 글 등록 김세영 -->
+	<insert id="insertKsy">
+		insert into tbl_board_INFO
+		(b_i_no, b_i_title, b_i_content, b_i_category, b_i_writer)
+		values
+		(seq_board_info.nextval, #{b_i_title}, #{b_i_content}, #{b_i_category}, #{b_i_writer})
+	</insert>
+
+		<!-- 글 등록 - 키 김세영 insertSelectKeyKsy(InformationBoardVo vo) vo.setBno(nextval) 처리 -->
+	<insert id="insertSelectKeyKsy">
+		<selectKey keyProperty="b_i_no" order="BEFORE"
+			resultType="long">
+			select seq_board_info.nextval from dual
+		</selectKey>
+		insert into tbl_board_INFO
+		(b_i_no, b_i_title, b_i_content, b_i_category, b_i_writer)
+		values
+		(#{b_i_no}, #{b_i_title}, #{b_i_content}, #{b_i_category}, 'test')
+	</insert>
+	
+	<!-- 글보기 김세영 -->
+	<select id="selectByBnoKsy" parameterType="long" resultType="InformationBoardVo">
+		select * from tbl_board_info
+		where b_i_no = #{b_i_no}
+	</select>
+
+		<!-- 댓글 갯수 갱신 김세영 -->
+	<update id="updateReplyCntKsy">
+		update tbl_board_info set
+			replycnt = replycnt + #{amount}
+		where b_i_no = #{b_i_no}
+	</update>
+	<!-- 글수정 김세영  -->
+	<update id="modifySelectKeyKsy">
+		update tbl_board_info set
+			b_i_title = #{b_i_title}, 
+			b_i_content = #{b_i_content},
+			b_i_category = #{b_i_category}
+		where b_i_no = #{b_i_no}
+	</update>
+	
+	<delete id="deleteKsy">
+		DELETE FROM tbl_board_info WHERE b_i_no = #{b_i_no}
+	</delete>
+
+
+
+
+</mapper>

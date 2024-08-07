@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamproject.www.Kim.mapper.AttachMapper">
+	<insert id="insertKsy">
+		insert into tbl_attach_info
+			(uuid, fileName, uploadPath, image, b_i_no)
+		values
+			(#{uuid}, #{fileName}, #{uploadPath}, #{image}, #{b_i_no,jdbcType=INTEGER})
+	</insert>
+	
+	<select id="getAttachListKsy" resultType="AttachBoardDto">
+		select * from tbl_attach_info
+		where b_i_no = #{b_i_no}
+	</select>
+	
+	<delete id="deleteKsy">
+		delete from tbl_attach_info
+		where b_i_no = #{b_i_no}
+	</delete>
+	
+	<select id="getOldAttachListKsy" resultType="AttachBoardDto">
+	    <![CDATA[
+	    SELECT * 
+	    FROM tbl_attach_info
+	    WHERE SUBSTR(uploadPath, LENGTH('E:/upload/') + 1) = TO_CHAR(SYSDATE - 1, 'YYYY/MM/DD')
+	    ]]>
+	</select>
+	
+	<update id="updateBnoForNullFiles">
+        UPDATE tbl_attach_info
+        SET b_i_no = #{b_i_no}
+        WHERE b_i_no IS NULL
+    </update>
+	
+</mapper>

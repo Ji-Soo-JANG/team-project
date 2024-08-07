@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Lee.mapper.BoardLikeMapper">
+	<!-- 댓글달기 -->
+	<select id="checkLike" resultType="int">
+		select count(*) from tbl_like
+		where b_f_no = #{b_f_no} and u_id = #{u_id}
+	</select>
+	<insert id="boardLike">
+		insert into tbl_like(b_l_no, b_f_no, u_id)
+		values(seq_board_like.nextval ,#{b_f_no}, #{u_id})
+	</insert>
+</mapper>

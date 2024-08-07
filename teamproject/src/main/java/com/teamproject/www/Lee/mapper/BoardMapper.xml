@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.www.Lee.mapper.BoardMapper">
+	<!-- 자유게시판 게시글 입력 -->
+	<insert id="insertFreeBoard">
+		insert into tbl_board_free(b_f_no, b_f_title, b_f_content, b_f_writer)
+		values(seq_board_free.nextval, #{b_f_title}, #{b_f_content}, #{b_f_writer})
+	</insert>
+	
+	<!-- 게시글 입력 - getKey -->
+	<insert id="insertGetKey">
+		<selectKey keyProperty="b_f_no" order="BEFORE" resultType="int">
+			select seq_board_free.nextval from dual
+		</selectKey>
+		insert into tbl_board_free(b_f_no, b_f_title, b_f_content, b_f_writer, b_f_img)
+		values(#{b_f_no}, #{b_f_title}, #{b_f_content}, #{b_f_writer}, #{b_f_img})
+	</insert>
+	
+	<!-- 자유게시판 글 리스트 가져오기 -->
+	<select id="getList" resultType="FreeBoardListDto">
+		select b_f_no, b_f_title, b_f_writer, b_f_regdate, b_f_recommended, b_f_views, reply_count
+		from tbl_board_free
+		order by b_f_no desc
+	</select>
+	
+	<select id="getListWithPaging" resultType="FreeBoardListDto">
+		select * from(select /*+ index_desc (tbl_board_free pk_board_free) */ 
+						rownum rn, b_f_no, b_f_title, b_f_writer, b_f_regdate, b_f_recommended, b_f_views, reply_count
+					from tbl_board_free 
+					<where>
+						<if test="type != null">
+							<trim prefix="(" suffix=")" prefixOverrides="or">
+								<foreach item="type" collection="typeArr">
+									<trim prefix="or">
+										<choose>
+											<when test="type == 'T'.toString()">
+												b_f_title like '%' || #{keyword} || '%'
+											</when>
+											<when test="type == 'W'.toString()">
+												b_f_writer like '%' || #{keyword} || '%'
+											</when>
+											<when test="type == 'C'.toString()">
+												b_f_content like '%' || #{keyword} || '%'
+											</when>
+										</choose>
+									</trim>				
+								</foreach>
+							</trim>
+						</if>
+				    	and rownum &lt;= #{pageNum} * #{amount})
+					</where>
+			where rn &gt; (#{pageNum} - 1) * #{amount}
+	</select>
+	
+	<!-- 게시글 상세정보 가져오기 -->
+	<select id="getDetail" resultType="DetailFreeBoardDto">
+		select b_f_no, b_f_title, b_f_content, b_f_writer, b_f_regdate, b_f_updatedate,
+		 	   b_f_recommended, b_f_views, b_f_img 
+		from tbl_board_free 
+		where b_f_no = #{b_f_no}
+	</select>
+	
+	<!-- 게시글 총갯수 가져오기 -->
+	<select id="getAllCount" resultType="int">
+		select count(*)
+		from tbl_board_free
+			<where>
+				<if test="type != null">
+					<trim prefix="(" suffix=")" prefixOverrides="or">
+						<foreach item="type" collection="typeArr">
+							<trim prefix="or">
+								<choose>
+									<when test="type == 'T'.toString()">
+										b_f_title like '%' || #{keyword} || '%'
+									</when>
+									<when test="type == 'W'.toString()">
+										b_f_writer like '%' || #{keyword} || '%'
+									</when>
+									<when test="type == 'C'.toString()">
+										b_f_content like '%' || #{keyword} || '%'
+									</when>
+								</choose>
+							</trim>				
+						</foreach>
+					</trim>
+				</if>
+			</where>
+	</select>
+	
+	<!-- 컨텐츠 가져오기 by b_f_no -->
+	<select id="getContentByB_f_no" resultType="string">
+		select b_f_content from tbl_board_free
+		where b_f_no = #{b_f_no}
+	</select>
+	
+	<!-- 자게 글 삭제 -->
+	<delete id="delete">
+		delete from tbl_board_free
+		where b_f_no = #{b_f_no}
+	</delete>
+	
+	<!-- 글 수정 -->
+	<update id="update">
+		update tbl_board_free
+		set b_f_title = #{b_f_title}, b_f_content = #{b_f_content}, b_f_updatedate = sysdate, b_f_img=#{b_f_img}
+		where b_f_no = #{b_f_no}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="pluseViews">
+		update tbl_board_free
+		set b_f_views = ((select b_f_views from tbl_board_free
+						  where b_f_no = #{b_f_no}) + 1)
+		where b_f_no = #{b_f_no}
+	</update>
+	<!-- 추천하기 -->
+	<update id="commend">
+		update tbl_board_free
+		set b_f_recommended  = ((select b_f_recommended from tbl_board_free
+						  where b_f_no = #{b_f_no}) + 1)
+		where b_f_no = #{b_f_no}
+	</update>
+	<select id="getCommend" resultType="int">
+		select b_f_recommended from tbl_board_free
+		where b_f_no = #{b_f_no}
+	</select>
+	<!-- 댓글수 갱신 -->
+	<update id="updateReplyCount">
+		update tbl_board_free
+		set reply_count = (select count(b_f_r_no) from tbl_b_f_reply
+		                   where tbl_b_f_reply.b_f_no = tbl_board_free.b_f_no)
+		where b_f_no = #{b_f_no}
+	</update>
+	
+	
+	<resultMap id="content_clob" type="ClobVo">
+		<result property="b_f_content" column="b_f_content" jdbcType="CLOB" javaType="string"/>
+	</resultMap>
+	<!-- 어제날자 컨텐츠들 가져오기 -->
+	<select id="getYesterdayContents" resultMap="content_clob">
+		select b_f_content from tbl_board_free
+		where trunc(b_f_updatedate) = trunc(sysdate-1) and b_f_img = 'Y'
+	</select>
+</mapper>

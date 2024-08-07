@@ -1,0 +1,72 @@
+package com.teamproject.www.Jang.controller;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.teamproject.www.Jang.domain.UserVo;
+import com.teamproject.www.Jang.service.UserService;
+
+
+@Controller("jangUserController")
+@RequestMapping("/Jang/user")
+public class UserController {
+	
+	@Autowired
+	private UserService userService;
+
+	//join
+	//회원가입페이지
+	@GetMapping("/join")
+	public String join() {
+		return "index/join";
+	}
+	
+	//회원가입처리
+	@PostMapping("/joinrun")
+	public String joinRun(UserVo vo) {
+		boolean result = userService.signUp(vo);
+		System.out.println("joinrun.. result : " + result);
+		return "index/index";
+	}
+	
+	// 로그인폼
+	@GetMapping("/login")
+	public String loginForm(@RequestParam("currentUrl") String currentUrl, HttpServletRequest request) {
+		request.setAttribute("currentUrl", currentUrl);
+		return "index/login";
+	}
+	
+	
+	// 로그인
+	@PostMapping("/login")
+	public String login(@RequestParam("u_id") String u_id, @RequestParam("upw") String upw,
+						@RequestParam("currentUrl") String currentUrl, HttpSession session) {
+		System.out.println("u_id: " + u_id);
+		System.out.println("upw: " + upw);
+		UserVo loginVo = userService.login(u_id, upw);
+		System.out.println("loginVo :" + loginVo);
+		if(loginVo != null) {
+			System.out.println("로그인 성공");
+			session.setAttribute("loginVo", loginVo);
+			return "redirect:/" + currentUrl;
+		}
+		System.out.println("로그인 실패");
+		 return "redirect:/login?currentUrl=" + currentUrl; 
+	}
+	
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(@RequestParam("currentUrl") String currentUrl, HttpSession session) {
+		session.invalidate();
+		return "redirect:/" + currentUrl;
+	}
+}
