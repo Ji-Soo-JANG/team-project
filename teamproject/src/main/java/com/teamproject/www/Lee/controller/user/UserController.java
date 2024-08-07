@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teamproject.www.Lee.domain.user.JoinDto;
 import com.teamproject.www.Lee.domain.user.LoginDto;
 import com.teamproject.www.Lee.domain.user.ProfileDto;
-import com.teamproject.www.Lee.domain.user.UserVo;
-import com.teamproject.www.Lee.service.UserService;
+import com.teamproject.www.Lee.service.user.UserService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -53,13 +53,14 @@ public class UserController {
 	// 로그인 시 가입유무 체크
 	@ResponseBody
 	@PostMapping("/checkUser")
-	public boolean checkUser(@RequestParam("u_id") String u_id, @RequestParam("u_pw") String u_pw ) {
+	public boolean checkUser(@RequestParam("userid") String userid, 
+							 @RequestParam("userpw") String userpw ) {
 		log.info("checkUser..................................");
 //		log.info("u_id : " + u_id);
 //		log.info("u_id : " + u_id);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("u_id", u_id);
-		map.put("u_pw", u_pw);
+		map.put("userid", userid);
+		map.put("userpw", userpw);
 //		log.info("map : " + map);
 		boolean result = userService.CheckUser(map);
 		return result;
@@ -67,10 +68,11 @@ public class UserController {
 		
 	// 로그인 처리
 	@PostMapping("/loginRun")
-	public void loginRun(@RequestParam("u_id") String u_id , Model model, HttpServletRequest req, HttpSession session) throws Exception{
+	public void loginRun(@RequestParam("userid") String userid , 
+			Model model, HttpServletRequest req, HttpSession session) throws Exception{
 		log.info("loginRun.................................");
 
-		LoginDto logindto = userService.getLoginDto(u_id);
+		LoginDto logindto = userService.getLoginDto(userid);
 			
 		log.info("logindto : " + logindto);
 		if(logindto != null) {
@@ -95,11 +97,13 @@ public class UserController {
 	
 	//비밀번호 변경
 	@PostMapping("/updatePassword")
-	public String updatePassword(@RequestParam("u_id") String u_id, @RequestParam("u_pw") String u_pw, RedirectAttributes rttr) {
+	public String updatePassword(@RequestParam("userid") String userid, 
+								 @RequestParam("userpw") String userpw, 
+								 RedirectAttributes rttr) {
 		log.info("updatePassword...........................");
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("u_id", u_id);
-		map.put("u_pw", u_pw);
+		map.put("userid", userid);
+		map.put("userpw", userpw);
 		boolean result = userService.updatePw(map);
 		log.info("result : " + result);
 		String resultStr = "";
@@ -109,7 +113,7 @@ public class UserController {
 			resultStr = "fail";
 		}
 		rttr.addAttribute("resultUpdatePw", resultStr);
-		return "redirect:/user/profile";
+		return "redirect:/Lee/user/profile";
 	}
 	
 	
@@ -121,22 +125,22 @@ public class UserController {
 	
 	//회원가입처리
 	@PostMapping("/joinrun")
-	public String joinRun(UserVo vo) {
-		boolean result = userService.signUp(vo);
+	public String joinRun(JoinDto dto) {
+		boolean result = userService.signUp(dto);
 		System.out.println("joinrun.. result : " + result);
-		return "redirect:/user/login";
+		return "redirect:/Lee/user/login";
 	}
 	
 	//이메일 본인인증
 	@ResponseBody
 	@PostMapping("/checkEmail")
-	public String checkEmail(String u_email) {
+	public String checkEmail(String email) {
 		log.info("checkEmail......................................");
 		String uuid = UUID.randomUUID().toString();
 		String certi = uuid.substring(0, uuid.indexOf("-"));
 		log.info("uuid : " + uuid);
 		log.info("certi : " + certi);
-		log.info("u_email : " + u_email);
+		log.info("email : " + email);
 		
 		MimeMessagePreparator prepare = new MimeMessagePreparator() {
 				
@@ -144,7 +148,7 @@ public class UserController {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
 				helper.setFrom("asraisin@gmail.com");
-				helper.setTo(u_email);
+				helper.setTo(email);
 				helper.setSubject("인증번호 안내");
 				helper.setText("인증번호 : ", certi);
 			}
@@ -163,9 +167,9 @@ public class UserController {
 	
 	//아이디 이메일로 전송
 	@PostMapping("/findId")
-	public String findId(String u_email, RedirectAttributes rttr) {
+	public String findId(String email, RedirectAttributes rttr) {
 		log.info("findId.............................");
-		String userId = userService.getIdByEmail(u_email);
+		String userId = userService.getIdByEmail(email);
 		
 		String resultMessage = "fail";
 		if(userId!=null) {
@@ -175,7 +179,7 @@ public class UserController {
 				public void prepare(MimeMessage mimeMessage) throws Exception {
 					MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
 					helper.setFrom("asraisin@gmail.com");
-					helper.setTo(u_email);
+					helper.setTo(email);
 					helper.setSubject("아이디 안내");
 					helper.setText("아이디 : ", userId);
 				}
@@ -187,7 +191,7 @@ public class UserController {
 		
 		rttr.addAttribute("resultFindId", resultMessage);
 		
-		return "redirect:/user/login";
+		return "redirect:/Lee/user/login";
 	}
 	
 	//**비밀번호찾기
@@ -197,13 +201,13 @@ public class UserController {
 	
 	//비밀번호 초기화
 	@PostMapping("/resetPassword")
-	public String resetPassword(String u_id, RedirectAttributes rttr) {
+	public String resetPassword(String userid, RedirectAttributes rttr) {
 		log.info("resetPassword.........................");
-		String userEmail = userService.getEmailById(u_id);
-		String newPw = userService.resetPw(u_id);
+		String userEmail = userService.getEmailById(userid);
+		String userpw = userService.resetPw(userid);
 		
 		String resultMessage = "fail";
-		if(newPw!=null) {
+		if(userpw!=null) {
 			MimeMessagePreparator prepare = new MimeMessagePreparator() {
 				
 				@Override
@@ -212,7 +216,7 @@ public class UserController {
 					helper.setFrom("asraisin@gmail.com");
 					helper.setTo(userEmail);
 					helper.setSubject("비밀번호 변경안내");
-					helper.setText("변경된 비밀번호 : ", newPw);
+					helper.setText("변경된 비밀번호 : ", userpw);
 				}
 			};
 			
@@ -221,21 +225,22 @@ public class UserController {
 		}
 		
 		rttr.addAttribute("resultResetPw", resultMessage);
-		return "redirect:/user/login";
+		return "redirect:/Lee/user/login";
 	}
 	
 	//프로필 페이지
 	@GetMapping("/profile")
 	public void profile() {}
 	
-	@GetMapping("/profile/{u_id}")
-	public String profile(@PathVariable("u_id") String u_id, HttpSession session) {	
+	@GetMapping("/profile/{userid}")
+	public String profile(@PathVariable("userid") String userid, 
+						  HttpSession session) {	
 		log.info("profile...............................");
-		log.info("u_id : " + u_id);
-		ProfileDto profileDto = userService.getProfile(u_id);
+		log.info("userid : " + userid);
+		ProfileDto profileDto = userService.getProfile(userid);
 		session.setAttribute("profile", profileDto);
 
-		return "redirect:/user/profile";
+		return "redirect:/Lee/user/profile";
 	}
 	
 }

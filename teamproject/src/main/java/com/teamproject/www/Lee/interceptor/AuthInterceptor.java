@@ -35,7 +35,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 				uri += query;
 				log.info("targetLocation : " + uri);
 				session.setAttribute("targetLocation", uri);
-				response.sendRedirect("/user/login");
+				response.sendRedirect("/Lee/user/login");
 				return false;
 			}
 			log.info("로그인 중일때");

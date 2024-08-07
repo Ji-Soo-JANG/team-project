@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamproject.www.Lee.mapper.UserMapper">
+<mapper namespace="com.teamproject.www.Lee.mapper.user.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="join">
-		insert into tbl_user(userid, userpw, nickname, email)
-		values(#{userid}, #{userpw}, #{nickname}, #{email})
+		insert into tbl_user(userno, userid, userpw, nickname, email)
+		values(seq_user.nextval, #{userid}, #{userpw}, #{nickname}, #{email})
 	</insert>
 	
 	<!-- 가입체크 -->

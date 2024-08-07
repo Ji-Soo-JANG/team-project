@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,10 +7,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamproject.www.Lee.domain.user.JoinDto;
 import com.teamproject.www.Lee.domain.user.LoginDto;
 import com.teamproject.www.Lee.domain.user.ProfileDto;
-import com.teamproject.www.Lee.domain.user.UserVo;
-import com.teamproject.www.Lee.mapper.UserMapper;
+import com.teamproject.www.Lee.mapper.user.UserMapper;
 
 @Service("LeeUserService")
 public class UserServiceImpl implements UserService{
@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService{
 	
 	//회원가입
 	@Override
-	public boolean signUp(UserVo vo) {
-		int count = userMapper.join(vo);
+	public boolean signUp(JoinDto dto) {
+		int count = userMapper.join(dto);
 		if(count>0) {
 			return true;
 		}
@@ -63,18 +63,18 @@ public class UserServiceImpl implements UserService{
 	
 	//비밀번호 리셋
 	@Override
-	public String resetPw(String u_id) {
+	public String resetPw(String userid) {
 		System.out.println("resetPw......................");
 		String uuid = UUID.randomUUID().toString();
-		String newPw = uuid.substring(0, uuid.indexOf("-"));
-		System.out.println("newPw : " + newPw);
+		String userpw = uuid.substring(0, uuid.indexOf("-"));
+		System.out.println("userpw : " + userpw);
 		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("u_id", u_id);
-		map.put("u_pw", newPw);
+		map.put("userid", userid);
+		map.put("userpw", userpw);
 		int result = userMapper.updatePw(map);
 		
-		return (result == 1) ? newPw : null;
+		return (result == 1) ? userpw : null;
 	}
 
 	//이메일가져오기

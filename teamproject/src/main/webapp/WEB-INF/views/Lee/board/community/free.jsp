@@ -23,10 +23,10 @@ $(function(){
 		console.log("제목클릭");
 		let b_f_no = $(this).attr("href");
 		console.log("게시번호 : " + b_f_no);
-		let arr = `<input type='hidden' name='b_f_no' value='\${b_f_no}'>`;
+		let arr = `<input type='hidden' name='boardno' value='\${boardno}'>`;
 		$("#actionForm > input[name='b_f_no']").remove();
 		$("#actionForm").append(arr)
-						.attr("action", "/board/community/detail")
+						.attr("action", "/Lee/board/community/detail")
 						.submit();
 	});
 	
@@ -52,11 +52,6 @@ $(function(){
 			$("#typeTW").prop("selected", true);
 			break;
 	}
-	
-// 	$(".div-write").on("click", "#btn-call-login", function(){
-// 		$("#btnLogin").trriger("click");
-// 	});
-
 });
 	
 </script>
@@ -75,14 +70,14 @@ $(function(){
                </tr>
                <c:forEach var="dto" items="${list}">
                    <tr class="table-tr">
-	                   <td>${dto.b_f_no}</td>
+	                   <td>${dto.boardno}</td>
 	                   <td class="table-text-left">
-	                   	<a class="a_b_f_no" href="${dto.b_f_no}">${dto.b_f_title}</a>
-	                   	<span class="reply-count ml-10" id="replyCount">${dto.reply_count}</span> </td>
-	                   <td class="table-text-right">${dto.b_f_writer}</td>
-	                   <td><fmf:formatDate value="${dto.b_f_regdate}" pattern="yyyy/MM/dd"/></td>
-	                   <td>${dto.b_f_recommended}</td>
-	                   <td>${dto.b_f_views}</td>
+	                   	<a class="a_b_f_no" href="${dto.boardno}">${dto.title}</a>
+	                   	<span class="reply-count ml-10" id="replyCount">${dto.replycount}</span> </td>
+	                   <td class="table-text-right">${dto.writer}</td>
+	                   <td><fmf:formatDate value="${dto.regdate}" pattern="yyyy/MM/dd"/></td>
+	                   <td>${dto.likes}</td>
+	                   <td>${dto.views}</td>
 	               </tr>
                </c:forEach>
            </table>

@@ -2,12 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Lee/include/header.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<!-- <link rel="stylesheet" href="/resources/css/user/login.css"> -->
- <script>
+<script>
         // link 태그 생성
         var link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = '/resources/css/user/profile.css';
+        link.href = '/resources/Lee/css/user/profile.css';
 
         // head 태그에 link 태그 추가
         document.head.appendChild(link);
@@ -25,24 +24,24 @@ $(function(){
 		
 		if($(this).attr("id")=="btnPw"){
 			console.log("비밀번호 수정버튼");
-			let u_id = "${login.u_id}";
-			let u_pw = $("#input-cur-pw").val();
-			console.log(u_id + ", " + u_pw);
+			let userid = "${login.userid}";
+			let userpw = $("#input-cur-pw").val();
+			console.log(userid + ", " + userpw);
 			let sData = {
-				"u_id" : u_id,
-				"u_pw" : u_pw
+				"userid" : userid,
+				"userpw" : userpw
 			};
 			//비밀번호 체크
 			$.ajax({
 				type: "post",
-				url: "/user/checkUser",
+				url: "/Lee/user/checkUser",
 				data: sData,
 				success: function(rData){
 					console.log(rData);
 					if(rData===true){
 						console.log("인증성공");
 						$("form").fadeOut(1000);
-						form.append($("#input_u_id"));
+						form.append($("#input_userid"));
 						form.fadeIn(1000);
 					}else{
 						//비밀번호 체크 실패
@@ -54,7 +53,7 @@ $(function(){
 			});//ajax
 		}else{
 			$("form").fadeOut(1000);
-			form.append($("#input_u_id"));
+			form.append($("#input_userid"));
 			form.fadeIn(1000);
 		}
 		
@@ -68,10 +67,10 @@ $(function(){
 		if(that.attr("id")=="btnPwOk"){
 			//비밀번호 변경버튼
 			console.log("비밀번호 변경 완료 버튼");
-			let u_pw = $("#u_pw").val();
-			let u_pw_check = $("#u_pw_check").val();
-			console.log("u_pw : " + u_pw + ", u_pw_check : " + u_pw_check);
-			if(u_pw === u_pw_check){
+			let userpw = $("#userpw").val();
+			let userpw_check = $("#userpw_check").val();
+			console.log("userpw : " + userpw + ", userpw_check : " + userpw_check);
+			if(userpw === userpw_check){
 				//폼전송
 				console.log("폼전송");
 				let form = that.parent().parent();
@@ -82,10 +81,10 @@ $(function(){
 			}
 		}else{
 			//비밀번호 변경 버튼 아닌경우
-			let imgFile = $("#img-file");
-			let files = imgFile[0].files;
-			let file = files[0];
-			let name = file.name;
+// 			let imgFile = $("#img-file");
+// 			let files = imgFile[0].files;
+// 			let file = files[0];
+// 			let name = file.name;
 			console.log(imgFile);
 			console.log(files);
 			console.log(file);
@@ -104,16 +103,16 @@ $(function(){
     <div class="div-profile">
         <div class="profile-item">
             <label for=""><span class="bold">아이디</span></label>
-            <span>${profile.u_id}</span>
-            <input type="hidden" value="${profile.u_id}" id="input_u_id" name="u_id">
+            <span>${profile.userid}</span>
+            <input type="hidden" value="${profile.userid}" id="input_userid" name="userid">
         </div>
        
         <!-- 프로필사진 -->
         <div class="profile-item">
             <label for=""><span class="bold">프로필</span></label>
             <span><img alt="profile" src="<c:choose>
-									      	<c:when test="${profile.u_imgurl!=null}">/display/${profile.u_imgurl}</c:when>
-									        <c:otherwise>/resources/image/empty_profile.jpg</c:otherwise>
+									      	<c:when test="${profile.thumbnail!=null}">/display/${profile.thumbnail}</c:when>
+									        <c:otherwise>/resources/Lee/image/empty_profile.jpg</c:otherwise>
 									      </c:choose> 
            								 " width="110" height="110"></span>
             <button type="button" class="btn-item">수정</button>
@@ -133,13 +132,13 @@ $(function(){
   		<!-- 닉네임 -->
         <div class="profile-item">
             <label for=""><span class="bold">닉네임</span></label>
-            <span>${profile.u_nickname}</span>
+            <span>${profile.nickname}</span>
             <button type="button" class="btn-item">수정</button>
         </div>
         <form class="form-item">
         	<div class="profile-item">
             	<label for=""><span class="color-gray">중복확인</span></label>
-            	<input type="text" class="input-item" placeholder="닉네임" name="u_nickname">
+            	<input type="text" class="input-item" placeholder="닉네임" name="nickname">
             	<button type="button" class="secondBtn">확인</button>
             </div>
         </form>
@@ -148,25 +147,25 @@ $(function(){
         <div class="profile-item">
             <label for=""><span class="bold">이메일</span></label>
             <span>
-            	${profile.u_email}
+            	${profile.email}
             </span>
             <button type="button" class="btn-item">수정</button>
         </div>
         <form class="form-item">
         	<div class="profile-item">
             	<label for=""><span class="color-gray">중복 확인</span></label>
-            	<input type="email" class="input-item" placeholder="이메일" name="u_pw">
+            	<input type="email" class="input-item" placeholder="이메일" name="email">
             	<button type="button" class="secondBtn">확인</button>
             </div>
         </form>
         
         <div class="profile-item">
             <label for=""><span class="bold">레벨</span></label>
-            <span>${profile.u_level}</span>
+            <span>${profile.lv}</span>
         </div>
         <div class="profile-item">
             <label for=""><span class="bold">포인트</span></label>
-            <span>${profile.u_point}</span>
+            <span>${profile.point}</span>
         </div>
         
         <!-- 비밀번호 -->
@@ -178,12 +177,12 @@ $(function(){
         <form class="form-item" action="updatePassword" method="post">
         	<div class="profile-item">
             	<label for=""><span class="color-gray">변경할 비밀번호</span></label>
-            	<input type="password" id="u_pw" class="input-item" placeholder="비밀번호" name="u_pw">
+            	<input type="password" id="userpw" class="input-item" placeholder="비밀번호" name="userpw">
             	<button type="button" id="btnPwOk" class="secondBtn">완료</button>
             </div>
         	<div class="profile-item">
             	<label for=""><span class="color-gray">비밀번호 확인</span></label>
-            	<input type="password" id="u_pw_check" class="input-item" placeholder="비밀번호 확인">
+            	<input type="password" id="userpw_check" class="input-item" placeholder="비밀번호 확인">
             </div>
         </form>
         

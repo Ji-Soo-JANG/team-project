@@ -1,14 +1,14 @@
-package com.teamproject.www.Lee.mapper;
+package com.teamproject.www.Lee.mapper.user;
 
 import java.util.Map;
 
+import com.teamproject.www.Lee.domain.user.JoinDto;
 import com.teamproject.www.Lee.domain.user.LoginDto;
 import com.teamproject.www.Lee.domain.user.ProfileDto;
-import com.teamproject.www.Lee.domain.user.UserVo;
 
 public interface UserMapper {
 	//회원가입
-	public int join(UserVo vo);
+	public int join(JoinDto dto);
 	
 	//가입 체크
 	public int CheckUser(Map<String, String> map);

@@ -19,7 +19,7 @@
    		<h2>로그인</h2>
 	    <form class="form-item" id="form-login" action="/Lee/user/loginRun" method="post">
 	    	<label for="username">아이디:</label>
-	        <input type="text" id="u_id" placeholder="아이디" name="userid" value="206dev">
+	        <input type="text" id="userid" placeholder="아이디" name="userid" value="206dev">
 	        <label for="password">비밀번호:</label>
 	        <input type="password" id="userpw" placeholder="비밀번호" value="1234">
 	        <p id="checkResult"></p>

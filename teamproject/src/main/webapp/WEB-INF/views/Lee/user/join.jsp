@@ -117,7 +117,7 @@ $(function(){
         </div>
         <div class="join-item">
             <label for="u_email"><span>이메일</span></label>
-            <input type="text" name="email" placeholder=" 이메일" id="u_email" required>
+            <input type="text" name="email" placeholder=" 이메일" id="email" required>
             <div class="right-item">
                 <button type="button" class="btn-item" id="btnSendCerti">인증</button>
             </div>
