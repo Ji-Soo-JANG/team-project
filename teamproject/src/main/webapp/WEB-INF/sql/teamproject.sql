@@ -13,7 +13,9 @@ create table tbl_user(
     NickName varchar2(20) not null,
     Email varchar2(30),
     RegDate date default sysdate,
-    ThumbNail varchar2(100)
+    ThumbNail varchar2(100),
+    Lv number default 1,
+    Point number default 0
  );
     
 -- 일반적인 게시판 테이블
