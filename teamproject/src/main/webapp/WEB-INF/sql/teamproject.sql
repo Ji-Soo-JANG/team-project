@@ -1,3 +1,4 @@
+
 -- 게시판 타입 테이블    
 create table tbl_board_type(
     BoardTypeNo number(10) primary key,
