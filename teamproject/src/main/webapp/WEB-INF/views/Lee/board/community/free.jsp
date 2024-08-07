@@ -63,6 +63,7 @@ $(function(){
  	<!-- 게시판 테이블 start -->
 	<div class="table-Container">
      	<h3 class="board-title">자유게시판</h3> 
+     	<h4>pust 테스트</h4>
            <table class="table mt-10" border="1">
                <tr>
                    <th class="table-head">번호</th>
