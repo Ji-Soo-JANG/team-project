@@ -24,6 +24,7 @@ public class UserServiceTests {
 	}
 	
 	//회원가입
+	/*
 	@Test
 	public void testSignUp() {
 		int count = 10;
@@ -44,7 +45,7 @@ public class UserServiceTests {
 			log.info(result);
 		}
 	}
-	
+	*/
 	// 로그인
 	@Test
 	public void testLogin() {

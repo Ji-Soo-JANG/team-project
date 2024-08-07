@@ -8,8 +8,8 @@ create table tbl_board_type(
 -- 유저 테이블
 create table tbl_user(
     UserNo number(10) primary key,
-    UserId varchar2(20) not null,
-    UserPw varchar2(20) not null,
+    UserId varchar2(50) not null,
+    UserPw varchar2(50) not null,
     NickName varchar2(20) not null,
     Email varchar2(30),
     RegDate date default sysdate,
@@ -24,14 +24,14 @@ create table tbl_board(
     Title VARCHAR2(300) NOT NULL,
     Content VARCHAR2(2000) NOT NULL,
     Writer NUMBER(10) NOT NULL,
-    BaordType NUMBER(10) NOT NULL, -- 게시글 타입(공지/자유/질문/지식/...)
+    BoardType NUMBER(10) NOT NULL, -- 게시글 타입(공지/자유/질문/지식/...)
     RegDate DATE DEFAULT SYSDATE,
     UpdateDate DATE DEFAULT SYSDATE,
     Views NUMBER(10) DEFAULT 0, -- 조회수
     Likes number(10) DEFAULT 0, -- 좋아요 
     ReplyCount number(10) DEFAULT 0, -- 댓글 수
     
-    CONSTRAINT FK__board_Type FOREIGN KEY (BaordType) REFERENCES tbl_board_type (BoardTypeNo),
+    CONSTRAINT FK__board_Type FOREIGN KEY (BoardType) REFERENCES tbl_board_type (BoardTypeNo),
     CONSTRAINT FK_board_Writer FOREIGN KEY (Writer) REFERENCES tbl_user (UserNo)
 );
   
@@ -67,9 +67,11 @@ create table tbl_like(
     constraint FK_like_UserNo FOREIGN KEY (UserNo) REFERENCES tbl_user(UserNo)
 );
 
+
+
 create sequence seq_board;
 create sequence seq_board_type;
 create sequence seq_user;
 create sequence seq_attach;
 create sequence seq_reply;
-create sequence seq_like;"
+create sequence seq_like;

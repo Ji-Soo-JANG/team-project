@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 @Data
 public class NoticeDto {
-    private Long bno;
+    private Long boardNo;
     private String title;
     private String content;
     private String writer;

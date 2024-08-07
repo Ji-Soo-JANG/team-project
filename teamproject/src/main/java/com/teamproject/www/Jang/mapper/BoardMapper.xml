@@ -5,40 +5,40 @@
   
 <mapper namespace="com.teamproject.www.Jang.mapper.BoardMapper">
 <!-- DB에서의 column명과 Class의 필드명이 일치해야 값을 제대로 메핑함 -->            
-<!-- join 한 테이블에서는 b.bno와 같은 컬럼명이 결과로 나오므로 이것을 mybatis를 통해 메핑을 하던가 별칭을 줘야함 -->
+<!-- join 한 테이블에서는 b.boardNo와 같은 컬럼명이 결과로 나오므로 이것을 mybatis를 통해 메핑을 하던가 별칭을 줘야함 -->
 	
 	<!-- 리스트 가져오기 -->
 	<select id="getNoticeList" resultType="NoticeDto">
-		select b.bno, b.title, b.content, u.u_id, b.regdate
+		select b.boardNo, b.title, b.content, u.userId, b.regdate
 		from tbl_board b
-		join tbl_user u on b.writer = u.uno
-		where b.btype = 1
+		join tbl_user u on b.writer = u.userNo
+		where b.boardType = 1
 	</select>
 
 	<!-- 공지사항 입력하기 -->
 	<insert id="insertNotice">
-		<selectKey keyProperty="bno" resultType="long" order="BEFORE">
+		<selectKey keyProperty="boardNo" resultType="long" order="BEFORE">
 			select seq_board.nextval from dual
 		</selectKey>
 		
-		insert into tbl_board(bno, title, content, writer, btype)
-		values(#{bno}, #{title}, #{content}, ${writer}, 1)
+		insert into tbl_board(boardNo, title, content, writer, boardType)
+		values(#{boardNo}, #{title}, #{content}, ${writer}, 1)
 	</insert>
 	
 	<!-- 공지사항 하나 가져오기 -->
 	<select id="getNotice" resultType="NoticeDto">
-		select b.bno bno, b.title title, b.content content, u.u_id writer, b.regdate regdate
+		select b.boardNo boardNo, b.title title, b.content content, u.userId writer, b.regdate regdate, b.views views
 		from tbl_board b
-		join tbl_user u on b.writer = u.uno
-		where b.btype = 1
-		and b.bno=#{bno}
+		join tbl_user u on b.writer = u.userNo
+		where b.boardType = 1
+		and b.boardNo = #{boardNo}
 	</select>
 	
 	
 	<!-- 총 갯수 가져오기 -->
 	<select id="getTotal" resultType="int">
 		select count(*) from tbl_board b, tbl_user u
-		where b.writer = u.uno
+		where b.writer = u.userNo
 		 <if test="type != null">
 		        	<choose>
 		        		<when test="type == 'T'.toString()">
@@ -46,7 +46,7 @@
 		        		</when>
 		        		
 		        		<when test="type == 'I'.toString()">
-		        		and u.u_id like '%' || #{keyword} || '%'
+		        		and u.userId like '%' || #{keyword} || '%'
 		        		</when>
 		        		
 		        		<when test="type == 'C'.toString()">
@@ -62,14 +62,14 @@
 	select * from (
 	  <!-- 3개의 테이블을 조인한 서브쿼리 생성-->
 		    select 
-		        b.bno bno, 
+		        b.boardNo boardNo, 
 		        b.title title, 
 		        b.content content, 
 <!-- 		        bt.btname,  -->
-		        u.u_id as writer, 
+		        u.userId as writer, 
 		        b.regdate regdate,
 		        b.views views,
-		        <!-- rownum을 bno의 내림차순으로 정렬 -->
+		        <!-- rownum을 boardNo의 내림차순으로 정렬 -->
 		        <!-- ${} 컬럼명으로써 적용 -->
 		        row_number() over (
 		        <choose>
@@ -77,18 +77,18 @@
 	        		  order by b.${sort} ${order}
 		        	</when>
 		        	<otherwise>
-					  order by bno desc		        	
+					  order by boardNo desc		        	
 		        	</otherwise>
 		        </choose>
 		        ) as rn
 		    from 
 		        tbl_board b
 <!-- 		    join  -->
-<!-- 		        tblboardtype bt on b.btype = bt.btno -->
+<!-- 		        tblboardtype bt on b.boardType = bt.btno -->
 		    join 
-		        tbl_user u on b.writer = u.uno
+		        tbl_user u on b.writer = u.userNo
 		    where 
-		        b.btype = 1 <!-- 공지사항 : btype = 1 -->
+		        b.boardType = 1 <!-- 공지사항 : boardType = 1 -->
 		        <if test="type != null">
 		        	<choose>
 		        		<when test="type == 'T'.toString()">
@@ -96,7 +96,7 @@
 		        		</when>
 		        		
 		        		<when test="type == 'I'.toString()">
-		        			and u.u_id like '%' || #{keyword} || '%'
+		        			and u.userId like '%' || #{keyword} || '%'
 		        		</when>
 		        		
 		        		<when test="type == 'C'.toString()">
@@ -114,7 +114,7 @@
 	<update id="viewsUp">
 		update tbl_board
 		set views = views + 1
-		where bno = #{bno}
+		where boardNo = #{boardNo}
 	</update>
 	
 	<!-- 공지사항 수정 -->
@@ -122,13 +122,13 @@
 		update tbl_board
 		set content = #{content},
 		    UPDATEDATE = sysdate
-		where bno = #{bno}
+		where boardNo = #{boardNo}
 	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice">
 		delete from tbl_board
-		where bno = #{bno}
+		where boardNo = #{boardNo}
 	</delete>
 	
 </mapper>

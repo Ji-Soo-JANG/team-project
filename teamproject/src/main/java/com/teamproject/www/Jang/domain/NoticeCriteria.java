@@ -18,7 +18,7 @@ public class NoticeCriteria {
 	private String order;
 	
 	public NoticeCriteria() {
-		this(1, 10, "bno", "desc");
+		this(1, 10, "boardNo", "desc");
 	}
 	
 	public NoticeCriteria(int pageNum, int amount, String sort, String order) {

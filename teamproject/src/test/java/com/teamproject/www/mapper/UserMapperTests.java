@@ -24,22 +24,21 @@ public class UserMapperTests {
 		log.info(userMapper);
 	}
 	
-	//회원가입
+	//�쉶�썝媛��엯
 	@Test
 	public void testJoin() {
 	
-		//10개 테스트
+		//10媛� �뀒�뒪�듃
 		int count = 10;
 		for(int i=0; i<count; i++) {
 			String u_id = "test" + i;
 			String upw = "1234";
-			String uname = "홍길동" + i;
+			String uname = "�솉湲몃룞" + i;
 			String nickname = "test-" + i;
 			String email = "test"+ i + "@email.com";
 			UserVo vo = new UserVo();
-			vo.setU_id(u_id);
-			vo.setUpw(upw);
-			vo.setUname(uname);
+			vo.setUserId(u_id);
+			vo.setUserPw(upw);
 			vo.setNickname(nickname);
 			vo.setEmail(email);
 			
@@ -48,7 +47,7 @@ public class UserMapperTests {
 		}
 	}
 	
-	// 로그인
+	// 濡쒓렇�씤
 	@Test
 	public void testLogin() {
 		String u_id = "system";

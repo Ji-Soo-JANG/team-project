@@ -1,12 +1,9 @@
 package com.teamproject.www.mapper;
 
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +31,22 @@ public class BoardMapperTests {
 	}
 
 	@Test
+	public void testGetNotice() {
+		Long boardNo = 2865L;
+		log.info(boardMapper.getNotice(boardNo));
+	}
+	
+	@Test
 	public void testInsertnotice() {
 		for(int i = 1; i <= 3; i++) {
-		BoardVo vo = new BoardVo();
-		vo.setTitle("공지사항" + i);
-		vo.setContent("내용" + i);
-		vo.setWriter(0);
-		vo.setBtype(1L); // type 1 - 怨듭��궗�빆, 2 - �옄�쑀寃뚯떆�뙋
+		BoardVo boardVo = new BoardVo();
+		boardVo.setTitle("공지사항" + i);
+		boardVo.setContent("내용" + i);
+		boardVo.setWriter(0);
+		boardVo.setBoardtype(1); // type 1 - 공지사항, 2 - �옄�쑀寃뚯떆�뙋
 		
-		int count = boardMapper.insertNotice(vo);
-		log.info("------------------------------" + vo.getBno() + "--------------------------------");
+		int count = boardMapper.insertNotice(boardVo);
+		log.info("------------------------------" + boardVo.getBoardNo() + "--------------------------------");
 //		System.out.println("------------------------------" + vo.getBno() + "--------------------------------");
 		
 		try {
@@ -54,6 +57,7 @@ public class BoardMapperTests {
 		}
 		}
 	}
+	
 	
 	@Test
 	public void testGetnoticeList() {
@@ -93,8 +97,8 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testViewsUp() {
-		Long bno = 497L;
-		int views = boardMapper.viewsUp(bno);
+		Long boardNo = 2865L;
+		int views = boardMapper.viewsUp(boardNo);
 		if(views > 0 ) {
 			log.info(true);
 		}
@@ -102,17 +106,17 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testUpdate() {
-        Long bno = 2821L;
+        Long boardNo = 2865L;
         String content = "<h1>변경됨</h1>";
-        int result = boardMapper.updateNotice(content, bno);
-        NoticeDto dto = boardMapper.getNotice(bno);
+        int result = boardMapper.updateNotice(content, boardNo);
+        NoticeDto dto = boardMapper.getNotice(boardNo);
         log.info(dto);
 	}
 	
 	@Test
 	public void testDelete() {
-		Long bno = 2821L;
-		int result = boardMapper.deleteNotice(bno);
+		Long boardNo = 2865L;
+		int result = boardMapper.deleteNotice(boardNo);
 		log.info(result);
 	}
 	
