@@ -2,9 +2,9 @@ package com.teamproject.www.Lee.service;
 
 import java.util.Map;
 
-import com.teamproject.www.Lee.domain.LoginDto;
-import com.teamproject.www.Lee.domain.ProfileDto;
-import com.teamproject.www.Lee.domain.UserVo;
+import com.teamproject.www.Lee.domain.user.LoginDto;
+import com.teamproject.www.Lee.domain.user.ProfileDto;
+import com.teamproject.www.Lee.domain.user.UserVo;
 
 public interface UserService {
 	

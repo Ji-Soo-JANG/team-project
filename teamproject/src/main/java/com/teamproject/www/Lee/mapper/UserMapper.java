@@ -2,9 +2,9 @@ package com.teamproject.www.Lee.mapper;
 
 import java.util.Map;
 
-import com.teamproject.www.Lee.domain.LoginDto;
-import com.teamproject.www.Lee.domain.ProfileDto;
-import com.teamproject.www.Lee.domain.UserVo;
+import com.teamproject.www.Lee.domain.user.LoginDto;
+import com.teamproject.www.Lee.domain.user.ProfileDto;
+import com.teamproject.www.Lee.domain.user.UserVo;
 
 public interface UserMapper {
 	//회원가입
@@ -14,17 +14,17 @@ public interface UserMapper {
 	public int CheckUser(Map<String, String> map);
 	
 	//로그인 Dto 가져오기
-	public LoginDto getLoginDto(String u_id);
+	public LoginDto getLoginDto(String userid);
 	
 	//아이디 이메일로 가져오기
-	public String getIdByEmail(String u_email);
+	public String getIdByEmail(String email);
 	
 	//이메일 가져오기
-	public String getEmailById(String u_id);
+	public String getEmailById(String userid);
 	
 	//update pw
 	public int updatePw(Map<String, String> map);
 	
 	//프로필 정보 가져오기
-	public ProfileDto getProfileDto(String u_id);
+	public ProfileDto getProfileDto(String userid);
 }

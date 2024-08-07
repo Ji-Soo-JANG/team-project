@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.teamproject.www.Lee.domain.LoginDto;
-import com.teamproject.www.Lee.domain.ProfileDto;
-import com.teamproject.www.Lee.domain.UserVo;
+import com.teamproject.www.Lee.domain.user.LoginDto;
+import com.teamproject.www.Lee.domain.user.ProfileDto;
+import com.teamproject.www.Lee.domain.user.UserVo;
 import com.teamproject.www.Lee.service.UserService;
 
 import lombok.extern.log4j.Log4j;

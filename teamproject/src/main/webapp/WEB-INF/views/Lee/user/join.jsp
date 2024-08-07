@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" href="/resources/css/user/join.css">
+    <link rel="stylesheet" href="/resources/Lee/css/user/join.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <script>
@@ -20,13 +20,13 @@ $(function(){
 	
 	// 인증번호 발송
 	$("#btnSendCerti").click(function(){
-		let user_email = $("#u_email").val();
-		console.log("user_email : " + user_email);
+		let getEmail = $("#email").val();
+		console.log("getEmail : " + getEmail);
 		
 		$.post({
 			type : "post",
-			url : "/user/checkEmail",
-			data : {u_email : user_email},
+			url : "/Lee/user/checkEmail",
+			data : {email : getEmail},
 			success : function(rData){
 				let timerDuration = 300;
 				
@@ -92,20 +92,20 @@ $(function(){
 
 <body>
 	<div class="logoContainer">
-		<a href="/"><img alt="logo" src="/resources/image/logo2.png"></a>
+		<a href="/"><img alt="logo" src="/resources/Lee/image/logo2.png"></a>
 	</div>
 <div class="join-container">
     <div class="title-item">
         <h1>차박ChaBak</h1>
     </div>
-    <form action="/user/joinrun" class="join-form" id="join-form" method="post">
+    <form action="/Lee/user/joinrun" class="join-form" id="join-form" method="post">
         <div class="join-item">
             <label for=""><span class="join-span">아이디</span> </label>
-            <input type="text" name="u_id" placeholder=" 아이디">
+            <input type="text" name="userid" placeholder=" 아이디">
         </div>
         <div class="join-item">
             <label for=""><span>비밀번호</span></label>
-            <input type="password" name="u_pw" placeholder=" 비밀번호">
+            <input type="password" name="userpw" placeholder=" 비밀번호">
         </div>
         <div class="join-item">
             <label for=""><span>비밀번호 확인</span></label>
@@ -113,11 +113,11 @@ $(function(){
         </div>
         <div class="join-item">
             <label for=""><span>닉네임</span></label>
-            <input type="text" name="u_nickname" placeholder=" 닉네임">
+            <input type="text" name="nickname" placeholder=" 닉네임">
         </div>
         <div class="join-item">
             <label for="u_email"><span>이메일</span></label>
-            <input type="text" name="u_email" placeholder=" 이메일" id="u_email" required>
+            <input type="text" name="email" placeholder=" 이메일" id="u_email" required>
             <div class="right-item">
                 <button type="button" class="btn-item" id="btnSendCerti">인증</button>
             </div>

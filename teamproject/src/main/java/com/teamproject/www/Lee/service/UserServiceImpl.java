@@ -7,9 +7,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamproject.www.Lee.domain.LoginDto;
-import com.teamproject.www.Lee.domain.ProfileDto;
-import com.teamproject.www.Lee.domain.UserVo;
+import com.teamproject.www.Lee.domain.user.LoginDto;
+import com.teamproject.www.Lee.domain.user.ProfileDto;
+import com.teamproject.www.Lee.domain.user.UserVo;
 import com.teamproject.www.Lee.mapper.UserMapper;
 
 @Service("LeeUserService")

@@ -6,46 +6,46 @@
 <mapper namespace="com.teamproject.www.Lee.mapper.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="join">
-		insert into tbl_user(u_id, u_pw, u_nickname, u_email)
-		values(#{u_id}, #{u_pw}, #{u_nickname}, #{u_email})
+		insert into tbl_user(userid, userpw, nickname, email)
+		values(#{userid}, #{userpw}, #{nickname}, #{email})
 	</insert>
 	
 	<!-- 가입체크 -->
 	<select id="CheckUser" resultType="int">
 		select count(*) from tbl_user
-		where u_id = #{u_id} and u_pw = #{u_pw}
+		where userid = #{userid} and userpw = #{userpw}
 	</select>
 	
 	<select id="getLoginDto" resultType="LoginDto">
-		select u_id, u_pw, u_nickname, u_level, u_point
+		select userid, userpw, nickname, lv, point
 		from tbl_user
-		where u_id = #{u_id}
+		where userid = #{userid}
 	</select>
 	
 	<!-- 아이디 가져오기 -->
 	<select id="getIdByEmail" resultType="String">
-		select u_id from tbl_user
-		where u_email = #{u_email}
+		select userid from tbl_user
+		where email = #{email}
 	</select>
 	
 	<!-- 이메일가져오기 -->
 	<select id="getEmailById" resultType="String">
-		select u_email from tbl_user
-		where u_id = #{u_id}
+		select email from tbl_user
+		where userid = #{userid}
 	</select>
 	
 	<!-- update Pw -->
 	<update id="updatePw">
 		update tbl_user
-		set u_pw = #{u_pw}
-		where u_id = #{u_id}
+		set userpw = #{userpw}
+		where userid = #{userid}
 	</update>
 	
 	<!-- 프로필정보 가져오기 -->
 	<select id="getProfileDto" resultType="ProfileDto">
-		select u_id, u_nickname, u_email, u_point, u_level, u_imgurl
+		select userid, nickname, email, point, lv, ThumbNail
 		from tbl_user
-		where u_id = #{u_id}
+		where userid = #{userid}
 	</select>
 	
 		 

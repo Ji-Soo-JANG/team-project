@@ -52,37 +52,37 @@ $(function(){
             <li class="nav-item">
                 <a href="#" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/announce/announce" class="sub-nav-link">공지사항</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/greeting" class="sub-nav-link">가입인사</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/check" class="sub-nav-link">출석체크</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">공지사항</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/community/free" class="sub-nav-link">자유게시판</a></li>
-                    <li class="sub-nav-item"><a href="/board/community/information" class="sub-nav-link">정보공유</a></li>
-                    <li class="sub-nav-item"><a href="/board/community/review" class="sub-nav-link">리뷰</a></li>
-                    <li class="sub-nav-item"><a href="/board/community/qna" class="sub-nav-link">질문게시판</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/community/free" class="sub-nav-link">자유게시판</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">정보공유</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">리뷰</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">질문게시판</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">모임</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/meeting/regular" class="sub-nav-link">정모 공지</a></li>
-                    <li class="sub-nav-item"><a href="/board/meeting/thunder" class="sub-nav-link">벙캠/동행</a></li>
-                    <li class="sub-nav-item"><a href="/board/meeting/review" class="sub-nav-link">모임후기</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">정모 공지</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">벙캠/동행</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">모임후기</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">중고장터</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/market/buy" class="sub-nav-link">삽니다</a></li>
-                    <li class="sub-nav-item"><a href="/board/market/sell" class="sub-nav-link">팝니다</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">삽니다</a></li>
+                    <li class="sub-nav-item"><a href="" class="sub-nav-link">팝니다</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="/metaverse" class="nav-link">메타버스</a></li>
-            <li class="nav-item"><a href="/report" class="nav-link">신고하기</a></li>
+            <li class="nav-item"><a href="/Lee/metaverse" class="nav-link">메타버스</a></li>
+            <li class="nav-item"><a href="/Lee/report" class="nav-link">신고하기</a></li>
         </ul>
     </nav>
     <div class="login-profile-container">
@@ -104,11 +104,11 @@ $(function(){
 				<!-- 로그인/로그아웃 버튼 로그인 시 display 처리 -->
 				<c:choose>
 	            	<c:when test="${login == null}">
-			            <a class="btn2 btn-yellow" href="/user/login">로그인</a>
+			            <a class="btn2 btn-yellow" href="/Lee/user/login">로그인</a>
 	            	</c:when>
 	            	<c:otherwise>
-			            <a class="btn2 btn-yellow mb-10"  id="btnLogout" href="/user/logout">로그아웃</a>
-			            <a class="btn2 btn-yellow" href="/user/profile/${login.u_id}">설정</a>
+			            <a class="btn2 btn-yellow mb-10"  id="btnLogout" href="/Lee/user/logout">로그아웃</a>
+			            <a class="btn2 btn-yellow" href="/Lee/user/profile/${login.u_id}">설정</a>
 	            	</c:otherwise>
             	</c:choose>
             	
