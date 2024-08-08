@@ -12,5 +12,10 @@ $(function(){
             $('#loginModal').hide();
         }
     });
-    // modal
+    
+    // call modal
+    $(".btn-call-modal").click(function(){
+    	console.log("글쓰기 버튼");
+		$("#btnLogin").trigger("click");
+	});
 });

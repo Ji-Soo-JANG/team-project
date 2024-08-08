@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-<link rel="stylesheet" href="/www/resources/css/indexksy.css">
+<link rel="stylesheet" href="/resources/Kim/css/indexksy.css">
 <body class="bg-white text-black min-h-screen p-4">
 	<main class="grid grid-cols-3 gap-4 mt-4">
 		<section class="col-span-2 space-y-4">
@@ -14,7 +14,7 @@
                     <c:forEach items="${latestAnnounce}" var="announce">
                         <div class="flex-container">
                             <span class="text-yellow-500 flex-item">공지</span> 
-                            <a href="/www/board/read?b_i_no=${announce.b_a_no}" class="flex-item">
+                            <a href="/Kim/board/read?b_i_no=${announce.b_a_no}" class="flex-item">
                                 <span>${announce.title}</span>
                             </a> 
                             <span class="text-gray-500 flex-item">${announce.views}</span> 
@@ -32,7 +32,7 @@
                         <div class="flex items-center justify-between p-2 bg-gray-300 best-item">
                         	<span>${num.index + 1}</span> 
                             <span class="text-gray-500">${boardVo.boardName}</span>
-                            <a href="/www/board/read?b_i_no=${boardVo.b_ib_no}"><span class="flex-1 ml-2">${boardVo.title}</span></a>
+                            <a href="/Kim/board/read?b_i_no=${boardVo.b_ib_no}"><span class="flex-1 ml-2">${boardVo.title}</span></a>
                             <span class="text-gray-500">${boardVo.views}</span>
                         </div>
                     </c:forEach>
@@ -40,8 +40,8 @@
             </div>
 			<div class="bg-gray-100 p-4">
 			    <div class="flex justify-center">
-			        <a href="/www/board/information" class="mr-4 bg-yellow-600 text-black px-3 py-1 rounded">전체글</a>
-			        <form id="categoryForm" action="/www/board/information" method="get" class="flex">
+			        <a href="/Kim/board/information" class="mr-4 bg-yellow-600 text-black px-3 py-1 rounded">전체글</a>
+			        <form id="categoryForm" action="/Kim/board/information" method="get" class="flex">
 			            <input type="hidden" name="type" value="${criteria.type}">
 			            <input type="hidden" name="keyword" value="${criteria.keyword}">
 			            <%-- <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> --%>
@@ -79,7 +79,7 @@
                             <tr class="spacer">
                                 <td class="text-center">${boardVo.b_i_recommended}</td>
                                 <td class="text-center">${boardVo.b_i_category}</td>
-                                <td class="text-center"><a class="a_bno" href="/www/board/read?b_i_no=${boardVo.b_i_no}">${boardVo.b_i_title}</a>
+                                <td class="text-center"><a class="a_bno" href="/Kim/board/read?b_i_no=${boardVo.b_i_no}">${boardVo.b_i_title}</a>
     							<span class="badge badge-secondary"> [${boardVo.replycnt}] </span></td>
                                 <td class="text-center">${boardVo.b_i_writer}</td>
                                 <td class="text-center">${boardVo.b_i_views}</td>
@@ -93,7 +93,7 @@
 			<!-- 페이징과 정렬 기능 추가 -->
 			<div class="flex items-center justify-between p-1 bg-gray-100">
 				<div class="flex items-center space-x-2">
-					<form id="sortForm" action="/www/board/information" method="get">
+					<form id="sortForm" action="/Kim/board/information" method="get">
 						<input type="hidden" name="type" value="${criteria.type}">
 						<input type="hidden" name="keyword" value="${criteria.keyword}">
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
@@ -133,13 +133,13 @@
 						</ul>
 					</nav>
 				</div>
-				<a href="/www/board/write"
+				<a href="/Kim/board/write"
 					class="bg-yellow-500 text-black p-1 rounded">글쓰기</a>
 			</div>
 
 			<div class="flex items-center justify-center p-1 bg-gray-100">
 				<div class="flex items-center space-x-1">
-					<form action="/www/board/information" method="get">
+					<form action="/Kim/board/information" method="get">
 						<select name="type" class="bg-gray-300 p-1 rounded">
 							<option value="T" ${criteria.type == 'T' ? 'selected' : ''}>제목</option>
 							<option value="C" ${criteria.type == 'C' ? 'selected' : ''}>내용</option>
@@ -161,7 +161,7 @@
 			<div class="bg-gray-100 p-4">
 				<div class="flex items-center justify-between p-2 bg-gray-300 rounded">
 					<div class="ml-6 flex items-center">
-						<img src="/www/resources/image/1111.png" alt="Profile Image" class="w-16 h-16 rounded-full">
+						<img src="/resources/Kim/image/1111.png" alt="Profile Image" class="w-16 h-16 rounded-full">
 						<div class="ml-8">
 							<h3 class="text-xl font-bold">고양이의생일</h3>
 							<p class="text-sm text-gray-500">정회원</p>
@@ -185,7 +185,7 @@
                     <c:forEach items="${weeklyBestList}" var="boardVo" varStatus="num">
                         <div class="flex items-center justify-between p-2 bg-gray-300 rounded">
                             <span>${num.index + 1}</span> 
-                            <a class="a_bno" href="/www/board/read?b_i_no=${boardVo.b_i_no}">
+                            <a class="a_bno" href="/Kim/board/read?b_i_no=${boardVo.b_i_no}">
                                 <span class="flex-1 ml-2">${boardVo.b_i_title}</span>
                             </a>
                             <span class="text-gray-500">${boardVo.b_i_views}</span>
