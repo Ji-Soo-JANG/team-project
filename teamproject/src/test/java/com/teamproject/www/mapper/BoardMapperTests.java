@@ -1,12 +1,9 @@
 package com.teamproject.www.mapper;
 
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,8 @@ import com.teamproject.www.Jang.domain.BoardVo;
 import com.teamproject.www.Jang.domain.NoticeCriteria;
 import com.teamproject.www.Jang.domain.NoticeDto;
 import com.teamproject.www.Jang.mapper.BoardMapper;
+import com.teamproject.www.Lee.domain.board.BoardListDto;
+import com.teamproject.www.Lee.domain.board.Criteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -24,6 +23,8 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class BoardMapperTests {
+	@Autowired
+	private com.teamproject.www.Lee.mapper.board.BoardMapper leeMapper;
 	
 	@Autowired
 	private BoardMapper boardMapper;
@@ -42,7 +43,7 @@ public class BoardMapperTests {
 		vo.setWriter(0);
 		vo.setBtype(1L); // type 1 - 怨듭��궗�빆, 2 - �옄�쑀寃뚯떆�뙋
 		
-		int count = boardMapper.insertNotice(vo);
+//		int count = boardMapper.insertNotice(vo);
 		log.info("------------------------------" + vo.getBno() + "--------------------------------");
 //		System.out.println("------------------------------" + vo.getBno() + "--------------------------------");
 		
@@ -82,10 +83,10 @@ public class BoardMapperTests {
 		NoticeCriteria cri = new NoticeCriteria();
 		cri.setPageNum(1);
 		cri.setAmount(10);
-		cri.setKeyword("항3");
-		cri.setType("T");
+//		cri.setKeyword("항3");
+//		cri.setType("T");
 		
-		List<NoticeDto> list = boardMapper.getListWithPaging(cri);
+//		List<NoticeDto> list = boardMapper.getListWithPaging(cri);
 //		for(noticeDto dto : list) {
 //			System.out.println(dto);
 //		}
@@ -115,5 +116,19 @@ public class BoardMapperTests {
 		int result = boardMapper.deleteNotice(bno);
 		log.info(result);
 	}
+	
+	@Test
+	public void leeInstance() {
+		log.info(leeMapper);
+	}
+	
+	@Test
+	public void leeTestGetBoardList() {
+		Criteria cri = new Criteria();
+		cri.setBoardtype(1);
+		log.info("cri : " + cri);
+		List<BoardListDto> list = leeMapper.getListWithPaging(cri);
+		log.info("dto : " + list);
+	} 
 	
 }

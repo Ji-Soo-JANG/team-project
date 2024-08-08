@@ -44,14 +44,14 @@
 	<!-- interceptor -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/user/loginRun"/>
+			<mapping path="/Lee/user/loginRun"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		
 		<interceptor>
 		    <!-- /* 매핑하면 ckEditor로 이미지 못불러오는 경우가 생기는듯 -->
 <!-- 			<mapping path="/*"/> -->
-			<mapping path="/user/profile"/>
+			<mapping path="/user/*"/>
 			<mapping path="/write"/>
 			<mapping path="/metaverse"/>
 			<mapping path="/report"/>
@@ -66,13 +66,20 @@
 			<exclude-mapping path="/display?fileName=/**"/>
 			<exclude-mapping path="/display?fileName=/D:/upload/board-img/*/*/*/*"/>
 
-			<exclude-mapping path="/user/*"/>
-			<exclude-mapping path="/user/**"/>
-			<exclude-mapping path="/user/loginRun"/>
+			<!-- ** user ** -->
+			<exclude-mapping path="/user/login"/>
 			<exclude-mapping path="/user/checkUser"/>
-<!-- 			<exclude-mapping path="/user/join"/> -->
-<!-- 			<exclude-mapping path="/user/forgot-id"/> -->
-<!-- 			<exclude-mapping path="/user/forgot-password"/> -->
+			<exclude-mapping path="/user/loginRun"/>
+		
+			<!-- 프로필 -->
+			<exclude-mapping path="/user/updatePassword"/>
+			
+			<!-- 회원가입 -->	
+			<exclude-mapping path="/user/join"/>
+			<exclude-mapping path="/user/joinRun"/>
+			<exclude-mapping path="/user/checkEmail"/>
+			<exclude-mapping path="/user/forgot-id"/>
+			<exclude-mapping path="/user/forgot-password"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

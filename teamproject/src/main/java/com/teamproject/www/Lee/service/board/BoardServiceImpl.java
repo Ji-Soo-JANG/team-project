@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +11,15 @@ import com.teamproject.www.Lee.Util.MyFileUtil;
 import com.teamproject.www.Lee.domain.AttachFileDto;
 import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
-import com.teamproject.www.Lee.domain.Criteria;
 import com.teamproject.www.Lee.domain.DetailFreeBoardDto;
-import com.teamproject.www.Lee.domain.FreeBoardListDto;
-import com.teamproject.www.Lee.domain.InsertFreeBoardDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
+import com.teamproject.www.Lee.domain.board.BoardListDto;
+import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.InsertBoardDto;
 import com.teamproject.www.Lee.mapper.AttachMapper;
 import com.teamproject.www.Lee.mapper.BoardLikeMapper;
-import com.teamproject.www.Lee.mapper.BoardMapper;
 import com.teamproject.www.Lee.mapper.ReplyMapper;
+import com.teamproject.www.Lee.mapper.board.BoardMapper;
 
 @Service("LeeBoardService")
 public class BoardServiceImpl implements BoardService{
@@ -36,26 +36,36 @@ public class BoardServiceImpl implements BoardService{
 	// 자유게시판 글등록
 	@Transactional
 	@Override
-	public int registerFreeBoard(InsertFreeBoardDto dto) {
+	public int registerFreeBoard(InsertBoardDto dto) {
 		System.out.println("boardservice......................");
 		System.out.println("boardSerice dto : " + dto);
 		boardMapper.insertGetKey(dto);
-		int b_f_no = dto.getB_f_no();
-		System.out.println("b_f_no : " + b_f_no);
+		int boardno = dto.getBoardno();
+		System.out.println("boardno : " + boardno);
 		List<AttachFileDto> PathList = dto.getPathList();
 		if(PathList != null && PathList.size() > 0) {
 			PathList.forEach(getDto ->{
-				getDto.setB_f_no(dto.getB_f_no());
+				getDto.setBoardno(boardno);
 				attachMapper.insertAttach(getDto);
 			});
 			
 		}
-		return dto.getB_f_no();
+		return boardno;
 	}
 
 	// 자유게시판 리스트 가져오기
 	@Override
-	public List<FreeBoardListDto> getList(Criteria criteria) {
+	public List<BoardListDto> getList(Criteria criteria, String insertBoardtype) {
+		System.out.println("getlist....................................");
+		System.out.println("insertBoardtype : " + insertBoardtype);
+		int boardtype = 0 ;
+		switch(insertBoardtype) {
+			case "free" : 
+				boardtype = 1;
+				break;
+		}
+		criteria.setBoardtype(boardtype);
+		
 		return boardMapper.getListWithPaging(criteria);
 	}
 
@@ -104,7 +114,7 @@ public class BoardServiceImpl implements BoardService{
 		List<String> pathList = new ArrayList<String>();
 		
 		for(AttachFileDto pathDto : getPathList) {
-			pathList.add(pathDto.getAt_url());
+			pathList.add(pathDto.getUploadpath());
 		}
 		// attach 수정
 		// 삭제
@@ -113,8 +123,8 @@ public class BoardServiceImpl implements BoardService{
 		// 입력
 		for(String path : pathList) {
 			AttachFileDto attachDto = new AttachFileDto();
-			attachDto.setB_f_no(b_f_no);
-			attachDto.setAt_url(path);
+			attachDto.setBoardno(b_f_no); 
+			attachDto.setUploadpath(path);
 			attachMapper.insertAttach(attachDto);
 		}
 		

@@ -1,15 +1,15 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.user;
 
 import java.util.Map;
 
-import com.teamproject.www.Lee.domain.LoginDto;
-import com.teamproject.www.Lee.domain.ProfileDto;
-import com.teamproject.www.Lee.domain.UserVo;
+import com.teamproject.www.Lee.domain.user.JoinDto;
+import com.teamproject.www.Lee.domain.user.LoginDto;
+import com.teamproject.www.Lee.domain.user.ProfileDto;
 
 public interface UserService {
 	
 	//회원가입
-	public boolean signUp(UserVo vo); 
+	public boolean signUp(JoinDto dto); 
 	
 	//가입체크
 	public boolean CheckUser(Map<String, String> map);

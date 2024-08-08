@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Lee/include/header.jsp" %>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/Lee/css/write.css">
 
 <!-- 에디터 -->
-<link rel="stylesheet" href="/resources/css/edite.css">
-<link rel="stylesheet" href="/resources/js/editeClickHandler.js">
+<link rel="stylesheet" href="/resources/Lee/css/edite.css">
+<link rel="stylesheet" href="/resources/Lee/js/editeClickHandler.js">
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/simple-upload-adapter/simple-upload-adapter.js"></script>
 <!-- 에디터 -->
@@ -22,7 +22,7 @@
 				let filename = fileNames[i];
 				$.ajax({
 					type : "get",
-					url : "/display",
+					url : "/Lee/upload/display",
 					data: {fileName : filename},
 					xhrFields: {
 			        	responseType: 'blob' // 중요: 바이너리 데이터로 응답받기 위해 설정
@@ -63,7 +63,7 @@
 			console.log(formData);
 			$.ajax({
 				type: "post",
-				url: "/uploadAction",
+				url: "/Lee/upload/uploadAction",
 				contentType: false,
 				processData: false,
 				data: formData,
@@ -80,7 +80,7 @@
 							imgTag = `<img src="#" witdh="100"></img>`;
 						}else{
 							// 이미지라면
-							imgTag = `<img src="/display?fileName=\${fileName}"></img>`;
+							imgTag = `<img src="/Lee/upload/display?fileName=\${fileName}"></img>`;
 						}
 						let liTag = `<div class="list-style-none">
 										\${imgTag}
@@ -148,12 +148,6 @@
              console.log("글등록버튼");
              if (editor) {
                  let content = editor.getData();
-					let count = content.indexOf("/D");
-					if(count > -1){
-						$("#b_f_img").val('Y');
-					}else{
-						$("#b_f_img").val('N');
-					};
 	
 					$("#hidden-content").val(content);
 					
@@ -195,7 +189,7 @@
 	    	for(let i=0; i<imgPaths.length; i++){
 	    		let path = imgPaths[i];
 	    		console.log("path : ",  path);
-	    		inputTag += `<input type="hidden" name="pathList[`+i+`].at_url" value="`+path+`">`;
+	    		inputTag += `<input type="hidden" name="pathList[`+i+`].uploadpath" value="`+path+`">`;
 	    	}
 	    	console.log("inputTag done");
 	    	console.log("inputTag : " + inputTag);
@@ -210,12 +204,11 @@
 	<h3 class="board-title">글쓰기 게시판입니다</h3>
 
 	<!-- post form -->	
-	<form action="/board/community/writeRun" class="write-from" id="postForm">
+	<form action="/Lee/board/writeRun" class="write-from" id="postForm" method="post">
 		 
-      	 <input type="text" class="input-write" name="b_f_title" placeholder=" 제목을 입력 해 주세요."  required>
+      	 <input type="text" class="input-write" name="title" placeholder=" 제목을 입력 해 주세요."  required>
       	 <!-- 숨겨진 input -->
-		 <textarea id="hidden-content" name="b_f_content" style="display:none;"></textarea>
-		 <input type="hidden" id="b_f_img" name="b_f_img">	
+		 <textarea id="hidden-content" name="content" style="display:none;"></textarea>
 		 <div id="div_src">
       	 
    		 </div>	 
@@ -242,13 +235,15 @@
 					}
 				}
 			</script>
-			<script type="module" src="/resources/js/edite.js"></script>
+			<script type="module" src="/resources/Lee/js/edite.js"></script>
 		 <!-- 에디터 end -->	
 		 
 		 </div>
          <div class="btn-container">
-         	<a class="btn" href="/board/community/free">취소</a>
-            <input type="hidden" class="input-write" name="b_f_writer" style="width: 200px;" value="${login.u_nickname}">
+         	<a class="btn" href="/Lee/board/free">취소</a>
+         
+            <input type="hidden" class="input-write" name="userid" style="width: 200px;" value="${login.userid}">
+            <input type="hidden" class="input-write" name="nickname" style="width: 200px;" value="${login.nickname}">
             <button type="button" class="btn" id="btn-write-done">작성완료</button>
          </div>
     </form>
