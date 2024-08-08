@@ -39,7 +39,7 @@ public class BoardMapperTests {
 		boardVo.setContent("내용" + i);
 		boardVo.setUserId("system");
 		boardVo.setNickname("nickname-" + i);
-		boardVo.setBoardtype(1); // type 1 - 공지사항, 2 - �옄�쑀寃뚯떆�뙋
+		boardVo.setBoardtype(0); // type 0 - 공지사항
 		
 		int count = boardMapper.insertNotice(boardVo);
 		log.info("------------------------------" + boardVo.getBoardNo() + "--------------------------------");
