@@ -37,11 +37,12 @@ public class BoardMapperTests {
 	@Test
 	public void testInsertnotice() {
 		for(int i = 1; i <= 3; i++) {
-		BoardVo vo = new BoardVo();
-		vo.setTitle("공지사항" + i);
-		vo.setContent("내용" + i);
-		vo.setWriter(0);
-		vo.setBtype(1L); // type 1 - 怨듭��궗�빆, 2 - �옄�쑀寃뚯떆�뙋
+		BoardVo boardVo = new BoardVo();
+		boardVo.setTitle("공지사항" + i);
+		boardVo.setContent("내용" + i);
+		boardVo.setUserId("system");
+		boardVo.setNickname("nickname-" + i);
+		boardVo.setBoardtype(0); // type 0 - 공지사항
 		
 //		int count = boardMapper.insertNotice(vo);
 		log.info("------------------------------" + vo.getBno() + "--------------------------------");
