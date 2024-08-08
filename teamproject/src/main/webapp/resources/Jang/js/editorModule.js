@@ -203,7 +203,7 @@ const editorConfig = {
 		]
 	},
 	simpleUpload: {
-        uploadUrl: '/upload/image', // 이미지 업로드 엔드포인트 설정
+        uploadUrl: '/Jang/upload/image', // 이미지 업로드 엔드포인트 설정
         headers: {
             // CSRF 토큰 또는 인증 헤더 추가 (필요 시)
             'X-CSRF-TOKEN': 'CSRF-Token',

@@ -84,13 +84,24 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Long modify(InformationBoardVo vo) {
-		System.out.println("글수정 김세영");
-		int count = boardMapper.modifySelectKeyKsy(vo);
-		if (count > 0) {
-			return vo.getB_i_no();
-		}
-		return 0L;
+	    System.out.println("글수정 김세영");
+	    int count = boardMapper.modifySelectKeyKsy(vo);
+	    
+	    // 첨부파일 처리
+	    List<AttachBoardDto> attachList = vo.getAttachList();
+	    if (attachList != null && attachList.size() > 0) {
+	        attachList.forEach(dto -> {
+	            dto.setB_i_no(vo.getB_i_no());
+	            attachMapper.insertKsy(dto);
+	        });
+	    }
+	    
+	    if (count > 0) {
+	        return vo.getB_i_no();
+	    }
+	    return 0L;
 	}
+
 	
 	@Override
 	public void delete(Long b_i_no) {

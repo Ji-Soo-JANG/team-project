@@ -2,6 +2,7 @@ package com.teamproject.www.Jang.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 
 public interface UserMapper {
@@ -9,5 +10,5 @@ public interface UserMapper {
 	public int join(UserVo vo);
 	
 	// 로그인
-	public UserVo login(@Param("u_id") String u_id, @Param("upw") String upw);
+	public LoginSessionDto login(@Param("userId") String userId, @Param("userPw") String userPw);
 }

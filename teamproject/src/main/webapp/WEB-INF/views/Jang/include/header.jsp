@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>매콤한녀석들</title>
-    <link rel="stylesheet" href="/resources/css/index.css">
+    <link rel="stylesheet" href="/resources/Jang/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>												
-    <script src="/resources/js/index.js" defer></script>
+    <script src="/resources/Jang/js/index.js" defer></script>
 </head>
 <body>
 <script type="text/javascript">
 	$(function(){
-		let loginUser = "${loginVo.u_id}";
+		let loginUser = "${loginSessionDto.nickname}";
 		
 		window.updateLoginButtons = function(){
 			if(loginUser != ""){
@@ -33,7 +33,7 @@
 			let currentUrl = window.location.href;
 			currentUrl = currentUrl.substring(currentUrl.indexOf("t/") + 2);
 // 			console.log("/login?currentUrl="+encodeURIComponent(currentUrl));
-			location.href="/login?currentUrl=" + encodeURIComponent(currentUrl);
+			location.href="/Jang/user/login?currentUrl=" + encodeURIComponent(currentUrl);
 			// window.updateLoginButtons();
 		});
 		
@@ -41,7 +41,8 @@
 		$("#btnLogout").click(function(){
 			let currentUrl = window.location.href;
 			currentUrl = currentUrl.substring(currentUrl.indexOf("t/") + 2);
-			location.href="/logout?currentUrl=" + encodeURIComponent(currentUrl);
+			console.log(currentUrl);
+			location.href="/Jang/user/logout?currentUrl=" + encodeURIComponent(currentUrl);
 			// window.updateLoginButtons();
 		});
 		
@@ -73,20 +74,32 @@
     <nav class="navbar">
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="#" class="nav-link">공지사항</a>
+                <a href="/Jang/board/notice/list" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
+<<<<<<< HEAD
                     <li class="sub-nav-item"><a href="/board/notice/list" class="sub-nav-link">공지사항</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
+=======
+                    <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
+                    <li class="sub-nav-item"><a href="/board/announce/greeting" class="sub-nav-link">가입인사</a></li>
+                    <li class="sub-nav-item"><a href="/board/announce/check" class="sub-nav-link">출석체크</a></li>
+>>>>>>> branch 'master' of https://github.com/Ji-Soo-JANG/team-project.git
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">커뮤니티</a>
+                <a href="/Lee/board/list/free" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
+<<<<<<< HEAD
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">정보공유</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">리뷰</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">질문게시판</a></li>
+=======
+                    <li class="sub-nav-item"><a href="/board/community/information" class="sub-nav-link">정보공유</a></li>
+                    <li class="sub-nav-item"><a href="/board/community/review" class="sub-nav-link">리뷰</a></li>
+                    <li class="sub-nav-item"><a href="/board/community/qna" class="sub-nav-link">질문게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Ji-Soo-JANG/team-project.git
                 </ul>
             </li>
             <li class="nav-item">

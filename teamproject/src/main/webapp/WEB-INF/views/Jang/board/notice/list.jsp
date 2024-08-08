@@ -15,7 +15,26 @@ pageContext.setAttribute("now", now);
     let initialSort = '${pageMaker.cri.sort}';
     let initialOrder = '${pageMaker.cri.order}';
     updateSortIcons(initialSort, initialOrder);
+	setSearch();
+    
 	
+    function setSearch(){
+    	let type = "${pageMaker.cri.type}"
+    	let keyword = "${pageMaker.cri.keyword}"
+    	
+    	if(type == null){
+    		$("option[value=T]").attr("selected","selected");
+    	} else{
+    		$("option[value='${pageMaker.cri.type}']").attr("selected","selected");
+    	}
+    	
+    	if(keyword != null){
+    		$("#keyword").val(keyword);
+    	}
+    	
+    	
+    }
+    
     function updatePagination(pageMaker){
     	let pagination = $(".page-ul");
     	pagination.empty();
@@ -42,18 +61,19 @@ pageContext.setAttribute("now", now);
         let pageNum = $(this).attr("href");
         let amount = ${pageMaker.cri.amount};
         let type = $("#btnSearch").parent().find("select").val();
-        submitForm("/board/notice/list", pageNum, amount, type, null, null);
+        let keyword = $("#keyword").val();
+        submitForm("/Jang/board/notice/list", pageNum, amount, type, keyword, null);
     });
 
     $("#btnSearch").click(function(){
         console.log("btnSearch click..");
         let type = $("#btnSearch").parent().find("select").val();
         let keyword = $("#btnSearch").parent().find("input").val();
-        submitForm("/board/notice/list", 1, 10, type, keyword, null);
+        submitForm("/Jang/board/notice/list", 1, 10, type, keyword, null);
     });
     
     $(".btn-write").click(function(){
-    	location.href="/board/notice/postForm";
+    	location.href="/Jang/board/notice/postForm";
     });
     $("tbody").on("click", ".notice-title", function(e){
     	e.preventDefault();
@@ -65,8 +85,8 @@ pageContext.setAttribute("now", now);
         let amount = ${pageMaker.cri.amount != null ? pageMaker.cri.amount : 10};
         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
         let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
-        let bno = targetEle.attr("href");
-        submitForm("/board/notice/detail", pageNum, amount, type, keyword, bno);
+        let boardNo = targetEle.attr("href");
+        submitForm("/Jang/board/notice/detail", pageNum, amount, type, keyword, boardNo);
     });
     
     // e.originalEvent.srcElement
@@ -77,9 +97,9 @@ pageContext.setAttribute("now", now);
 //         let amount = ${pageMaker.cri.amount != null ? pageMaker.cri.amount : 10};
 //         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
 //         let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
-//         let bno = $(this).attr("href");
-//         console.log(bno);
-//         submitForm("/board/notice/detail", pageNum, amount, type, keyword, bno);
+//         let boardNo = $(this).attr("href");
+//         console.log(boardNo);
+//         submitForm("/board/notice/detail", pageNum, amount, type, keyword, boardNo);
 //     });
 	
     $(".sortable").click(function(){
@@ -90,7 +110,7 @@ pageContext.setAttribute("now", now);
     	let sort = $(this).data("sort");
     	let order = $(this).hasClass("sort-asc") ? "desc" : "asc";
     	$.ajax({
-    		url : '/board/notice/list-data',
+    		url : '/Jang/board/notice/list-data',
     		type : 'get',
     		data : {
     			pageNum : pageNum,
@@ -108,13 +128,13 @@ pageContext.setAttribute("now", now);
 					let newLabel = dto.newPost ? '<span class="new-label">NEW</span>' : '';
 					let formattedDate = formatDate(new Date(dto.regdate));
 					tbody += `<tr>
-				                <td>\${dto.bno}</td>
+				                <td>\${dto.boardNo}</td>
 				                <td class="table-Text-Left" >
 				                    <span class="notice-label">공지</span>
-				                    <a class="notice-title" href="\${dto.bno}">\${dto.title}</a>
+				                    <a class="notice-title" href="\${dto.boardNo}">\${dto.title}</a>
 					                 \${newLabel}
 				                </td>
-				                <td>\${dto.writer}</td>
+				                <td>\${dto.nickname}</td>
 				                <td>\${formattedDate}</td>
 				                <td>\${dto.views}</td>
 				            </tr>`;
@@ -140,9 +160,9 @@ pageContext.setAttribute("now", now);
             <table class="table" border="1">
 	            <thead>
 	                <tr>
-	                    <th class="table-head sortable" data-sort="bno">번호 <span class="sort-icon"></span></th>
+	                    <th class="table-head sortable" data-sort="boardNo">번호 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="title">제목 <span class="sort-icon"></span></th>
-				        <th class="table-head sortable" data-sort="writer">글쓴이 <span class="sort-icon"></span></th>
+				        <th class="table-head sortable" data-sort="nickname">글쓴이 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="regdate">등록일 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="views">조회수 <span class="sort-icon"></span></th>
 	<!--                <th class="table-head">추천</th> -->
@@ -151,15 +171,15 @@ pageContext.setAttribute("now", now);
                 <tbody>
 	                <c:forEach items="${list}" var="dto">
 	                <tr>
-	                    <td>${dto.bno}</td>
+	                    <td>${dto.boardNo}</td>
 	                    <td class="table-Text-Left" >
 		                    <span class="notice-label">공지</span>
-		                    <a class="notice-title" href="${dto.bno}">${dto.title}</a>
+		                    <a class="notice-title" href="${dto.boardNo}">${dto.title}</a>
 		                    <c:if test="${dto.newPost}">
 		                        <span class="new-label">NEW</span>
 		                    </c:if>
 	                    </td>
-	                    <td>${dto.writer}</td>
+	                    <td>${dto.nickname}</td>
 	                    <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd"/></td>
 	                    <td>${dto.views}</td>
 	                </tr>
@@ -178,7 +198,7 @@ pageContext.setAttribute("now", now);
                         <li class="page-item ${pageMaker.cri.pageNum == v ? 'active' :''}"><a class="pageNumber page-link" href="${v}" >${v}</a></li>
                        	 </c:forEach>
                    	<c:if test="${pageMaker.next}">
-                        <li class="page-item"><a class="pageNumber page-link" href="${(pageMaker.endPage + 1)}" ">다음</a></li>
+                        <li class="page-item"><a class="pageNumber page-link" href="${(pageMaker.endPage + 1)}">다음</a></li>
                    	</c:if>
                     </ul>
                 </nav>

@@ -7,29 +7,42 @@
 <link rel="stylesheet" href="/resources/Kim/css/indexksy.css">
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/resources/Kim/js/ckeditor.js"></script>
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.2/"
+        }
+    }
+</script>
+
+<script src="/resources/Kim/js/indexksy.js"></script>
+<script type="module" src="/resources/Kim/js/ckeditor.js"></script>
 
 <body class="bg-white text-black min-h-screen p-4">
     <main class="grid grid-cols-3 gap-4 mt-4">
         <section class="col-span-2 space-y-4">
             <form id="frmRegister" role="form" action="/Kim/board/modify" method="post">
+            	<input type="hidden" id="b_i_no" name="b_i_no" value="${boardVo.b_i_no}" />
                 <input type="hidden" id="b_i_content" name="b_i_content" required>
                 <div class="bg-gray-100 p-4">
                     <select name="b_i_category" id="b_i_category" class="bg-gray-300 p-2 rounded">
-                        <option value="카테고리-1">카테고리-1</option>
-                        <option value="카테고리-2">카테고리-2</option>
-                        <option value="카테고리-3">카테고리-3</option>
-                        <option value="카테고리-4">카테고리-4</option>
-                        <option value="카테고리-5">카테고리-5</option>
+                        <option value="카테고리-1" ${boardVo.b_i_category == '카테고리-1' ? 'selected' : ''}>카테고리-1</option>
+                        <option value="카테고리-2" ${boardVo.b_i_category == '카테고리-2' ? 'selected' : ''}>카테고리-2</option>
+                        <option value="카테고리-3" ${boardVo.b_i_category == '카테고리-3' ? 'selected' : ''}>카테고리-3</option>
+                        <option value="카테고리-4" ${boardVo.b_i_category == '카테고리-4' ? 'selected' : ''}>카테고리-4</option>
+                        <option value="카테고리-5" ${boardVo.b_i_category == '카테고리-5' ? 'selected' : ''}>카테고리-5</option>
                     </select>
                 </div>
                 <div class="bg-gray-100 p-4">
                     <input type="text" id="b_i_title" name="b_i_title" placeholder="제목을 입력하세요"
                         class="w-full p-2 rounded" value="${boardVo.b_i_title}" required>
                 </div>
+                
                 <div>
                     <div class="main-containerck">
-                        <div class="editor-container editor-container_classic-editor" id="editor-container">
+                        <div class="editor-container editor-container_classic-editor" id="b_i_content" name="b_i_content">
                             <div class="editor-container__editor">
                                 <div id="editor">${boardVo.b_i_content}</div>
                             </div>
@@ -56,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="bg-gray-100 p-4 flex justify-end space-x-4">
                     <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded">수정완료</button>
                     <a href="/Kim/board/information" type="reset" class="bg-gray-500 text-black px-4 py-2 rounded">취소</a>

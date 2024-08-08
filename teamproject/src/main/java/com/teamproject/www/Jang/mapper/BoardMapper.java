@@ -9,13 +9,12 @@ import com.teamproject.www.Jang.domain.NoticeCriteria;
 import com.teamproject.www.Jang.domain.NoticeDto;
 
 public interface BoardMapper {
-//	public List<FreeBoardListDto> getList(Criteria criteria);
 	public List<NoticeDto> getNoticeList();
-	public int insertNotice(BoardVo vo);
-	public NoticeDto getNotice(Long bno);
+	public int insertNotice(BoardVo boardVo);
+	public NoticeDto getNotice(Long boardNo);
 	public int getTotal(NoticeCriteria cri);
 	public List<NoticeDto> getListWithPaging(NoticeCriteria cri);
-	public int viewsUp(Long bno);
-	public int updateNotice(@Param("content") String content, @Param("bno") Long bno);
-	public int deleteNotice(Long bno);
+	public int viewsUp(Long boardNo);
+	public int updateNotice(@Param("content") String content, @Param("boardNo") Long boardNo);
+	public int deleteNotice(Long boardNo);
 }

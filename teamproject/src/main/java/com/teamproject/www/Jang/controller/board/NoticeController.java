@@ -31,7 +31,7 @@ import com.teamproject.www.Jang.service.BoardService;
 @Qualifier("JangBoardService")
 public class NoticeController {
 	// 허용된 정렬 조건
-	private static final List<String> SORT_LIST = Arrays.asList("bno", "title", "content", "writer", "regdate", "views");
+	private static final List<String> SORT_LIST = Arrays.asList("boardNo", "title", "content", "writer", "regdate", "views");
 	private static final List<String> ORDER_LIST = Arrays.asList("desc", "asc");
 	
 	@Autowired
@@ -43,7 +43,7 @@ public class NoticeController {
 					   @RequestParam(value = "order", required = false) String order,
 					   Model model) {
 		
-		// 정렬 값 세팅(기본값 - sort : bno, order - desc)
+		// 정렬 값 세팅(기본값 - sort : boardNo, order - desc)
 		// sort 와 order를 직접 받아와서 cri에 적용(NoticeCriteria의 field를 public으로 하지 않음)
 		if(sort != null && SORT_LIST.contains(sort)) {
 			cri.setSort(sort);
@@ -53,7 +53,7 @@ public class NoticeController {
 			cri.setOrder(order);
 		}
 		
-		System.out.println("cri: " +cri);
+		// System.out.println("cri: " +cri);
 		
 		// 조건에 맞는 게시글의 총 갯수를 가져옴
 		int total = boardService.getTotal(cri);
@@ -65,7 +65,7 @@ public class NoticeController {
 		
 		// 조건에 맞는 게시글 리스트를 가져옴
 		List<NoticeDto> list = boardService.getListWithPaging(cri);
-		System.out.println(list);
+		// System.out.println(list);
 		
 		// 리스트와 페이징 객체를 jsp로 전송
 		model.addAttribute("list", list);
@@ -84,8 +84,8 @@ public class NoticeController {
 					   @RequestParam(value = "order", required = false) String order,
 					   Model model) {
 		
-		System.out.println("list-data...");
-		// 정렬 값 세팅(기본값 - sort : bno, order - desc)
+		// System.out.println("list-data...");
+		// 정렬 값 세팅(기본값 - sort : boardNo, order - desc)
 		// sort 와 order를 직접 받아와서 cri에 적용(NoticeCriteria의 field를 public으로 하지 않음)
 		if(sort != null && SORT_LIST.contains(sort)) {
 			cri.setSort(sort);
@@ -95,7 +95,7 @@ public class NoticeController {
 			cri.setOrder(order);
 		}
 		
-		System.out.println("cri: " +cri);
+		// System.out.println("cri: " +cri);
 		
 		// 조건에 맞는 게시글의 총 갯수를 가져옴
 		int total = boardService.getTotal(cri);
@@ -106,7 +106,7 @@ public class NoticeController {
 		
 		// 조건에 맞는 게시글 리스트를 가져옴
 		List<NoticeDto> list = boardService.getListWithPaging(cri);
-		System.out.println(list);
+		// System.out.println(list);
 		
 		// 리스트와 페이징 객체를 jsp로 전송
 		model.addAttribute("list", list);
@@ -120,40 +120,40 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/detail")
-	public String noticeDetail(@RequestParam("bno") Long bno, NoticeCriteria cri, Model model) {
-		System.out.println("cri: " + cri);
-		NoticeDto dto = boardService.getNotice(bno);
+	public String noticeDetail(@RequestParam("boardNo") Long boardNo, NoticeCriteria cri, Model model) {
+		// System.out.println("cri: " + cri);
+		NoticeDto noticeDto = boardService.getNotice(boardNo);
 
 		// cri만 보내도 되지만 action_form에 셋팅된 기본 값(pageMaker.cri.xxx)을 사용하기 위해
 		NoticePageDto pageMaker = new NoticePageDto(cri, 0);
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("dto", dto);
-		boardService.viewsUp(bno);
-        return "forward:/WEB-INF/views/board/notice/noticeDetail.jsp";
+		model.addAttribute("noticeDto", noticeDto);
+		boardService.viewsUp(boardNo);
+        return "forward:/WEB-INF/views/Jang/board/notice/noticeDetail.jsp";
 	}
 	
 	@GetMapping("/postForm")
 	public String postForm() {
-		return "/board/notice/post";
+		return "/Jang/board/notice/post";
 	}
 	
 	@PostMapping("/post")
 	public String post(BoardVo vo) {
-		System.out.println("post...");
-		System.out.println("vo : " + vo);
+		// System.out.println("post...");
+		// System.out.println("vo : " + vo);
 		boardService.insertNotice(vo);
-		return "redirect:/board/notice/list";
+		return "redirect:/Jang/board/notice/list";
 	}
 	
 	@ResponseBody
 	@PostMapping("/modify")
-	public ResponseEntity<Map> modify(String content, Long bno) {
+	public ResponseEntity<Map> modify(String content, Long boardNo) {
 //		System.out.println("content: " + content);
-//		System.out.println("bno: " + bno);
+//		System.out.println("boardNo: " + boardNo);
 		ResponseEntity<Map> response = null;
 		String resultContent = "";
 		
-		boolean result = boardService.modify(content, bno);
+		boolean result = boardService.modify(content, boardNo);
 		
 		if(result) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -162,19 +162,19 @@ public class NoticeController {
 			map.put("contentType", "text/plain;charset=utf-8");
 			map.put("data", resultContent);
 			response = new ResponseEntity<Map>(map, HttpStatus.OK);
-			System.out.println("결과: content -" + resultContent);
+			// System.out.println("결과: content -" + resultContent);
 		}
 		return response;
 	}
 	
-	@PostMapping("/remove/{bno}")
-	public String remove(@PathVariable("bno") Long bno, NoticeCriteria criteria) {
-		boolean result = boardService.remove(bno);
+	@PostMapping("/remove/{boardNo}")
+	public String remove(@PathVariable("boardNo") Long boardNo, NoticeCriteria criteria) {
+		boolean result = boardService.remove(boardNo);
 		
 		String url = String.format("?pageNum=%d&amount=%d&type=%s&keyword=%s&sort=%s&order=%s"
 				,criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword(), criteria.getSort(), criteria.getOrder()); 
-		System.out.println("url:" + url);
-		System.out.println(result);
-		return "redirect:/board/notice/list?" + url;
+		// System.out.println("url:" + url);
+		// System.out.println(result);
+		return "redirect:/Jang/board/notice/list?" + url;
 	}
 }

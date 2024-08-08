@@ -135,6 +135,10 @@ public class BoardController {
 	public String modifyForm(@RequestParam("b_i_no") Long b_i_no, Model model) {
 	    InformationBoardVo boardVo = boardService.get(b_i_no);
 	    model.addAttribute("boardVo", boardVo);
+	    
+	 // 주간 베스트 게시물 리스트 추가
+	    List<InformationBoardVo> weeklyBestList = boardService.getWeeklyBest();
+	    model.addAttribute("weeklyBestList", weeklyBestList);
 	    return "Kim/board/modify";
 	}
 	
@@ -142,10 +146,21 @@ public class BoardController {
 	
 	// 김세영 글 수정
 	@PostMapping("/modify")
-	public String modify(InformationBoardVo vo, RedirectAttributes rttr) {
+	public String modify(InformationBoardVo vo, RedirectAttributes rttr, HttpSession session) {
 		Long b_i_no = boardService.modify(vo);
+		
+		 List<AttachBoardDto> ckeditorImages = (List<AttachBoardDto>) session.getAttribute("ckeditorImages");
+		    if (ckeditorImages != null) {
+		        for (AttachBoardDto dto : ckeditorImages) {
+		            dto.setB_i_no(b_i_no);
+		            attachMapper.insertKsy(dto);
+		        }
+		        session.removeAttribute("ckeditorImages");
+		    }
+		
+		
 		rttr.addFlashAttribute("resultModify", b_i_no);
-		return "redirect:Kim/board/read?b_i_no=" + b_i_no;
+		return "redirect:/Kim/board/read?b_i_no=" + b_i_no;
 	}
 	
     // 김세영 글 삭제
@@ -153,7 +168,7 @@ public class BoardController {
     public String delete(@RequestParam Long b_i_no, RedirectAttributes rttr) {
         boardService.delete(b_i_no);
         rttr.addFlashAttribute("resultDelete", b_i_no);
-        return "redirect:Kim/board/information"; // 삭제 후 게시글 목록 페이지로 리디렉션
+        return "redirect:/Kim/board/information"; // 삭제 후 게시글 목록 페이지로 리디렉션
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 import com.teamproject.www.Jang.mapper.UserMapper;
 
@@ -15,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class UserMapperTests {
+	
 	@Autowired
 	private UserMapper userMapper;
 	
@@ -24,22 +26,21 @@ public class UserMapperTests {
 		log.info(userMapper);
 	}
 	
-	//회원가입
+	//�쉶�썝媛��엯
 	@Test
 	public void testJoin() {
 	
-		//10개 테스트
+		//10媛� �뀒�뒪�듃
 		int count = 10;
 		for(int i=0; i<count; i++) {
 			String u_id = "test" + i;
 			String upw = "1234";
-			String uname = "홍길동" + i;
+			String uname = "�솉湲몃룞" + i;
 			String nickname = "test-" + i;
 			String email = "test"+ i + "@email.com";
 			UserVo vo = new UserVo();
-			vo.setU_id(u_id);
-			vo.setUpw(upw);
-			vo.setUname(uname);
+			vo.setUserId(u_id);
+			vo.setUserPw(upw);
 			vo.setNickname(nickname);
 			vo.setEmail(email);
 			
@@ -48,13 +49,13 @@ public class UserMapperTests {
 		}
 	}
 	
-	// 로그인
+	
 	@Test
 	public void testLogin() {
-		String u_id = "system";
-		String upw = "1234";
+		String userId = "system";
+		String userPw = "1234";
 		
-		UserVo vo = userMapper.login(u_id, upw);
-		log.info(vo);
+		LoginSessionDto dto = userMapper.login(userId, userPw);
+		log.info(dto);
 	}
 }
