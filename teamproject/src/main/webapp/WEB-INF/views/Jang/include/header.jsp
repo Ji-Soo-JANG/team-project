@@ -82,9 +82,9 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">커뮤니티</a>
+                <a href="/Lee/board/list/free" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/community/free" class="sub-nav-link">자유게시판</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
                     <li class="sub-nav-item"><a href="/board/community/information" class="sub-nav-link">정보공유</a></li>
                     <li class="sub-nav-item"><a href="/board/community/review" class="sub-nav-link">리뷰</a></li>
                     <li class="sub-nav-item"><a href="/board/community/qna" class="sub-nav-link">질문게시판</a></li>
