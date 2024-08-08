@@ -8,17 +8,17 @@
 <head>
     <meta charset="utf-8">
     <title>공지사항 작성</title>
-	<link rel="stylesheet" href="/resources/css/editorStyle.css">
+	<link rel="stylesheet" href="/resources/Jang/css/editorStyle.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
-	<link rel="stylesheet" href="/resources/css/noticePost.css">
+	<link rel="stylesheet" href="/resources/Jang/css/noticePost.css">
 </head>
 <body>
 <script type="text/javascript">
 $(function(){
-	console.log(`${loginVo}`);
+	console.log(`${loginSessionDto}`);
+	console.log(`${loginSessionDto.nickname}`);
 	
 	$("#btnRegister").click(function(){
-		$("#writer").val(${loginVo.uno});
 		$("#frmPost").submit();
 	});
 	
@@ -34,7 +34,7 @@ $(function(){
 </script>
     <div class="container">
         <h2>공지사항 작성</h2>
-        <form id="frmPost" action="/board/notice/post" method="post" >
+        <form id="frmPost" action="/Jang/board/notice/post" method="post" >
             <div class="form-group">
                 <label class="form-label" for="title">제목</label>
                 <input type="text" id="title" name="title" class="form-control">
@@ -45,11 +45,11 @@ $(function(){
             </div>
             <div class="form-group">
                 <label class="form-label" for="wrtier">작성자</label>
-                <input type="text" id="writer" name="writer" class="form-control" value="${loginVo.u_id}" readonly>
+                <input type="text" id="nickname" name="nickname" class="form-control" value="${loginSessionDto.nickname}" readonly>
             </div>
             <div class="actions">
                 <button id="btnRegister" type="button" class="btn btn-primary">등록</button>
-                <a href="/board/notice/list" class="btn btn-secondary">취소</a>
+                <a href="/Jang/board/notice/list" class="btn btn-secondary">취소</a>
             </div>
         </form>
     </div>
@@ -61,7 +61,7 @@ $(function(){
 			}
 		}
 		</script>
-		<script type="module" src="/resources/js/editorModule.js"></script>
+		<script type="module" src="/resources/Jang/js/editorModule.js"></script>
 </body>
 </html>
 

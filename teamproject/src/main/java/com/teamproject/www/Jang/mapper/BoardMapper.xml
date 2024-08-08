@@ -21,8 +21,8 @@
 			select seq_board.nextval from dual
 		</selectKey>
 		
-		insert into tbl_board(boardNo, title, content, userId, nickname, boardType)
-		values(#{boardNo}, #{title}, #{content}, #{userId}, #{nickname}, 0)
+		insert into tbl_board(boardNo, title, content, nickname, boardType)
+		values(#{boardNo}, #{title}, #{content}, #{nickname}, 0)
 	</insert>
 	
 	<!-- 공지사항 하나 가져오기 -->
@@ -38,21 +38,20 @@
 	<select id="getTotal" resultType="int">
 		select count(*) from tbl_board
 		 <if test="type != null">
-		 where 
-		        	<choose>
-		        		<when test="type == 'T'.toString()">
-		        		title like '%' || #{keyword} || '%'
-		        		</when>
-		        		
-		        		<when test="type == 'I'.toString()">
-		        		nickname like '%' || #{keyword} || '%'
-		        		</when>
-		        		
-		        		<when test="type == 'C'.toString()">
-		        		content like '%' || #{keyword} || '%'
-		        		</when>
-		        	</choose>
-		        </if>
+        	<choose>
+        		<when test="type == 'T'.toString()">
+        		where title like '%' || #{keyword} || '%'
+        		</when>
+        		
+        		<when test="type == 'I'.toString()">
+        		where nickname like '%' || #{keyword} || '%'
+        		</when>
+        		
+        		<when test="type == 'C'.toString()">
+        		where content like '%' || #{keyword} || '%'
+        		</when>
+        	</choose>
+        </if>
 	</select>
 	
 	
