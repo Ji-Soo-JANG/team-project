@@ -241,6 +241,19 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+
+		<!-- Spring-webmvc -->
+<!-- 		<dependency> -->
+<!--             <groupId>org.springframework</groupId> -->
+<!--             <artifactId>spring-webmvc</artifactId> -->
+<!--             <version>${org.springframework-version}</version> -->
+<!--         </dependency> -->
+        
+<!--         <dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-webmvc</artifactId> -->
+<!-- 			<version>${org.springframework-version}</version> -->
+<!-- 		</dependency> -->
 			        
 	</dependencies>
     <build>

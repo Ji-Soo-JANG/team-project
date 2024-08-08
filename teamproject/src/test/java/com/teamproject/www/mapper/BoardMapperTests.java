@@ -122,13 +122,4 @@ public class BoardMapperTests {
 		log.info(leeMapper);
 	}
 	
-	@Test
-	public void leeTestGetBoardList() {
-		Criteria cri = new Criteria();
-		cri.setBoardtype(1);
-		log.info("cri : " + cri);
-		List<BoardListDto> list = leeMapper.getListWithPaging(cri);
-		log.info("dto : " + list);
-	} 
-	
 }

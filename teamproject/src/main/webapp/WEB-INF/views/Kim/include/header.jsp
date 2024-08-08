@@ -52,15 +52,15 @@ $(function(){
             <li class="nav-item">
                 <a href="#" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/announce/announce" class="sub-nav-link">공지사항</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/greeting" class="sub-nav-link">가입인사</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/check" class="sub-nav-link">출석체크</a></li>
+                    <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/community/free" class="sub-nav-link">자유게시판</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
                     <li class="sub-nav-item"><a href="/Kim/board/information" class="sub-nav-link">정보공유</a></li>
                     <li class="sub-nav-item"><a href="/Kim/board/review" class="sub-nav-link">리뷰</a></li>
                     <li class="sub-nav-item"><a href="/Kim/board/qna" class="sub-nav-link">질문게시판</a></li>
@@ -69,16 +69,16 @@ $(function(){
             <li class="nav-item">
                 <a href="#" class="nav-link">모임</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/meeting/regular" class="sub-nav-link">정모 공지</a></li>
-                    <li class="sub-nav-item"><a href="/board/meeting/thunder" class="sub-nav-link">벙캠/동행</a></li>
-                    <li class="sub-nav-item"><a href="/board/meeting/review" class="sub-nav-link">모임후기</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정모 공지</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">벙캠/동행</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">모임후기</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">중고장터</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/board/market/buy" class="sub-nav-link">삽니다</a></li>
-                    <li class="sub-nav-item"><a href="/board/market/sell" class="sub-nav-link">팝니다</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">삽니다</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">팝니다</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a href="/metaverse" class="nav-link">메타버스</a></li>

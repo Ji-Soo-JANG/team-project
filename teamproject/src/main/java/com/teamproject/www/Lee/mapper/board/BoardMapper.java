@@ -3,27 +3,27 @@ package com.teamproject.www.Lee.mapper.board;
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.ClobVo;
-import com.teamproject.www.Lee.domain.DetailFreeBoardDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
+import com.teamproject.www.Lee.domain.board.BoardDetailDto;
 import com.teamproject.www.Lee.domain.board.BoardListDto;
 import com.teamproject.www.Lee.domain.board.Criteria;
-import com.teamproject.www.Lee.domain.board.InsertBoardDto;
+import com.teamproject.www.Lee.domain.board.BoardInsertDto;
 
 public interface BoardMapper {
 	// 게시판 등록
 	// 자유게시판
-	public int insertFreeBoard(InsertBoardDto Dto);
+	public int insertFreeBoard(BoardInsertDto Dto);
 	
-	public int insertGetKey(InsertBoardDto Dto);
+	public int insertGetKey(BoardInsertDto Dto);
 	
 	// 게시글 List 가져오기
-	public List<BoardListDto> getList(Criteria criteria);
+	public List<BoardListDto> getList(Criteria criteria, int boardtypeno);
 	
 	// 게시글 List 가져오기 with Paging
 	public List<BoardListDto> getListWithPaging(Criteria criteria);
 	
 	// 게시글 상세정보 가져오기 with b_f_no
-	public DetailFreeBoardDto getDetail(int b_f_no);
+	public BoardDetailDto getDetail(int b_f_no);
 	
 	// 총갯수 가져오기
 	public int getAllCount(Criteria criteria);

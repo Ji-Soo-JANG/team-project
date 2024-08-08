@@ -18,15 +18,15 @@ $(function(){
 	});
 	
 	//제목클릭
-	$(".a_b_f_no").click(function(e){
+	$(".a_boardno").click(function(e){
 		e.preventDefault();
 		console.log("제목클릭");
-		let b_f_no = $(this).attr("href");
-		console.log("게시번호 : " + b_f_no);
+		let boardno = $(this).attr("href");
+		console.log("게시번호 : " + boardno);
 		let arr = `<input type='hidden' name='boardno' value='\${boardno}'>`;
-		$("#actionForm > input[name='b_f_no']").remove();
+		$("#actionForm > input[name='boardno']").remove();
 		$("#actionForm").append(arr)
-						.attr("action", "/Lee/board/community/detail")
+						.attr("action", "/Lee/board/detail")
 						.submit();
 	});
 	
@@ -58,7 +58,6 @@ $(function(){
  	<!-- 게시판 테이블 start -->
 	<div class="table-Container">
      	<h3 class="board-title">자유게시판</h3> 
-     	<h4>pust 테스트</h4>
 <%--      	${list} --%>
            <table class="table mt-10" border="1">
                <tr>
@@ -73,7 +72,7 @@ $(function(){
                    <tr class="table-tr">
 	                   <td>${dto.boardno}</td>
 	                   <td class="table-text-left">
-	                   	<a class="a_b_f_no" href="${dto.boardno}">${dto.title}</a>
+	                   	<a class="a_boardno" href="${dto.boardno}">${dto.title}</a>
 	                   	<span class="reply-count ml-10" id="replyCount">${dto.replycount}</span> </td>
 	                   <td class="table-text-right">${dto.nickname}</td>
 	                   <td><fmf:formatDate value="${dto.regdate}" pattern="yyyy/MM/dd"/></td>
@@ -120,6 +119,9 @@ $(function(){
 	                    <option value="TW" id="typeTW">제목+삭성자</option>
 	                </select>
 	                <input type="text" name="keyword" value="${criteria.keyword}">
+	                <span>boardtypeno : </span>
+	                <input type= "text" name="boardtype" value="${criteria.boardtypeno}">
+	                <span>boardtype : </span>
 	                <input type= "text" name="boardtype" value="${criteria.boardtype}">
 	                <button class="btn btn-yellow" type="submit">검색</button>
             	</form>

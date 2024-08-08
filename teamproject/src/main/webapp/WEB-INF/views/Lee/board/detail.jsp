@@ -3,11 +3,11 @@
 <%@ include file="/WEB-INF/views/Lee/include/header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmf"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="/resources/js/detail.js" defer></script>
+<script src="/resources/Lee/js/detail.js" defer></script>
 <!-- CKEditor CDN 추가 -->
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script> -->
-<link rel="stylesheet" href="/resources/css/edite.css">
-<link rel="stylesheet" href="/resources/css/edite-detail.css">
+<link rel="stylesheet" href="/resources/Lee/css/edite.css">
+<link rel="stylesheet" href="/resources/Lee/css/edite-detail.css">
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 
 <script>
@@ -31,14 +31,14 @@ $(function(){
 
 	// ***************************** 추천하기 ******************************
 	$("#btnRecommend").click(function(){
-		let b_f_no = ${dto.b_f_no};
-		let b_f_writer = '${dto.b_f_writer}';
-		let u_id = '${login.u_id}';
+		let boardno = ${dto.boardno};
+		let wirter = '${dto.userid}';
+		let userid = '${login.userid}';
 		//let url = "/board/community/commend";
-		let data = {"b_f_no" : ${dto.b_f_no}};
+		let data = {"boardno" : ${dto.boardno}};
 		let sData = {
-				"b_f_no" : b_f_no,
-				"u_id" : u_id
+				"boardno" : boardno,
+				"userid" : userid
 		};
 		
 		if(${login == null}){
@@ -47,10 +47,10 @@ $(function(){
 		}
 		
 		// 로그인 한사람만
-		console.log("글쓴이 아이디 : " +  b_f_writer);
-		console.log("b_f_no : " + b_f_no);
-		console.log("u_id : " + u_id);
-		if(b_f_writer == u_id){
+		console.log("글쓴이 id : " +  wirter);
+		console.log("boardno : " + boardno);
+		console.log("userid : " + userid);
+		if(wirter == userid){
 			alert("내글은 추천 안된다능!?");
 			return;
 		}else{
@@ -58,7 +58,7 @@ $(function(){
 			
 			$.ajax({
 				type : "post",
-				url : "/board/community/checkLike",
+				url : "/Lee/board/checkLike",
 				data : JSON.stringify(sData),
 				contentType: "application/json; charset=utf-8",
 				success : function(rData){
@@ -69,7 +69,7 @@ $(function(){
 						console.log("추천 된다능")
 						$.ajax({
 							type : "post",
-							url : "/board/community/boardLike",
+							url : "/Lee/board/boardLike",
 							data : JSON.stringify(sData),
 							contentType: "application/json; charset=utf-8",
 							success : function(rData){
@@ -100,29 +100,29 @@ $(function(){
 		let checkReply = that.attr("data-checkreply");
 		console.log("checkReply", checkReply);
 		let formReply = that.parent().parent(); 
-		let b_f_no = ${dto.b_f_no};
+		let boardno = ${dto.boardno};
 		let reply = formReply.children(".reply").val();
 		let replyer = formReply.children(".replyer").val();
-		let b_f_r_no = that.attr("data-b_f_r_no");
+		let replyno = that.attr("data-replyno");
 		let isReply = that.attr("data-isreply");
 		
 		let sData;
-		let url = "/board/free/reply/register";
+		let url = "/Lee/board/reply/register";
 		
 		if(isReply==true){
 			console.log("댓글일때");
 			sData = {
-					"b_f_no" : b_f_no,
+					"boardno" : boardno,
 					"reply" : reply,
 					"replyer" : replyer
 			};
 		}else{
 			console.log("덧글일때");
 			sData = {
-					"b_f_no" : b_f_no,
+					"boardno" : boardno,
 					"reply" : reply,
 					"replyer" : replyer,
-					"b_f_r_no" : b_f_r_no
+					"replyno" : replyno
 			};
 		}
 
@@ -144,18 +144,18 @@ $(function(){
     $("#reply-ul").on('click', ".btnReplyDelete" ,function(e){
     	console.log(e);
     	let that = $(this);
-    	let b_f_r_no = that.attr("data-b_f_r_no");
-    	console.log("b_f_r_no : " + b_f_r_no);
+    	let b_f_r_no = that.attr("data-replyno");
+    	console.log("replyno : " + replyno);
     	
-    	$("#btnReplyDeleteOk").attr("data-b_f_r_no", b_f_r_no);
+    	$("#btnReplyDeleteOk").attr("data-replyno", replyno);
     	$("#reply-delete-modal").show();
     });
 	// 삭제처리
 	$("#btnReplyDeleteOk").click(function(){
-		let b_f_r_no = $(this).attr("data-b_f_r_no");
+		let replyno = $(this).attr("data-replyno");
     	$.ajax({
 			type: "delete",
-			url: "/board/free/reply/delete/" + b_f_r_no,
+			url: "/Lee/board/reply/delete/" + replyno,
 			success : function(rData){
 				console.log(rData);
 				$("#reply-delete-modal").hide();
@@ -165,7 +165,7 @@ $(function(){
 	});
 	// 삭제취소
 	$("#btnReplyDeleteCancle").click(function(){
-		$("#btnReplyDeleteOk").removeAttr("data_b_f_r_no");
+		$("#btnReplyDeleteOk").removeAttr("data_replyno");
 		$("#reply-delete-modal").hide();
 	});
 	
@@ -174,11 +174,11 @@ $(function(){
 		console.log("좋아요 클릭")
 		console.log(e);
 		let that = $(this);
-		let b_f_r_no  = that.attr("data-b_f_r_no");
-		console.log("b_f_r_no : " + b_f_r_no);
+		let b_f_r_no  = that.attr("data-replyno");
+		console.log("replyno : " + replyno);
 		$.ajax({
 			type : "get",
-			url : "/board/free/reply/like/" + b_f_r_no,
+			url : "/Lee/board/reply/like/" + replyno,
 			success : function(rData){
 				console.log(rData);
 				showReplys();
@@ -191,7 +191,7 @@ $(function(){
 	$("#reply-ul").on("click", ".rereply", function(e){
 		let that = $(this);
 		let isReply = that.attr("data-isreply");
-		let b_f_r_no = that.attr("data-b_f_r_no");
+		let b_f_r_no = that.attr("data-replyno");
 		let li = that.parent().parent().parent().parent();
 		let ul = li.parent();
 		let rereplyClone = $(".rereply-ul > li").clone().css("list-style", "none");
@@ -210,7 +210,7 @@ $(function(){
 			console.log("대댓글");
 			rereplyClone.children(".form-reply").children(".box-item")
 												.children(".btn-reply")
-												.attr("data-b_f_r_no", b_f_r_no)
+												.attr("data-replyno", replyno)
 												.attr("data-isreply", false);
 		};
 		ul.children(".reply-li").remove();
@@ -223,7 +223,7 @@ $(function(){
 		$("#reply-ul").empty();
 		$.ajax({
 			type : "get",
-			url : "/board/free/reply/list/${dto.b_f_no}",
+			url : "/Lee/board/free/list/${dto.boardno}",
 			success : function(rData){
 				let btnReply = `<li class="list-style-none mb-10">
 									<div>
@@ -240,14 +240,14 @@ $(function(){
 					let li =
 						`<li class="reply-item mt-10" style="margin-left: \${(obj.reply_level-1)*20}px; width: calc(100% - \${(obj.reply_level-1)*20}px)">
 							<div class="user-profile flex">
-								<img class="user-profile-img" alt="프로필" src="/resources/image/Boy6.gif">
+								<img class="user-profile-img" alt="프로필" src="/resources/Lee/image/Boy6.gif">
 							</div>
 							<div class="width100per ml-20">
 								<div class="flex justify-between pl-10">
 									<span class="yellow-border-box">\${obj.replyer}</span>
-									<button class="btn-like" data-b_f_r_no="\${obj.b_f_r_no}">
+									<button class="btn-like" data-replyno="\${obj.replyno}">
 										<img class="like-img" alt="" src="/resources/image/favorite.png"> 
-										<span style="margin:0 0 4px 4px">\${obj.good}</span>
+										<span style="margin:0 0 4px 4px">\${obj.likes}</span>
 									</button>
 								</div>
 								<textarea class="ta-reply-item ta-auto-resize pl-10 mt-10" rows="" cols="">\${obj.reply}								
@@ -256,12 +256,12 @@ $(function(){
 									<div>
 										<span>\${toDateString(obj.replydate)}</span> 
 										<img class="reply-img" alt="reply" src="/resources/image/reply.png">
-										<span class="cursor-pointer hover-black rereply" data-b_f_r_no="\${obj.b_f_r_no}">덧글달기</span>
+										<span class="cursor-pointer hover-black rereply" data-replyno="\${obj.replyno}">덧글달기</span>
 									</div>
 									<div class="flex">
 										<button class="btn mr-10 btnReplyUpdate">수정</button>
-										<button class="btn mr-10 btnReplyUpdateOk" data-b_f_r_no="\${obj.b_f_r_no}" style="display:none">수정완료</button>
-										<button class="btn btnReplyDelete" data-b_f_r_no="\${obj.b_f_r_no}">삭제</button>
+										<button class="btn mr-10 btnReplyUpdateOk" data-replyno="\${obj.replyno}" style="display:none">수정완료</button>
+										<button class="btn btnReplyDelete" data-replyno="\${obj.replyno}">삭제</button>
 									</div>
 								</div>
 							</div>
@@ -298,7 +298,7 @@ $(function(){
             <button class="reply-delete-btn reply-delete-btn-r" id="btnReplyDeleteOk">삭제</button>
         </div>
     </div>
-    <input type="hidden" id="b_f_r_no" name="b_f_r_no">
+    <input type="hidden" id="repyno" name="replyno">
 </div>
 <!-- 댓글 삭제 모달 end -->
 
@@ -306,31 +306,30 @@ $(function(){
 <!-- <div class="write-container"> -->
 	<h3 class="board-title">상세페이지 입니다</h3>
 	<!-- DetailForm Start -->
-	<form action="/board/community/updateRun" id="update-from" class="write-from" method="post">
+	<form action="/Lee/board/updateRun" id="update-from" class="write-from" method="post">
 		<div class="user-container">
 			<div class="user-profile">
-				<img class="user-profile-img" alt="프로필" src="/resources/image/Boy6.gif">
+				<img class="user-profile-img" alt="프로필" src="/resources/Lee/image/Boy6.gif" width=110 height=110>
 			</div>
 			<div class="profile-container">
 				<div class="mb-10 mt-10">
-					<input class="input-user" value="${dto.b_f_writer}" readonly>
+					<input class="input-user" value="${dto.nickname}" readonly>
 				</div>
 				<div class="mb-10">
-					<span>등록일</span> <input type="text" class="input-user" name="b_f_regdate" value="<fmf:formatDate value="${dto.b_f_regdate}" pattern="yyyy-MM-dd hh:mm"/>" readonly> 
+					<span>등록일</span> <input type="text" class="input-user" name="regdate" value="<fmf:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd hh:mm"/>" readonly> 
 				</div>
 				<div>
-					<span>조회수 </span><input type="text" class="input-user" name="b_f_views" value="${dto.b_f_views}" readonly>
+					<span>조회수 </span><input type="text" class="input-user" name="views" value="${dto.views}" readonly>
 				</div>
 			</div>
 			
 		</div>
-      	<input type="text" id="input-write" class="input-write" name="b_f_title" placeholder=" 제목을 입력 해 주세요." 
-      			value="${dto.b_f_title}" readonly>
+      	<input type="text" id="input-write" class="input-write" name="title" placeholder=" 제목을 입력 해 주세요." 
+      			value="${dto.title}" readonly>
       	
 		<!-- 모듈에서 가져올 html -->
-		<textarea rows="" cols="" id="b_f_content" name="b_f_content" style="display:none;">${dto.b_f_content}</textarea>
-		<input type="hidden" value="${dto.b_f_no}" name="b_f_no">
-		<input type="hidden" value="${dto.b_f_img}" id="b_f_img" name="b_f_img">
+		<textarea rows="" cols="" id="content" name="content" style="display:none;">${dto.content}</textarea>
+		<input type="hidden" value="${dto.boardno}" name="boardno">
 		
 		<!-- CK에디터 start -->
 			<div id="readEditor">
@@ -344,7 +343,7 @@ $(function(){
 					}
 				}
 			</script>
-			<script type="module" src="/resources/js/edite-detail.js"></script>
+			<script type="module" src="/resources/Lee/js/edite-detail.js"></script>
 		<!-- CK에디터 end -->
 		
         <div class="btn-container justify-between">
@@ -357,9 +356,9 @@ $(function(){
         	<!-- 추천하기 -->
         	<div class="recommend-container">
         		<button type="button" class="btnRecommend" id="btnRecommend">
-        			<img alt="" src="/resources/image/thumb_up.png">
+        			<img alt="" src="/resources/Lee/image/thumb_up.png">
         		</button>
-        		<span id="spanRecommend">${dto.b_f_recommended}</span>
+        		<span id="spanRecommend">${dto.likes}</span>
         	</div>
         	
         	<!-- 로그인시 보이기 처리 -->
@@ -370,7 +369,7 @@ $(function(){
 		        		<button type="button" id="btnUpdateOk" class="btn mr-10" style="display:none">수정완료</button>
 		        		<button type="button" id="btnUpdateCancle" class="btn mr-10"  style="display:none">취소</button>
 	        	</c:if>
-		        <a class="btn" href="/write">글쓰기</a>
+		        <a class="btn" href="/Lee/board/write">글쓰기</a>
 		    </div>
          </div>
     </form>
@@ -393,7 +392,7 @@ $(function(){
 			<div class="form-reply">
 			    <textarea rows="" cols="" class="ta-reply ta-auto-resize reply" placeholder="댓글을 입력해주세요.."></textarea>
 	<!-- 		    <div> -->
-				<input type="hidden" class="replyer" value="${login.u_nickname}">
+				<input type="hidden" class="replyer" value="${login.nickname}">
 	<!-- 		    </div> -->
 				<div class="box-item justify-end"> 
 					<button class="btn mt-10 btn-reply">댓글저장</button>
@@ -404,9 +403,8 @@ $(function(){
     <!-- ReplyForm End -->
     
     <!-- Delete Form Start -->
-    <form action="/board/community/freeDelRun" method="post" id="formDelete">
-    	<input type="hidden" name="b_f_no" value="${dto.b_f_no}">
-    	<input type="hidden" name="b_f_img" value="${dto.b_f_img}">
+    <form action="/Lee/board/freeDelRun" method="post" id="formDelete">
+    	<input type="hidden" name="boardno" value="${dto.boardno}">
     </form>
     <!-- Delete Form End -->
 </div>
