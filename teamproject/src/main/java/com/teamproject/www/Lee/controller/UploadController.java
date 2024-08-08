@@ -24,10 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.teamproject.www.Lee.Util.MyFileUtil;
 import com.teamproject.www.Lee.domain.FolderDto;
 
+import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 
-
-@Log4j2
+@Log4j
 @Controller("leeUploadController")
 @RequestMapping("/Lee/upload/*")
 public class UploadController {
