@@ -25,9 +25,9 @@ $(function(){
 	
 	
 	// 작성자 로그인시 수정/삭제 버튼 보이기
-	let u_id = "${loginVo.u_id}";
-	let writer = "${dto.writer}";
-	if(writer == u_id){
+	let userId = "${loginSessionDto.nickname}";
+	let nickname = "${noticeDto.nickname}";
+	if(nickname == userId){
 		$("#btnModify").css("display", "inline-block");
         $("#btnDelete").css("display", "inline-block");
 	}
@@ -36,7 +36,7 @@ $(function(){
 	editor.enableReadOnlyMode("item_detail_textarea");
 	
 	//에디터 setData
-	editor.setData(`${dto.content}`);
+	editor.setData(`${noticeDto.content}`);
 	
     $("#btnList").click(function(){
         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
@@ -66,17 +66,17 @@ $(function(){
     
     $("#btnModifyOk").click(function(){
     	let content = editor.getData();
-    	let bno = ${dto.bno};
+    	let boardNo = ${noticeDto.boardNo};
     	// console.log(content);
-		// console.log(bno);
+		// console.log(boardNo);
 		 
 		let sData = {
 			"content" : content,
-			"bno" : bno
+			"boardNo" : boardNo
 		};
 		
 		$.ajax({
-			url : "/board/notice/modify",
+			url : "/Jang/board/notice/modify",
 			type : "post",
 			data : sData,
 			success : function(rData){
@@ -101,9 +101,9 @@ $(function(){
     		let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
             let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
             $("#actionForm").attr("method", "post")
-           					.append(`<input type="hidden" name="bno">`);
-            $("#actionFrom input[name=bno]").val(${dto.bno});
-            submitForm("/Jang/board/notice/remove/" + ${dto.bno}, ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
+           					.append(`<input type="hidden" name="boardNo">`);
+            $("#actionFrom input[name=boardNo]").val(${noticeDto.boardNo});
+            submitForm("/Jang/board/notice/remove/" + ${noticeDto.boardNo}, ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
     	}
     });
 });
@@ -120,7 +120,7 @@ $(function(){
                 <th>제목</th>
             </tr>
             <tr>
-                <td>${dto.title}</td>
+                <td>${noticeDto.title}</td>
             </tr>
             <tr>
                 <th>내용</th>
@@ -132,12 +132,12 @@ $(function(){
                 <th>작성자</th>
             </tr>
             <tr> 
-                <td>${dto.writer}</td>
+                <td>${noticeDto.nickname}</td>
             </tr>
             <tr>
                 <th>등록일</th>
             <tr>
-                <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd"/></td>
+                <td><fmt:formatDate value="${noticeDto.regdate}" pattern="yyyy-MM-dd"/></td>
             </tr>
         </table>
     </div>
@@ -150,7 +150,7 @@ $(function(){
     </div>
 </div>
 
-<%-- <form action="/board/notice/remove/${dto.bno}" id="frmRemove" method="post"> --%>
+<%-- <form action="/board/notice/remove/${noticeDto.boardNo}" id="frmRemove" method="post"> --%>
 <!-- </form> -->
 
 <%@ include file="/WEB-INF/views/Jang/include/footer.jsp"%>
