@@ -15,7 +15,26 @@ pageContext.setAttribute("now", now);
     let initialSort = '${pageMaker.cri.sort}';
     let initialOrder = '${pageMaker.cri.order}';
     updateSortIcons(initialSort, initialOrder);
+	setSearch();
+    
 	
+    function setSearch(){
+    	let type = "${pageMaker.cri.type}"
+    	let keyword = "${pageMaker.cri.keyword}"
+    	
+    	if(type == null){
+    		$("option[value=T]").attr("selected","selected");
+    	} else{
+    		$("option[value='${pageMaker.cri.type}']").attr("selected","selected");
+    	}
+    	
+    	if(keyword != null){
+    		$("#keyword").val(keyword);
+    	}
+    	
+    	
+    }
+    
     function updatePagination(pageMaker){
     	let pagination = $(".page-ul");
     	pagination.empty();
@@ -42,7 +61,8 @@ pageContext.setAttribute("now", now);
         let pageNum = $(this).attr("href");
         let amount = ${pageMaker.cri.amount};
         let type = $("#btnSearch").parent().find("select").val();
-        submitForm("/Jang/board/notice/list", pageNum, amount, type, null, null);
+        let keyword = $("#keyword").val();
+        submitForm("/Jang/board/notice/list", pageNum, amount, type, keyword, null);
     });
 
     $("#btnSearch").click(function(){
@@ -114,7 +134,7 @@ pageContext.setAttribute("now", now);
 				                    <a class="notice-title" href="\${dto.boardNo}">\${dto.title}</a>
 					                 \${newLabel}
 				                </td>
-				                <td>\${dto.writer}</td>
+				                <td>\${dto.nickname}</td>
 				                <td>\${formattedDate}</td>
 				                <td>\${dto.views}</td>
 				            </tr>`;
@@ -142,7 +162,7 @@ pageContext.setAttribute("now", now);
 	                <tr>
 	                    <th class="table-head sortable" data-sort="boardNo">번호 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="title">제목 <span class="sort-icon"></span></th>
-				        <th class="table-head sortable" data-sort="writer">글쓴이 <span class="sort-icon"></span></th>
+				        <th class="table-head sortable" data-sort="nickname">글쓴이 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="regdate">등록일 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="views">조회수 <span class="sort-icon"></span></th>
 	<!--                <th class="table-head">추천</th> -->
@@ -159,7 +179,7 @@ pageContext.setAttribute("now", now);
 		                        <span class="new-label">NEW</span>
 		                    </c:if>
 	                    </td>
-	                    <td>${dto.writer}</td>
+	                    <td>${dto.nickname}</td>
 	                    <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd"/></td>
 	                    <td>${dto.views}</td>
 	                </tr>
@@ -178,7 +198,7 @@ pageContext.setAttribute("now", now);
                         <li class="page-item ${pageMaker.cri.pageNum == v ? 'active' :''}"><a class="pageNumber page-link" href="${v}" >${v}</a></li>
                        	 </c:forEach>
                    	<c:if test="${pageMaker.next}">
-                        <li class="page-item"><a class="pageNumber page-link" href="${(pageMaker.endPage + 1)}" ">다음</a></li>
+                        <li class="page-item"><a class="pageNumber page-link" href="${(pageMaker.endPage + 1)}">다음</a></li>
                    	</c:if>
                     </ul>
                 </nav>

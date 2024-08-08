@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<form id="actionForm" action="/board/announce/announce" method="get">
+<form id="actionForm" action="/Jang/board/notice/list" method="get">
 	<input type="hidden" name="pageNum" 
 		value="${pageMaker.cri.pageNum}" />
 	<input type="hidden" name="amount" 

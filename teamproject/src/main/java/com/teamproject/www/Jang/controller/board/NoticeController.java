@@ -31,7 +31,7 @@ import com.teamproject.www.Jang.service.BoardService;
 @Qualifier("JangBoardService")
 public class NoticeController {
 	// 허용된 정렬 조건
-	private static final List<String> SORT_LIST = Arrays.asList("bno", "title", "content", "writer", "regdate", "views");
+	private static final List<String> SORT_LIST = Arrays.asList("boardNo", "title", "content", "writer", "regdate", "views");
 	private static final List<String> ORDER_LIST = Arrays.asList("desc", "asc");
 	
 	@Autowired
@@ -43,7 +43,7 @@ public class NoticeController {
 					   @RequestParam(value = "order", required = false) String order,
 					   Model model) {
 		
-		// 정렬 값 세팅(기본값 - sort : bno, order - desc)
+		// 정렬 값 세팅(기본값 - sort : boardNo, order - desc)
 		// sort 와 order를 직접 받아와서 cri에 적용(NoticeCriteria의 field를 public으로 하지 않음)
 		if(sort != null && SORT_LIST.contains(sort)) {
 			cri.setSort(sort);
@@ -85,7 +85,7 @@ public class NoticeController {
 					   Model model) {
 		
 		System.out.println("list-data...");
-		// 정렬 값 세팅(기본값 - sort : bno, order - desc)
+		// 정렬 값 세팅(기본값 - sort : boardNo, order - desc)
 		// sort 와 order를 직접 받아와서 cri에 적용(NoticeCriteria의 field를 public으로 하지 않음)
 		if(sort != null && SORT_LIST.contains(sort)) {
 			cri.setSort(sort);
@@ -120,15 +120,15 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/detail")
-	public String noticeDetail(@RequestParam("bno") Long bno, NoticeCriteria cri, Model model) {
+	public String noticeDetail(@RequestParam("boardNo") Long boardNo, NoticeCriteria cri, Model model) {
 		System.out.println("cri: " + cri);
-		NoticeDto dto = boardService.getNotice(bno);
+		NoticeDto dto = boardService.getNotice(boardNo);
 
 		// cri만 보내도 되지만 action_form에 셋팅된 기본 값(pageMaker.cri.xxx)을 사용하기 위해
 		NoticePageDto pageMaker = new NoticePageDto(cri, 0);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("dto", dto);
-		boardService.viewsUp(bno);
+		boardService.viewsUp(boardNo);
         return "forward:/WEB-INF/views/Jang/board/notice/noticeDetail.jsp";
 	}
 	
@@ -147,13 +147,13 @@ public class NoticeController {
 	
 	@ResponseBody
 	@PostMapping("/modify")
-	public ResponseEntity<Map> modify(String content, Long bno) {
+	public ResponseEntity<Map> modify(String content, Long boardNo) {
 //		System.out.println("content: " + content);
-//		System.out.println("bno: " + bno);
+//		System.out.println("boardNo: " + boardNo);
 		ResponseEntity<Map> response = null;
 		String resultContent = "";
 		
-		boolean result = boardService.modify(content, bno);
+		boolean result = boardService.modify(content, boardNo);
 		
 		if(result) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -167,9 +167,9 @@ public class NoticeController {
 		return response;
 	}
 	
-	@PostMapping("/remove/{bno}")
-	public String remove(@PathVariable("bno") Long bno, NoticeCriteria criteria) {
-		boolean result = boardService.remove(bno);
+	@PostMapping("/remove/{boardNo}")
+	public String remove(@PathVariable("boardNo") Long boardNo, NoticeCriteria criteria) {
+		boolean result = boardService.remove(boardNo);
 		
 		String url = String.format("?pageNum=%d&amount=%d&type=%s&keyword=%s&sort=%s&order=%s"
 				,criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword(), criteria.getSort(), criteria.getOrder()); 
