@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="/WEB-INF/views/Jang/include/header.jsp" %>
-<link rel="stylesheet" type="text/css" href="/resources/css/noticeDetail.css">
-<link rel="stylesheet" href="/resources/css/editorStyle.css">
+<link rel="stylesheet" type="text/css" href="/resources/Jang/css/noticeDetail.css">
+<link rel="stylesheet" href="/resources/Jang/css/editorStyle.css">
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 <script type="importmap">
 		{
@@ -41,7 +41,7 @@ $(function(){
     $("#btnList").click(function(){
         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
         let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
-        submitForm("/board/notice/list", ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
+        submitForm("/Jang/board/notice/list", ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
     });
 
     $("#btnModify").click(function (){
@@ -103,7 +103,7 @@ $(function(){
             $("#actionForm").attr("method", "post")
            					.append(`<input type="hidden" name="bno">`);
             $("#actionFrom input[name=bno]").val(${dto.bno});
-            submitForm("/board/notice/remove/" + ${dto.bno}, ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
+            submitForm("/Jang/board/notice/remove/" + ${dto.bno}, ${pageMaker.cri.pageNum}, ${pageMaker.cri.amount}, type, keyword, null);
     	}
     });
 });

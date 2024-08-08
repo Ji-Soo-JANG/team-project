@@ -32,7 +32,7 @@ public class BoardMapperTests {
 
 	@Test
 	public void testGetNotice() {
-		Long boardNo = 2865L;
+		Long boardNo = 1611L;
 		log.info(boardMapper.getNotice(boardNo));
 	}
 	
@@ -42,7 +42,7 @@ public class BoardMapperTests {
 		BoardVo boardVo = new BoardVo();
 		boardVo.setTitle("공지사항" + i);
 		boardVo.setContent("내용" + i);
-		boardVo.setWriter(0);
+		boardVo.setWriter("id-"+i);
 		boardVo.setBoardtype(1); // type 1 - 공지사항, 2 - �옄�쑀寃뚯떆�뙋
 		
 		int count = boardMapper.insertNotice(boardVo);
@@ -97,7 +97,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testViewsUp() {
-		Long boardNo = 2865L;
+		Long boardNo = 1611L;
 		int views = boardMapper.viewsUp(boardNo);
 		if(views > 0 ) {
 			log.info(true);
@@ -106,7 +106,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testUpdate() {
-        Long boardNo = 2865L;
+        Long boardNo = 1611L;
         String content = "<h1>변경됨</h1>";
         int result = boardMapper.updateNotice(content, boardNo);
         NoticeDto dto = boardMapper.getNotice(boardNo);
@@ -115,7 +115,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testDelete() {
-		Long boardNo = 2865L;
+		Long boardNo = 1611L;
 		int result = boardMapper.deleteNotice(boardNo);
 		log.info(result);
 	}

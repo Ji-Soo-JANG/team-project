@@ -9,7 +9,7 @@ public class BoardVo {
 	private Long boardNo;
 	private String title;
 	private String content;
-	private int writer;
+	private String writer;
 	private int boardtype;
 	private Date regdate;
 	private Date updatedate;

@@ -42,18 +42,18 @@ pageContext.setAttribute("now", now);
         let pageNum = $(this).attr("href");
         let amount = ${pageMaker.cri.amount};
         let type = $("#btnSearch").parent().find("select").val();
-        submitForm("/board/notice/list", pageNum, amount, type, null, null);
+        submitForm("/Jang/board/notice/list", pageNum, amount, type, null, null);
     });
 
     $("#btnSearch").click(function(){
         console.log("btnSearch click..");
         let type = $("#btnSearch").parent().find("select").val();
         let keyword = $("#btnSearch").parent().find("input").val();
-        submitForm("/board/notice/list", 1, 10, type, keyword, null);
+        submitForm("/Jang/board/notice/list", 1, 10, type, keyword, null);
     });
     
     $(".btn-write").click(function(){
-    	location.href="/board/notice/postForm";
+    	location.href="/Jang/board/notice/postForm";
     });
     $("tbody").on("click", ".notice-title", function(e){
     	e.preventDefault();
@@ -65,8 +65,8 @@ pageContext.setAttribute("now", now);
         let amount = ${pageMaker.cri.amount != null ? pageMaker.cri.amount : 10};
         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
         let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
-        let bno = targetEle.attr("href");
-        submitForm("/board/notice/detail", pageNum, amount, type, keyword, bno);
+        let boardNo = targetEle.attr("href");
+        submitForm("/Jang/board/notice/detail", pageNum, amount, type, keyword, boardNo);
     });
     
     // e.originalEvent.srcElement
@@ -77,9 +77,9 @@ pageContext.setAttribute("now", now);
 //         let amount = ${pageMaker.cri.amount != null ? pageMaker.cri.amount : 10};
 //         let type = "${pageMaker.cri.type != null ? pageMaker.cri.type : ''}";
 //         let keyword = "${pageMaker.cri.keyword != null ? pageMaker.cri.keyword : ''}";
-//         let bno = $(this).attr("href");
-//         console.log(bno);
-//         submitForm("/board/notice/detail", pageNum, amount, type, keyword, bno);
+//         let boardNo = $(this).attr("href");
+//         console.log(boardNo);
+//         submitForm("/board/notice/detail", pageNum, amount, type, keyword, boardNo);
 //     });
 	
     $(".sortable").click(function(){
@@ -90,7 +90,7 @@ pageContext.setAttribute("now", now);
     	let sort = $(this).data("sort");
     	let order = $(this).hasClass("sort-asc") ? "desc" : "asc";
     	$.ajax({
-    		url : '/board/notice/list-data',
+    		url : '/Jang/board/notice/list-data',
     		type : 'get',
     		data : {
     			pageNum : pageNum,
@@ -108,10 +108,10 @@ pageContext.setAttribute("now", now);
 					let newLabel = dto.newPost ? '<span class="new-label">NEW</span>' : '';
 					let formattedDate = formatDate(new Date(dto.regdate));
 					tbody += `<tr>
-				                <td>\${dto.bno}</td>
+				                <td>\${dto.boardNo}</td>
 				                <td class="table-Text-Left" >
 				                    <span class="notice-label">공지</span>
-				                    <a class="notice-title" href="\${dto.bno}">\${dto.title}</a>
+				                    <a class="notice-title" href="\${dto.boardNo}">\${dto.title}</a>
 					                 \${newLabel}
 				                </td>
 				                <td>\${dto.writer}</td>
@@ -140,7 +140,7 @@ pageContext.setAttribute("now", now);
             <table class="table" border="1">
 	            <thead>
 	                <tr>
-	                    <th class="table-head sortable" data-sort="bno">번호 <span class="sort-icon"></span></th>
+	                    <th class="table-head sortable" data-sort="boardNo">번호 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="title">제목 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="writer">글쓴이 <span class="sort-icon"></span></th>
 				        <th class="table-head sortable" data-sort="regdate">등록일 <span class="sort-icon"></span></th>
@@ -151,10 +151,10 @@ pageContext.setAttribute("now", now);
                 <tbody>
 	                <c:forEach items="${list}" var="dto">
 	                <tr>
-	                    <td>${dto.bno}</td>
+	                    <td>${dto.boardNo}</td>
 	                    <td class="table-Text-Left" >
 		                    <span class="notice-label">공지</span>
-		                    <a class="notice-title" href="${dto.bno}">${dto.title}</a>
+		                    <a class="notice-title" href="${dto.boardNo}">${dto.title}</a>
 		                    <c:if test="${dto.newPost}">
 		                        <span class="new-label">NEW</span>
 		                    </c:if>

@@ -7,8 +7,7 @@ create table tbl_board_type(
 
 -- 유저 테이블
 create table tbl_user(
-    UserNo number(10) primary key,
-    UserId varchar2(50) not null,
+    UserId varchar2(50) primary key,
     UserPw varchar2(50) not null,
     NickName varchar2(50) not null,
     Email varchar2(50),
@@ -23,7 +22,7 @@ create table tbl_board(
     BoardNo number(10) primary key,
     Title VARCHAR2(300) NOT NULL,
     Content VARCHAR2(2000) NOT NULL,
-    Writer NUMBER(10) NOT NULL,
+    UserId varchar2(50) NOT NULL,
     BoardType NUMBER(10) NOT NULL, -- 게시글 타입(공지/자유/질문/지식/...)
     RegDate DATE DEFAULT SYSDATE,
     UpdateDate DATE DEFAULT SYSDATE,
@@ -32,7 +31,7 @@ create table tbl_board(
     ReplyCount number(10) DEFAULT 0, -- 댓글 수
     
     CONSTRAINT FK__board_Type FOREIGN KEY (BoardType) REFERENCES tbl_board_type (BoardTypeNo),
-    CONSTRAINT FK_board_Writer FOREIGN KEY (Writer) REFERENCES tbl_user (UserNo)
+    CONSTRAINT FK_board_UserId FOREIGN KEY (UserId) REFERENCES tbl_user (UserId)
 );
   
 -- 첨부파일 테이블
@@ -50,28 +49,39 @@ create table tbl_reply(
     ReplyNo number(10) primary key,
     BoardNo number(10),
     Comments varchar2(1000) not null,
-    Replyer varchar2(20),
+    CommentsNo number(10),
+    Replyer varchar2(50),
     likes number(10) default 0,
     updateDate date default sysdate,
     
-    constraint FK_reply_BoardNo FOREIGN KEY (BoardNo) REFERENCES tbl_board(BoardNo)
+    constraint FK_reply_BoardNo FOREIGN KEY (BoardNo) REFERENCES tbl_board(BoardNo),
+    constraint FK_reply_CommentsNo FOREIGN KEY (CommentsNo) REFERENCES tbl_reply(ReplyNo),
+    constraint FK_reply_Replyer FOREIGN KEY (Replyer) REFERENCES tbl_user(UserId)
 );
 
 -- 좋아요/찜 테이블
 create table tbl_like(
     LikeNo number(10) primary key,
     BoardNo number(10),
-    UserNo number(10),
+    UserId varchar2(50),
     
     constraint FK_like_BoardNo FOREIGN KEY (BoardNo) REFERENCES tbl_board(BoardNo),
-    constraint FK_like_UserNo FOREIGN KEY (UserNo) REFERENCES tbl_user(UserNo)
+    constraint FK_like_UserId FOREIGN KEY (UserId) REFERENCES tbl_user(UserId)
 );
 
 
 
 create sequence seq_board;
 create sequence seq_board_type;
-create sequence seq_user;
 create sequence seq_attach;
 create sequence seq_reply;
 create sequence seq_like;
+
+insert into tbl_user(userId, userPw, nickname, email)
+values('system', '1234', 'nickname', 'system@email,com');
+
+insert into tbl_board_type
+values(0, '공지사항');
+-- 본인 게시판 데이터 넣으시길 --
+
+commit;

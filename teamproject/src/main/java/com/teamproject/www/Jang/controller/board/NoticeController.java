@@ -129,12 +129,12 @@ public class NoticeController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("dto", dto);
 		boardService.viewsUp(bno);
-        return "forward:/WEB-INF/views/board/notice/noticeDetail.jsp";
+        return "forward:/WEB-INF/views/Jang/board/notice/noticeDetail.jsp";
 	}
 	
 	@GetMapping("/postForm")
 	public String postForm() {
-		return "/board/notice/post";
+		return "/Jang/board/notice/post";
 	}
 	
 	@PostMapping("/post")
@@ -142,7 +142,7 @@ public class NoticeController {
 		System.out.println("post...");
 		System.out.println("vo : " + vo);
 		boardService.insertNotice(vo);
-		return "redirect:/board/notice/list";
+		return "redirect:/Jang/board/notice/list";
 	}
 	
 	@ResponseBody
@@ -175,6 +175,6 @@ public class NoticeController {
 				,criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword(), criteria.getSort(), criteria.getOrder()); 
 		System.out.println("url:" + url);
 		System.out.println(result);
-		return "redirect:/board/notice/list?" + url;
+		return "redirect:/Jang/board/notice/list?" + url;
 	}
 }

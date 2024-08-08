@@ -215,13 +215,6 @@
 		    <version>0.4.8</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-web</artifactId>
-		    <version>3.3.2</version>
-		</dependency>
-		
 		<!-- quartz -->
 		<dependency>
 		    <groupId>org.quartz-scheduler</groupId>
@@ -249,13 +242,6 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- Spring-webmvc -->
-		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-			        
 	</dependencies>
     <build>
         <plugins>
