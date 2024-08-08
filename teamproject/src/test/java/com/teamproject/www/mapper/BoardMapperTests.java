@@ -124,12 +124,4 @@ public class BoardMapperTests {
 		log.info(result);
 	}
 	
-<<<<<<< HEAD
-	@Test
-	public void leeInstance() {
-		log.info(leeMapper);
-	}
-	
-=======
->>>>>>> branch 'master' of https://github.com/Ji-Soo-JANG/team-project.git
 }
