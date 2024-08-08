@@ -35,6 +35,7 @@ public class BoardController {
 
 	// 정보공유 게시판 (김세영)
 	// 깃테스트
+	// 깃테스트2
 	@GetMapping("/information")
 	public void informationBoard(Model model, InformationCriteria criteria,
 	        @RequestParam(value = "type", required = false) String type,
