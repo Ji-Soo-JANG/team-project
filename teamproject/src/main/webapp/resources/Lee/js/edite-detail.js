@@ -57,7 +57,7 @@ const editorConfig = {
         Undo
     ],
     simpleUpload: {
-        uploadUrl: '/uploadAction', // 업로드할 URL 설정
+        uploadUrl: '/Lee/upload/uploadAction', // 업로드할 URL 설정
         headers: {
             'X-CSRF-TOKEN': 'CSRF-Token', // 필요한 경우
             Authorization: 'Bearer <JSON Web Token>' // 필요한 경우

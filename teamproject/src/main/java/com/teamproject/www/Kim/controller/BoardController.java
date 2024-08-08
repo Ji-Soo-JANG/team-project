@@ -7,10 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +32,8 @@ public class BoardController {
     private AttachMapper attachMapper;
 
 	// 정보공유 게시판 (김세영)
+	// 깃테스트
+	// 깃테스트2
 	@GetMapping("/information")
 	public void informationBoard(Model model, InformationCriteria criteria,
 	        @RequestParam(value = "type", required = false) String type,
@@ -97,7 +97,7 @@ public class BoardController {
         }
 
         rttr.addFlashAttribute("resultWriter", b_i_no);
-        return "redirect:/board/information";
+        return "redirect:/Kim/board/information";
 	}
 	
 	// 김세영 글읽기
@@ -127,7 +127,7 @@ public class BoardController {
 	    List<InformationBoardVo> weeklyBestList = boardService.getWeeklyBest();
 	    model.addAttribute("weeklyBestList", weeklyBestList);
 	    
-        return "board/read";
+        return "Kim/board/read";
 	}
 	
 	// 김세영 글 수정페이지로 이동
@@ -135,7 +135,7 @@ public class BoardController {
 	public String modifyForm(@RequestParam("b_i_no") Long b_i_no, Model model) {
 	    InformationBoardVo boardVo = boardService.get(b_i_no);
 	    model.addAttribute("boardVo", boardVo);
-	    return "board/modify";
+	    return "Kim/board/modify";
 	}
 	
 	
@@ -145,7 +145,7 @@ public class BoardController {
 	public String modify(InformationBoardVo vo, RedirectAttributes rttr) {
 		Long b_i_no = boardService.modify(vo);
 		rttr.addFlashAttribute("resultModify", b_i_no);
-		return "redirect:/board/read?b_i_no=" + b_i_no;
+		return "redirect:Kim/board/read?b_i_no=" + b_i_no;
 	}
 	
     // 김세영 글 삭제
@@ -153,7 +153,7 @@ public class BoardController {
     public String delete(@RequestParam Long b_i_no, RedirectAttributes rttr) {
         boardService.delete(b_i_no);
         rttr.addFlashAttribute("resultDelete", b_i_no);
-        return "redirect:/board/information"; // 삭제 후 게시글 목록 페이지로 리디렉션
+        return "redirect:Kim/board/information"; // 삭제 후 게시글 목록 페이지로 리디렉션
     }
 
 }

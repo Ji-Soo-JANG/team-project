@@ -2,21 +2,21 @@ $(function(){
 	//로그인
 	$("#btnLogin").click(function(){
   		console.log("로그인 버튼 클릭");
- 		let id = $("#u_id").val();
-  		let pw = $("#u_pw").val();
-  		console.log("id : " + id);
-   		console.log("pw : " + pw);
+ 		let userid = $("#userid").val();
+  		let userpw = $("#userpw").val();
+  		console.log("userid : " + userid);
+   		console.log("userpw : " + userpw);
    		
   		let sData = {
-   			"u_id" : id,
-   			"u_pw" : pw
+   			"userid" : userid,
+   			"userpw" : userpw
   		};
   		console.log("sData");
    		console.log(sData);
    		$.ajax({
    			type : "post",
    			data : sData,
-   			url : "/user/checkUser",
+   			url : "/Lee/user/checkUser",
    			success : function(rData){
    				console.log(rData);
    				if(rData == true){

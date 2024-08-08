@@ -1,5 +1,7 @@
 package com.teamproject.www.Lee.domain;
 
+import com.teamproject.www.Lee.domain.board.Criteria;
+
 import lombok.Getter;
 import lombok.ToString;
 

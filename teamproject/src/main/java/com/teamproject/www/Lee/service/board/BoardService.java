@@ -1,21 +1,21 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.board;
 
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
-import com.teamproject.www.Lee.domain.Criteria;
 import com.teamproject.www.Lee.domain.DetailFreeBoardDto;
-import com.teamproject.www.Lee.domain.FreeBoardListDto;
-import com.teamproject.www.Lee.domain.InsertFreeBoardDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
+import com.teamproject.www.Lee.domain.board.BoardListDto;
+import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.InsertBoardDto;
 
 public interface BoardService {
 	// 자유게시판 글등록
-	public int registerFreeBoard(InsertFreeBoardDto dto);
+	public int registerFreeBoard(InsertBoardDto dto);
 	
 	// 자유게시판 리스트 가져오기
-	public List<FreeBoardListDto> getList(Criteria criteria);
+	public List<BoardListDto> getList(Criteria criteria, String insertBoardtype);
 	
 	// 자게 디테일 가져오기
 	public DetailFreeBoardDto getDetail(int b_f_no);
