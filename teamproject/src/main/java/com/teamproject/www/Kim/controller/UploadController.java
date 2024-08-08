@@ -75,7 +75,7 @@ public class UploadController {
     @PostMapping("/uploadFormAction")
     public List<AttachFileDto> uploadFormAction(MultipartFile[] uploadFile) throws Exception {
         log.info("uploadFormAction...");
-        String baseUploadPath = "E:/upload"; // 기본 업로드 경로
+        String baseUploadPath = "D:/upload"; // 기본 업로드 경로
         List<AttachFileDto> list = new ArrayList<>();
         
         for (MultipartFile multi : uploadFile) {
@@ -204,7 +204,7 @@ public class UploadController {
     @ResponseBody
     @PostMapping("/ckUploadFormAction")
     public ResponseEntity<Map<String, Object>> uploadCKEditorImage(MultipartFile upload, HttpSession session) {
-    	 	String baseUploadPath = "E:/ckeditor_upload";
+    	 	String baseUploadPath = "D:/ckeditor_upload";
 
     	    Map<String, Object> response = new HashMap<>();
 
@@ -234,7 +234,7 @@ public class UploadController {
     	            ckeditorImages.add(attachBoardDto); // 추가된 부분
     	            session.setAttribute("ckeditorImages", ckeditorImages); // 추가된 부분
 
-    	            String fileUrl = "/www/ckDisplay?fileName=" + getFolder() + "/" + attachDto.getUuid() + "_" + attachDto.getFileName();
+    	            String fileUrl = "/Kim/upload/ckDisplay?fileName=" + getFolder() + "/" + attachDto.getUuid() + "_" + attachDto.getFileName();
     	            response.put("uploaded", 1);
     	            response.put("fileName", attachDto.getFileName());
     	            response.put("url", fileUrl);
@@ -252,7 +252,7 @@ public class UploadController {
     @ResponseBody
     @GetMapping("/ckDisplay")
     public ResponseEntity<byte[]> displayCKEditorImage(String fileName) throws Exception {
-        File file = new File("E:/ckeditor_upload/" + fileName);
+        File file = new File("D:/ckeditor_upload/" + fileName);
         byte[] data = FileCopyUtils.copyToByteArray(file);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", Files.probeContentType(file.toPath()));

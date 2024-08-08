@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-<link rel="stylesheet" href="/www/resources/css/indexksy.css">
+<link rel="stylesheet" href="/resources/Kim/css/indexksy.css">
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -17,12 +17,13 @@
     }
 </script>
 
-<script type="module" src="/www/resources/js/indexksy.js"></script>
+<script src="/resources/Kim/js/indexksy.js"></script>
+<script type="module" src="/resources/Kim/js/ckeditor.js"></script>
 
 <body class="bg-white text-black min-h-screen p-4">
     <main class="grid grid-cols-3 gap-4 mt-4">
         <section class="col-span-2 space-y-4">
-            <form id="frmRegister" role="form" action="/www/board/write" method="post">
+            <form id="frmRegister" role="form" action="/Kim/board/write" method="post">
                 <input type="hidden" id="b_i_content" name="b_i_content" required>
                 <div class="bg-gray-100 p-4">
                     <select name="b_i_category" id="b_i_category" class="bg-gray-300 p-2 rounded">
@@ -68,7 +69,7 @@
 
                 <div class="bg-gray-100 p-4 flex justify-end space-x-4">
                     <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded">작성완료</button>
-                    <a href="/www/board/information" type="reset" class="bg-gray-500 text-black px-4 py-2 rounded">취소</a>
+                    <a href="/Kim/board/information" type="reset" class="bg-gray-500 text-black px-4 py-2 rounded">취소</a>
                 </div>
             </form>
         </section>
@@ -76,7 +77,7 @@
             <div class="bg-gray-100 p-4">
                 <div class="flex items-center justify-between p-2 bg-gray-300 rounded">
                     <div class="ml-6 flex items-center">
-                        <img src="/www/resources/image/1111.png" alt="Profile Image" class="w-16 h-16 rounded-full">
+                        <img src="/resources/Kim/image/1111.png" alt="Profile Image" class="w-16 h-16 rounded-full">
                         <div class="ml-8">
                             <h3 class="text-xl font-bold">고양이의생일</h3>
                             <p class="text-sm text-gray-500">정회원</p>
@@ -93,7 +94,7 @@
                     <c:forEach items="${weeklyBestList}" var="boardVo" varStatus="num">
                         <div class="flex items-center justify-between p-2 bg-gray-300 rounded">
                             <span>${num.index + 1}</span> 
-                            <a class="a_bno" href="/www/board/read?b_i_no=${boardVo.b_i_no}">
+                            <a class="a_bno" href="/Kim/board/read?b_i_no=${boardVo.b_i_no}">
                                 <span class="flex-1 ml-2">${boardVo.b_i_title}</span>
                             </a>
                             <span class="text-gray-500">${boardVo.b_i_views}</span>
