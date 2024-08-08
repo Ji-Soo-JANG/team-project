@@ -57,7 +57,7 @@ const editorConfig = {
         Undo
     ],
     simpleUpload: {
-        uploadUrl: '/uploadAction', // 업로드할 URL 설정
+        uploadUrl: '/Lee/upload/uploadAction', // 업로드할 URL 설정
         headers: {
             'X-CSRF-TOKEN': 'CSRF-Token', // 필요한 경우
             Authorization: 'Bearer <JSON Web Token>' // 필요한 경우
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			$(".ck-content > figure > img").css("z-index", "5");
 			
             // 초기 데이터 설정
-            let content = document.getElementById("b_f_content").value;
+            let content = document.getElementById("content").value;
             editor.setData(content);
             
             // 수정버튼 클릭시
@@ -178,14 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (editor) {
                     const content = editor.getData();
                     console.log(content);		
-					$("#b_f_content").val(content);
-					let count = content.indexOf("/D");
-					if(count > -1){
-						$("#b_f_img").val('Y');
-					}else{
-						$("#b_f_img").val('N');
-					};
-					
+					$("#content").val(content);
 					//attachList 처리
 					let imgPaths = getPaths(content);
 					//console.log("path처리 완료");
@@ -229,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    	for(let i=0; i<imgPaths.length; i++){
 	    		let path = imgPaths[i];
 	    		console.log("path : ",  path);
-	    		inputTag += `<input type="hidden" name="pathList[${i}].at_url" value="${path}">`;
+	    		inputTag += `<input type="hidden" name="pathList[${i}].uploadpath" value="${path}">`;
 	    	}
 	    	console.log("inputTag done");
 	    	console.log("inputTag : " + inputTag);

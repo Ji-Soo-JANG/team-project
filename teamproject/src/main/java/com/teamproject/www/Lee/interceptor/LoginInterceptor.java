@@ -40,6 +40,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				//가만히 있을때
 				log.info("타겟 널");
 				location = (String)session.getAttribute("curLocation");
+				if(location.equals("http://localhost/Lee/user/join")) {
+					location = "/";
+				}
 			}
 			log.info("전송전 location : " + location);
 			modelAndView.setViewName("redirect:" + location);

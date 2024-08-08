@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.teamproject.www.Lee.domain.InsertReplyDto;
 import com.teamproject.www.Lee.domain.ReplyListDto;
 import com.teamproject.www.Lee.domain.UpdateReplyDto;
-import com.teamproject.www.Lee.mapper.BoardMapper;
 import com.teamproject.www.Lee.mapper.ReplyMapper;
+import com.teamproject.www.Lee.mapper.board.BoardMapper;
 
 @Service("LeeReplyService")
 public class ReplyServiceImpl implements ReplyService{
