@@ -111,7 +111,7 @@ $(function(){
         <div class="profile-item">
             <label for=""><span class="bold">프로필</span></label>
             <span><img alt="profile" src="<c:choose>
-									      	<c:when test="${profile.thumbnail!=null}">/display/${profile.thumbnail}</c:when>
+									      	<c:when test="${profile.profile!=null}">/display/${profile.profile}</c:when>
 									        <c:otherwise>/resources/Lee/image/empty_profile.jpg</c:otherwise>
 									      </c:choose> 
            								 " width="110" height="110"></span>
@@ -161,7 +161,7 @@ $(function(){
         
         <div class="profile-item">
             <label for=""><span class="bold">레벨</span></label>
-            <span>${profile.lv}</span>
+            <span>${profile.userlevel}</span>
         </div>
         <div class="profile-item">
             <label for=""><span class="bold">포인트</span></label>

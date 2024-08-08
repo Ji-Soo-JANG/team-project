@@ -59,6 +59,7 @@ $(function(){
 	<div class="table-Container">
      	<h3 class="board-title">자유게시판</h3> 
      	<h4>pust 테스트</h4>
+<%--      	${list} --%>
            <table class="table mt-10" border="1">
                <tr>
                    <th class="table-head">번호</th>
@@ -74,7 +75,7 @@ $(function(){
 	                   <td class="table-text-left">
 	                   	<a class="a_b_f_no" href="${dto.boardno}">${dto.title}</a>
 	                   	<span class="reply-count ml-10" id="replyCount">${dto.replycount}</span> </td>
-	                   <td class="table-text-right">${dto.writer}</td>
+	                   <td class="table-text-right">${dto.nickname}</td>
 	                   <td><fmf:formatDate value="${dto.regdate}" pattern="yyyy/MM/dd"/></td>
 	                   <td>${dto.likes}</td>
 	                   <td>${dto.views}</td>
@@ -105,11 +106,11 @@ $(function(){
             </div>
             <!-- 페이징 end -->
             <div class="flex justify-end div-write">
-		        <a class="btn btn-yellow" href="/write">글쓰기</a>        
+		        <a class="btn btn-yellow" href="/Lee/board/write">글쓰기</a>        
             </div>
 
 <!--             <div class="search-Container"> -->
-            	<form action="/board/community/free" class="search-Container">
+            	<form action="/Lee/board/list" class="search-Container">
 	                <select name="type" id="selectSearch">
 	                    <option value="T" id="typeT">제목</option>
 	                    <option value="C" id="typeC">내용</option>
@@ -119,6 +120,7 @@ $(function(){
 	                    <option value="TW" id="typeTW">제목+삭성자</option>
 	                </select>
 	                <input type="text" name="keyword" value="${criteria.keyword}">
+	                <input type= "text" name="boardtype" value="${criteria.boardtype}">
 	                <button class="btn btn-yellow" type="submit">검색</button>
             	</form>
 <!--             </div> -->

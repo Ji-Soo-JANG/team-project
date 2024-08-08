@@ -6,6 +6,6 @@ import lombok.Data;
 public class LoginDto {
 	private String userid;
 	private String nickname;
-	private String lv;
+	private String userlevel;
 	private Integer point;
 }

@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.domain;
+package com.teamproject.www.Lee.domain.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	private int pageNum;
-	private int amount;
+	private Integer pageNum;
+	private Integer amount;
 	private String keyword;
 	private String type;
+	private Integer boardtype;
 	
 	public Criteria() {
 		this(1, 20);

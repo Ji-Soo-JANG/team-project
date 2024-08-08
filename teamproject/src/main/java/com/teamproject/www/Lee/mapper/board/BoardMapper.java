@@ -1,26 +1,26 @@
-package com.teamproject.www.Lee.mapper;
+package com.teamproject.www.Lee.mapper.board;
 
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.ClobVo;
-import com.teamproject.www.Lee.domain.Criteria;
 import com.teamproject.www.Lee.domain.DetailFreeBoardDto;
-import com.teamproject.www.Lee.domain.FreeBoardListDto;
-import com.teamproject.www.Lee.domain.InsertFreeBoardDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
+import com.teamproject.www.Lee.domain.board.BoardListDto;
+import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.InsertBoardDto;
 
 public interface BoardMapper {
 	// 게시판 등록
 	// 자유게시판
-	public int insertFreeBoard(InsertFreeBoardDto Dto);
+	public int insertFreeBoard(InsertBoardDto Dto);
 	
-	public int insertGetKey(InsertFreeBoardDto Dto);
+	public int insertGetKey(InsertBoardDto Dto);
 	
 	// 게시글 List 가져오기
-	public List<FreeBoardListDto> getList(Criteria criteria);
+	public List<BoardListDto> getList(Criteria criteria);
 	
 	// 게시글 List 가져오기 with Paging
-	public List<FreeBoardListDto> getListWithPaging(Criteria criteria);
+	public List<BoardListDto> getListWithPaging(Criteria criteria);
 	
 	// 게시글 상세정보 가져오기 with b_f_no
 	public DetailFreeBoardDto getDetail(int b_f_no);

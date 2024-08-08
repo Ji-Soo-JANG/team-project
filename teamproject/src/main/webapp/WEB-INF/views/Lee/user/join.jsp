@@ -98,7 +98,7 @@ $(function(){
     <div class="title-item">
         <h1>차박ChaBak</h1>
     </div>
-    <form action="/Lee/user/joinrun" class="join-form" id="join-form" method="post">
+    <form action="/Lee/user/joinRun" class="join-form" id="join-form" method="post">
         <div class="join-item">
             <label for=""><span class="join-span">아이디</span> </label>
             <input type="text" name="userid" placeholder=" 아이디">

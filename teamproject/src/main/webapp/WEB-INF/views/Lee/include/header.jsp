@@ -60,18 +60,18 @@ $(function(){
             <li class="nav-item">
                 <a href="#" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="/Lee/board/community/free" class="sub-nav-link">자유게시판</a></li>
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">정보공유</a></li>
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">리뷰</a></li>
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">질문게시판</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정보공유</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">리뷰</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">질문게시판</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">모임</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">정모 공지</a></li>
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">벙캠/동행</a></li>
-                    <li class="sub-nav-item"><a href="" class="sub-nav-link">모임후기</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정모 공지</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">벙캠/동행</a></li>
+                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">모임후기</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -93,7 +93,7 @@ $(function(){
 					    <a href="#"><img class="img-mail" alt="" src="/resources/Lee/image/mail.png"></a>
 					    <a href="/user/profile" class="bold-800 ml-10">${login.nickname}</a>
 						<span class="reply-count ml-20">레벨</span>
-				   		<span class="ml-5">${login.lv}</span>
+				   		<span class="ml-5">${login.userlevel}</span>
 		    		</c:when>
 		    		<c:otherwise>
 		    			<span class="reply-count ml-20">차박차박</span>

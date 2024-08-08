@@ -124,7 +124,7 @@ public class UserController {
 	public void join() {}
 	
 	//회원가입처리
-	@PostMapping("/joinrun")
+	@PostMapping("/joinRun")
 	public String joinRun(JoinDto dto) {
 		boolean result = userService.signUp(dto);
 		System.out.println("joinrun.. result : " + result);

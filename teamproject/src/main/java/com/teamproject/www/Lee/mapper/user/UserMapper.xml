@@ -6,8 +6,8 @@
 <mapper namespace="com.teamproject.www.Lee.mapper.user.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="join">
-		insert into tbl_user(userno, userid, userpw, nickname, email)
-		values(seq_user.nextval, #{userid}, #{userpw}, #{nickname}, #{email})
+		insert into tbl_user(userid, userpw, nickname, email)
+		values(#{userid}, #{userpw}, #{nickname}, #{email})
 	</insert>
 	
 	<!-- 가입체크 -->
@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="getLoginDto" resultType="LoginDto">
-		select userid, userpw, nickname, lv, point
+		select userid, userpw, nickname, userlevel, point
 		from tbl_user
 		where userid = #{userid}
 	</select>
@@ -43,7 +43,7 @@
 	
 	<!-- 프로필정보 가져오기 -->
 	<select id="getProfileDto" resultType="ProfileDto">
-		select userid, nickname, email, point, lv, ThumbNail
+		select userid, nickname, email, point, userlevel, profile
 		from tbl_user
 		where userid = #{userid}
 	</select>

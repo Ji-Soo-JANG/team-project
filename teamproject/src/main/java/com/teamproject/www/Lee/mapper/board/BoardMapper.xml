@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamproject.www.Lee.mapper.BoardMapper">
+<mapper namespace="com.teamproject.www.Lee.mapper.board.BoardMapper">
 	<!-- 자유게시판 게시글 입력 -->
 	<insert id="insertFreeBoard">
 		insert into tbl_board_free(boardno, title, content, writer)
@@ -15,21 +15,21 @@
 		<selectKey keyProperty="boardno" order="BEFORE" resultType="int">
 			select seq_board.nextval from dual
 		</selectKey>
-		insert into tbl_board(boardno, title, content, writer)
-		values(#{boardno}, #{title}, #{content}, #{writer})
+		insert into tbl_board(boardno, title, content, userid, writer)
+		values(#{boardno}, #{title}, #{content}, #{userid}, #{writer})
 	</insert>
 	
 	<!-- 자유게시판 글 리스트 가져오기 -->
-	<select id="getList" resultType="FreeBoardListDto">
+	<select id="getList" resultType="BoardListDto">
 		select boardno, title, writer, regdate, updateDate, views, replyCount
 		from tbl_board
 		order by boardno desc
 	</select>
 	
-	<select id="getListWithPaging" resultType="FreeBoardListDto">
+	<select id="getListWithPaging" resultType="BoardListDto">
 		select * from(select /*+ index_desc (tbl_board pk_board) */ 
-						rownum rn, boardno, title, writer, regdate, likes, views, replyCount
-					from tbl_board
+						rownum rn, boardno, title, nickname, regdate, likes, views, replyCount
+					from tbl_board 
 					<where>
 						<if test="type != null">
 							<trim prefix="(" suffix=")" prefixOverrides="or">
@@ -50,10 +50,11 @@
 								</foreach>
 							</trim>
 						</if>
-				    	and rownum &lt;= #{pageNum} * #{amount})
+				    	and rownum &lt;= #{pageNum} * #{amount} and boardtype = #{boardtype}) 
 					</where>
-			where rn &gt; (#{pageNum} - 1) * #{amount}
+			where rn &gt; (#{pageNum} - 1) * #{amount} 
 	</select>
+	<!--  where boardtype = #{boardtype}  -->
 	
 	<!-- 게시글 상세정보 가져오기 -->
 	<select id="getDetail" resultType="DetailFreeBoardDto">

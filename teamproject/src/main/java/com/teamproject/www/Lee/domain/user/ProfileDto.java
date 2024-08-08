@@ -7,7 +7,7 @@ public class ProfileDto {
 	private String userid;
 	private String nickname;
 	private String email;
-	private String lv;
+	private String userlevel;
 	private Integer point;
-	private String thumbnail;
+	private String profile;
 }
