@@ -52,7 +52,7 @@ $(function(){
             <li class="nav-item">
                 <a href="#" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">공지사항</a></li>
+                    <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
                     <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
                 </ul>
@@ -61,9 +61,9 @@ $(function(){
                 <a href="#" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정보공유</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">리뷰</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">질문게시판</a></li>
+                    <li class="sub-nav-item"><a href="/Kim/board/information" class="sub-nav-link">정보공유</a></li>
+                    <li class="sub-nav-item"><a href="/Kim/board/review" class="sub-nav-link">리뷰</a></li>
+                    <li class="sub-nav-item"><a href="/Kim/board/qna" class="sub-nav-link">질문게시판</a></li>
                 </ul>
             </li>
             <li class="nav-item">
