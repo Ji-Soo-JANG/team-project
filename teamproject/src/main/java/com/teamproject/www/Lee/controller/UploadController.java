@@ -24,15 +24,7 @@ import com.teamproject.www.Lee.Util.MyFileUtil;
 import com.teamproject.www.Lee.domain.FolderDto;
 
 import lombok.extern.log4j.Log4j;
-<<<<<<< HEAD
-import lombok.extern.log4j.Log4j2;
-=======
->>>>>>> refs/remotes/origin/206-branch
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/206-branch
 @Log4j
 @Controller("leeUploadController")
 @RequestMapping("/Lee/upload/*")
