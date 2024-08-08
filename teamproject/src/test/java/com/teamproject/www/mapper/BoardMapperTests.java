@@ -30,11 +30,6 @@ public class BoardMapperTests {
 		log.info(boardMapper);
 	}
 
-	@Test
-	public void testGetNotice() {
-		Long boardNo = 1611L;
-		log.info(boardMapper.getNotice(boardNo));
-	}
 	
 	@Test
 	public void testInsertnotice() {
@@ -42,7 +37,8 @@ public class BoardMapperTests {
 		BoardVo boardVo = new BoardVo();
 		boardVo.setTitle("공지사항" + i);
 		boardVo.setContent("내용" + i);
-		boardVo.setWriter("id-"+i);
+		boardVo.setUserId("system");
+		boardVo.setNickname("nickname-" + i);
 		boardVo.setBoardtype(1); // type 1 - 공지사항, 2 - �옄�쑀寃뚯떆�뙋
 		
 		int count = boardMapper.insertNotice(boardVo);
@@ -58,6 +54,13 @@ public class BoardMapperTests {
 		}
 	}
 	
+	@Test
+	public void testGetNotice() {
+		Long boardNo = 1841L;
+		NoticeDto dto = boardMapper.getNotice(boardNo);
+		// content - [unread]되더라도 setContent()는 잘 이루어짐
+		log.warn(dto);
+	}
 	
 	@Test
 	public void testGetnoticeList() {
@@ -75,8 +78,8 @@ public class BoardMapperTests {
 	@Test
 	public void testGetTotal() {
 		NoticeCriteria cri = new NoticeCriteria();
-		cri.setType("T");
-		cri.setKeyword("항3");
+		cri.setType("I");
+		cri.setKeyword("name");
 		int count = boardMapper.getTotal(cri);
 		log.info(count);
 	}
@@ -90,6 +93,7 @@ public class BoardMapperTests {
 		cri.setType("T");
 		
 		List<NoticeDto> list = boardMapper.getListWithPaging(cri);
+		System.out.println(list);
 //		for(noticeDto dto : list) {
 //			System.out.println(dto);
 //		}
@@ -97,7 +101,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testViewsUp() {
-		Long boardNo = 1611L;
+		Long boardNo = 1900L;
 		int views = boardMapper.viewsUp(boardNo);
 		if(views > 0 ) {
 			log.info(true);
@@ -106,7 +110,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testUpdate() {
-        Long boardNo = 1611L;
+        Long boardNo = 1900L;
         String content = "<h1>변경됨</h1>";
         int result = boardMapper.updateNotice(content, boardNo);
         NoticeDto dto = boardMapper.getNotice(boardNo);
@@ -115,7 +119,7 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testDelete() {
-		Long boardNo = 1611L;
+		Long boardNo = 1900L;
 		int result = boardMapper.deleteNotice(boardNo);
 		log.info(result);
 	}

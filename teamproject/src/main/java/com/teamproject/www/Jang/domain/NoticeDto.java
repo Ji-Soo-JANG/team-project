@@ -10,7 +10,7 @@ public class NoticeDto {
     private Long boardNo;
     private String title;
     private String content;
-    private String writer;
+    private String nickname;
     private Date regdate;
     private int views;
     private boolean newPost;

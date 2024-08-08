@@ -9,7 +9,8 @@ public class BoardVo {
 	private Long boardNo;
 	private String title;
 	private String content;
-	private String writer;
+	private String userId;
+	private String nickname;
 	private int boardtype;
 	private Date regdate;
 	private Date updatedate;
