@@ -215,16 +215,7 @@
 		    <version>0.4.8</version>
 		</dependency>
 		
-<<<<<<< HEAD
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework.boot</groupId> -->
-<!-- 		    <artifactId>spring-boot-starter-web</artifactId> -->
-<!-- 		    <version>3.3.2</version> -->
-<!-- 		</dependency> -->
-		
-=======
->>>>>>> refs/heads/206-branch
+
 		<!-- quartz -->
 		<dependency>
 		    <groupId>org.quartz-scheduler</groupId>
@@ -252,26 +243,6 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- Spring-webmvc -->
-<<<<<<< HEAD
-		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-=======
-<!-- 		<dependency> -->
-<!--             <groupId>org.springframework</groupId> -->
-<!--             <artifactId>spring-webmvc</artifactId> -->
-<!--             <version>${org.springframework-version}</version> -->
-<!--         </dependency> -->
-        
-<!--         <dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-webmvc</artifactId> -->
-<!-- 			<version>${org.springframework-version}</version> -->
-<!-- 		</dependency> -->
->>>>>>> refs/heads/206-branch
 			        
 	</dependencies>
     <build>
