@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 import com.teamproject.www.Jang.mapper.UserMapper;
 
@@ -15,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class UserMapperTests {
+	
 	@Autowired
 	private UserMapper userMapper;
 	
@@ -47,13 +49,13 @@ public class UserMapperTests {
 		}
 	}
 	
-	// 濡쒓렇�씤
+	
 	@Test
 	public void testLogin() {
-		String u_id = "system";
-		String upw = "1234";
+		String userId = "system";
+		String userPw = "1234";
 		
-		UserVo vo = userMapper.login(u_id, upw);
-		log.info(vo);
+		LoginSessionDto dto = userMapper.login(userId, userPw);
+		log.info(dto);
 	}
 }

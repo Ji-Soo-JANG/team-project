@@ -13,7 +13,7 @@
 <body>
 <script type="text/javascript">
 	$(function(){
-		let loginUser = "${loginVo.u_id}";
+		let loginUser = "${loginSessionDto.nickname}";
 		
 		window.updateLoginButtons = function(){
 			if(loginUser != ""){
@@ -33,7 +33,7 @@
 			let currentUrl = window.location.href;
 			currentUrl = currentUrl.substring(currentUrl.indexOf("t/") + 2);
 // 			console.log("/login?currentUrl="+encodeURIComponent(currentUrl));
-			location.href="/login?currentUrl=" + encodeURIComponent(currentUrl);
+			location.href="/Jang/user/login?currentUrl=" + encodeURIComponent(currentUrl);
 			// window.updateLoginButtons();
 		});
 		
@@ -41,7 +41,8 @@
 		$("#btnLogout").click(function(){
 			let currentUrl = window.location.href;
 			currentUrl = currentUrl.substring(currentUrl.indexOf("t/") + 2);
-			location.href="/logout?currentUrl=" + encodeURIComponent(currentUrl);
+			console.log(currentUrl);
+			location.href="/Jang/user/logout?currentUrl=" + encodeURIComponent(currentUrl);
 			// window.updateLoginButtons();
 		});
 		

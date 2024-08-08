@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.teamproject.www.Jang.domain.UserVo;
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.service.UserService;
 
 import lombok.extern.log4j.Log4j;
@@ -52,7 +52,7 @@ public class UserServiceTests {
 		String u_id = "system";
 		String upw = "1234";
 		
-		UserVo loginVo = userService.login(u_id, upw);
-		log.info(loginVo);
+		LoginSessionDto loginSessionDto = userService.login(u_id, upw);
+		log.info(loginSessionDto);
 	}
 }

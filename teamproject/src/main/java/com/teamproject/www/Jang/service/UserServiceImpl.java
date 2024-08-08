@@ -3,6 +3,7 @@ package com.teamproject.www.Jang.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 import com.teamproject.www.Jang.mapper.UserMapper;
 
@@ -21,9 +22,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserVo login(String u_id, String upw) {
-		UserVo loginVo = userMapper.login(u_id, upw);
-		return loginVo;
+	public LoginSessionDto login(String userId, String userPw) {
+		LoginSessionDto loginSessionDto = userMapper.login(userId, userPw);
+		return loginSessionDto;
 	}
 
 }

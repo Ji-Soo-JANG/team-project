@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
-<link rel="stylesheet" href="/resources/css/index.css">
+<link rel="stylesheet" href="/resources/Jang/css/index.css">
 </head>
 
 <body>
@@ -15,11 +15,11 @@
 		<div class="modal-content">
 			<!-- <span class="close-modal" id="close-modal">&times;</span> -->
 			<h2>로그인</h2>
-			<form action="/login" method="post" class="form-modal">
+			<form action="/Jang/user/login" method="post" class="form-modal">
 				<label for="username">아이디:</label>
-				<input id="modal-u_id" type="text" name="u_id" placeholder=" 아이디">
+				<input id="modal-u_id" type="text" name="userId" placeholder=" 아이디">
 				<label for="password">비밀번호:</label>
-				<input id="modal-upw" type="password" name="upw" placeholder=" 비밀번호">
+				<input id="modal-upw" type="password" name="userPw" placeholder=" 비밀번호">
 				<input name="currentUrl" type="hidden" value="${currentUrl}">
 				<div class="idCheckContainer">
 					<input type="checkbox"> <span>자동 로그인</span>
@@ -27,7 +27,7 @@
 				<button id="modal-btnLogin" type="submit" class="btn">Login</button>
 			</form>
 			<div class="modal-links-container">
-				<a href="/join">회원가입</a> <a href="#">아이디 찾기</a> <a href="#">비밀번호
+				<a href="/Jang/user/join">회원가입</a> <a href="#">아이디 찾기</a> <a href="#">비밀번호
 					찾기</a>
 			</div>
 		</div>

@@ -1,7 +1,6 @@
 package com.teamproject.www.Jang.service;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 
 public interface UserService {
@@ -10,6 +9,6 @@ public interface UserService {
 	public boolean signUp(UserVo vo); 
 	
 	// 로그인
-	public UserVo login(String u_id, String upw);
+	public LoginSessionDto login(String userId, String userPw);
 
 }

@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.teamproject.www.Jang.domain.LoginSessionDto;
 import com.teamproject.www.Jang.domain.UserVo;
 import com.teamproject.www.Jang.service.UserService;
 
@@ -42,25 +42,26 @@ public class UserController {
 	@GetMapping("/login")
 	public String loginForm(@RequestParam("currentUrl") String currentUrl, HttpServletRequest request) {
 		request.setAttribute("currentUrl", currentUrl);
-		return "index/login";
+		System.out.println(currentUrl);
+		return "Jang/index/login";
 	}
 	
 	
 	// 로그인
 	@PostMapping("/login")
-	public String login(@RequestParam("u_id") String u_id, @RequestParam("upw") String upw,
+	public String login(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw,
 						@RequestParam("currentUrl") String currentUrl, HttpSession session) {
-		System.out.println("u_id: " + u_id);
-		System.out.println("upw: " + upw);
-		UserVo loginVo = userService.login(u_id, upw);
-		System.out.println("loginVo :" + loginVo);
-		if(loginVo != null) {
+		System.out.println("userId: " + userId);
+		System.out.println("userPw: " + userPw);
+		LoginSessionDto loginSesionDto = userService.login(userId, userPw);
+		System.out.println("loginVo :" + loginSesionDto);
+		if(loginSesionDto != null) {
 			System.out.println("로그인 성공");
-			session.setAttribute("loginVo", loginVo);
+			session.setAttribute("loginSessionDto", loginSesionDto);
 			return "redirect:/" + currentUrl;
 		}
 		System.out.println("로그인 실패");
-		 return "redirect:/login?currentUrl=" + currentUrl; 
+		 return "redirect:/Jang/user/login?currentUrl=" + currentUrl; 
 	}
 	
 	// 로그아웃
