@@ -11,7 +11,7 @@ public class BoardVo {
 	private String content;
 	private String userId;
 	private String nickname;
-	private int boardtype;
+	private int boardtypeno;
 	private Date regdate;
 	private Date updatedate;
 	private int views;

@@ -30,14 +30,14 @@ Title VARCHAR2(300) NOT NULL,
 Content clob NOT NULL,
 UserId varchar2(50),
 NickName varchar2(50) NOT NULL,
-BoardType NUMBER(10) NOT NULL, -- 게시글 타입(공지/자유/질문/지식/...)
+BoardTypeNo NUMBER(10) NOT NULL, -- 게시글 타입(공지/자유/질문/지식/...)
 RegDate DATE DEFAULT SYSDATE,
 UpdateDate DATE DEFAULT SYSDATE,
 Views NUMBER(10) DEFAULT 0, -- 조회수
 Likes number(10) DEFAULT 0, -- 좋아요
 ReplyCount number(10) DEFAULT 0, -- 댓글 수
 
-CONSTRAINT FK__board_Type FOREIGN KEY (BoardType) REFERENCES tbl_board_type (BoardTypeNo),
+CONSTRAINT FK_board_Type FOREIGN KEY (BoardTypeNo) REFERENCES tbl_board_type (BoardTypeNo),
 CONSTRAINT FK_board_UserId FOREIGN KEY (UserId) REFERENCES tbl_user (UserId)
 );
 
