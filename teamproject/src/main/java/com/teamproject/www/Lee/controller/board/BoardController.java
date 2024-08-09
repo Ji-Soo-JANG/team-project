@@ -1,10 +1,8 @@
 package com.teamproject.www.Lee.controller.board;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
-import com.teamproject.www.Lee.domain.DetailFreeBoardDto;
 import com.teamproject.www.Lee.domain.PageDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
+import com.teamproject.www.Lee.domain.board.BoardDetailDto;
 import com.teamproject.www.Lee.domain.board.BoardListDto;
+import com.teamproject.www.Lee.domain.board.BoardTypeVo;
 import com.teamproject.www.Lee.domain.board.Criteria;
-import com.teamproject.www.Lee.domain.board.InsertBoardDto;
+import com.teamproject.www.Lee.domain.board.BoardInsertDto;
 import com.teamproject.www.Lee.service.board.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -39,27 +37,26 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+//	@Autowired
+//	private BoardTypeService boardTypeService;
 	
 	//**게시판
-	@GetMapping("/list")
-	public void list() {
-		log.info("list...........................");
-	}
-	
 	@GetMapping("/list/{bt}")
 	public String listBoardType(@PathVariable("bt") String boardtype, Model model, Criteria criteria) {
 		log.info("listBoardType................");
 		log.info("criteria : " + criteria);
-		log.info("boardtype : " + boardtype);
+//		log.info("boardtype : " + boardtype);
 		List<BoardListDto> list = boardService.getList(criteria, boardtype);
 		
+		// 타입 입력
+		criteria.setBoardtype(boardtype);
 		int allCount = boardService.getAllCount(criteria);
 		PageDto pageMaker = new PageDto(criteria, allCount);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
-		log.info("list : " + list);
+		log.info("criteria : " + criteria);
+//		log.info("list : " + list);
 		return "Lee/board/list";
-//		return "redirect:/Lee/board/list";
 	}
 	
 	//**글쓰기**
@@ -70,39 +67,46 @@ public class BoardController {
 	
 	//글쓰기 처리
 	@PostMapping("/writeRun")
-	public String writeRun(InsertBoardDto dto) {
+	public String writeRun(BoardInsertDto dto) {
 		log.info("writeRun....................................");
 		log.info("dto : " + dto);
-//		int boardno = boardService.registerFreeBoard(dto);
-//		return "redirect:/board/community/detail?boardno="+boardno;
-		return "redirect:/";
+		int boardno = boardService.registerBoard(dto);
+		return "redirect:/board/community/detail?boardno="+boardno;
+//		return "redirect:/";
 	}
 	//상세페이지
 	@GetMapping("/detail")
-	public void detail(Model model, int b_f_no , Criteria criteria, HttpSession session) {
+	public void detail(Model model, int boardno , Criteria criteria) {
 		log.info("controller, detail...................................");
 		
-		List<String> pathList = new ArrayList<>();
-		pathList.add("null");
-		session.setAttribute("pathList", pathList);
-		DetailFreeBoardDto dto = boardService.getDetail(b_f_no);
+		log.info("getDetail 전");
+		BoardDetailDto dto = boardService.getDetail(boardno);
+		log.info("getDetail 후");
 		log.info("dto : " + dto);
+		BoardTypeVo vo = new BoardTypeVo();
+		vo.setBoardtypeno(dto.getBoardtypeno());
+		vo.setBoardtype(dto.getBoardtype());
+	
+		log.info("criteria : " + criteria);
+//		String boardType = boardTypeService.getBoardType(criteria.getBoardtypeno());
+//		criteria.setBoardtype(boardType);
 		model.addAttribute("dto", dto);
 		model.addAttribute("criteria", criteria);
-		model.addAttribute("b_f_no", b_f_no);
-		
-		boardService.plusViews(b_f_no);
+		model.addAttribute("boardno", boardno);
+		log.info("pluseViews 전");
+		boardService.plusViews(boardno);
+		log.info("pluseViews 후");
 	}
+	
 	//글삭제
 	@PostMapping("/freeDelRun")
-	public String delete(BoardDelDto dto, Criteria criteria, RedirectAttributes attr) {
-		System.out.println("dto : " + dto);
+	public String delete(int boardno, Criteria criteria, RedirectAttributes attr) {
 		System.out.println("criteria : " + criteria);
 		attr.addAttribute("pageNum", criteria.getPageNum());
 		attr.addAttribute("amount", criteria.getAmount());
 		attr.addAttribute("type", criteria.getType());
 		attr.addAttribute("keyword", criteria.getKeyword());
-		boolean result = boardService.delete(dto);
+		boolean result = boardService.delete(boardno);
 		System.out.println("del, result : " + result);
 		return "redirect:/board/community/free";
 	}
@@ -117,8 +121,8 @@ public class BoardController {
 		attr.addAttribute("keyword", criteria.getKeyword());
 		boolean result = boardService.update(dto);
 		System.out.println("update, result : " + result);
-		int b_f_no = dto.getB_f_no();
-		return "redirect:/board/community/detail?b_f_no="+b_f_no;
+		int boardno = dto.getB_f_no();
+		return "redirect:/board/community/detail?boardno="+boardno;
 	}
 	
 	//추천 했는지 확인

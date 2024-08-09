@@ -1,18 +1,20 @@
 package com.teamproject.www.Lee.domain.board;
 
-
-
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class BoardListDto {
+public class BoardDetailDto {
 	private Integer boardno;
 	private String title;
+	private String content;
+	private String userid;
 	private String nickname;
 	private Date regdate;
+	private Date updatedate;
 	private Integer likes;
 	private Integer views;
-	private Integer replycount;
+	private Integer boardtypeno;
+	private String boardtype;
 }

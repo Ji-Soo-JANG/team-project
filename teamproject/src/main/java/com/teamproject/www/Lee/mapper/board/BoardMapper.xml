@@ -5,26 +5,26 @@
   
 <mapper namespace="com.teamproject.www.Lee.mapper.board.BoardMapper">
 	<!-- 자유게시판 게시글 입력 -->
-	<insert id="insertFreeBoard">
-		insert into tbl_board_free(boardno, title, content, writer)
-		values(seq_board.nextval, #{title}, #{content}, #{writer})
-	</insert>
+<!-- 	<insert id="insertFreeBoard"> -->
+<!-- 		insert into tbl_board_free(boardno, title, content, nickname) -->
+<!-- 		values(seq_board.nextval, #{title}, #{content}, #{nickname}) -->
+<!-- 	</insert> -->
 	
 	<!-- 게시글 입력 - getKey -->
 	<insert id="insertGetKey">
 		<selectKey keyProperty="boardno" order="BEFORE" resultType="int">
 			select seq_board.nextval from dual
 		</selectKey>
-		insert into tbl_board(boardno, title, content, userid, writer)
-		values(#{boardno}, #{title}, #{content}, #{userid}, #{writer})
+		insert into tbl_board(boardno, title, content, userid, nickname, boardtype)
+		values(#{boardno}, #{title}, #{content}, #{userid}, #{nickname}, #{boardtype})
 	</insert>
 	
 	<!-- 자유게시판 글 리스트 가져오기 -->
-	<select id="getList" resultType="BoardListDto">
-		select boardno, title, writer, regdate, updateDate, views, replyCount
-		from tbl_board
-		order by boardno desc
-	</select>
+<!-- 	<select id="getList" resultType="BoardListDto"> -->
+<!-- 		select boardno, title, nickname, regdate, updateDate, views, replyCount -->
+<!-- 		from tbl_board -->
+<!-- 		order by boardno desc -->
+<!-- 	</select> -->
 	
 	<select id="getListWithPaging" resultType="BoardListDto">
 		select * from(select /*+ index_desc (tbl_board pk_board) */ 
@@ -50,18 +50,21 @@
 								</foreach>
 							</trim>
 						</if>
-				    	and rownum &lt;= #{pageNum} * #{amount} and boardtype = #{boardtype}) 
+				    	and rownum &lt;= #{pageNum} * #{amount} and boardtypeno = #{boardtypeno}) 
 					</where>
 			where rn &gt; (#{pageNum} - 1) * #{amount} 
 	</select>
 	<!--  where boardtype = #{boardtype}  -->
 	
 	<!-- 게시글 상세정보 가져오기 -->
-	<select id="getDetail" resultType="DetailFreeBoardDto">
-		select boardno, title, content, writer, regdate, updatedate,
-		 	   likes, views
-		from tbl_board_free 
-		where boardno = #{boardno}
+	<select id="getDetail" resultType="BoardDetailDto">
+		select a.boardno, a.title, a.content, a.userid, a.nickname, a.regdate, a.updatedate, a.likes, a.views, a.boardtypeno, b.boardtype
+               from tbl_board a, tbl_board_type b 
+               where a.boardtypeno = b.boardtypeno and a.boardno = #{boadrno}
+<!-- 		select boardno, title, content, userid, nickname, regdate, updatedate, -->
+<!-- 		 	   likes, views, boardtype -->
+<!-- 		from tbl_board  -->
+<!-- 		where boardno = #{boardno} -->
 	</select>
 	
 	<!-- 게시글 총갯수 가져오기 -->
@@ -78,7 +81,7 @@
 										title like '%' || #{keyword} || '%'
 									</when>
 									<when test="type == 'W'.toString()">
-										writer like '%' || #{keyword} || '%'
+										nickname like '%' || #{keyword} || '%'
 									</when>
 									<when test="type == 'C'.toString()">
 										content like '%' || #{keyword} || '%'

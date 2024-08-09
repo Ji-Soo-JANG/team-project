@@ -8,11 +8,11 @@ import com.teamproject.www.Lee.domain.AttachFileDto;
 import lombok.Data;
 
 @Data
-public class InsertBoardDto {
+public class BoardInsertDto {
 	private Integer boardno;
 	private String title;
 	private String content;
-	private Integer userid;
+	private String userid;
 	private String nickname;
 	private List<AttachFileDto> pathList;
 }

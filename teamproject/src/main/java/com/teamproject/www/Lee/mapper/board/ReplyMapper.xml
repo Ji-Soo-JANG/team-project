@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamproject.www.Lee.mapper.ReplyMapper">
+<mapper namespace="com.teamproject.www.Lee.mapper.board.ReplyMapper">
 <!-- 	댓글달기 -->
 	<insert id="insertReply">
 <!-- 		insert into tbl_b_f_reply(b_f_r_no, b_f_no, reply, replyer) -->
@@ -13,13 +13,13 @@
 <!-- 		values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer}, #{b_f_r_no}) -->
 		<choose>
 			<when test="b_f_r_no != null">
-				insert into tbl_b_f_reply (b_f_r_no, b_f_no , reply, replyer, rereply_no)
-				values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer} ,#{b_f_r_no})
+				insert into tbl_reply (replyno, boardno , comments, replyer, parentreplyno)
+				values(seq_board_free_reply.nextval, #{boardno}, #{comments}, #{replyer} ,#{replyno})
 			
 			</when>
 			<otherwise>
-				insert into tbl_b_f_reply (b_f_r_no, b_f_no , reply, replyer)
-				values(seq_board_free_reply.nextval, #{b_f_no}, #{reply}, #{replyer})
+				insert into tbl_reply (replyno, boardno , comments, replyer)
+				values(seq_board_free_reply.nextval, #{boardno}, #{comments}, #{replyer})
 			</otherwise>
 		</choose>
 	</insert>
@@ -35,50 +35,42 @@
 <!-- 			from tbl_b_f_reply -->
 <!-- 			where b_f_no = #{b_f_no} -->
 
-				SELECT
-				    b_f_no,
-				    b_f_r_no,
-				    reply,
-				    replyer,
-				    good,
-				    replydate,
-				    updatedate,
-				    rereply_no,
+				select boardno, replyno, comments, replyer, likes, updatedate, parentreplyno,
 				    LEVEL AS reply_level
-				FROM
-				    tbl_b_f_reply
-				WHERE
-				    b_f_no = #{b_f_no}
-				START WITH
-				    rereply_no IS NULL
-				CONNECT BY
-				    PRIOR b_f_r_no = rereply_no
+				from
+				    tbl_reply
+				where
+				    boardno = #{boardno}
+				start with
+				    parentreplyno IS NULL
+				connect by
+				    prior replyno = parentreplyno
 				ORDER SIBLINGS BY
-				    replydate
+				    updatedate
 	</select>
 	
 <!-- 	댓글삭제 -->
 	<delete id="delete">
-		delete tbl_b_f_reply
-		where b_f_r_no = #{b_f_r_no}
+		delete tbl_reply
+		where replyno = #{boardno}
 	</delete>
 <!-- 	댓글 게시판번호로 삭제 -->
 	<delete id="deleteByBoardNo">
-		delete tbl_b_f_reply
-		where b_f_no = #{b_f_no}
+		delete tbl_reply
+		where boardno = #{boardno}
 	</delete>
 	
 <!-- 	댓글수정 -->
 	<update id="update">
-		update tbl_b_f_reply
-		set reply = #{reply}
-		where b_f_r_no = #{b_f_r_no}
+		update tbl_reply
+		set comments = #{comments}
+		where replyno = #{replyno}
 	</update>
 	
 <!-- 	댓글 좋아요 -->
 	<update id="like">
-		update tbl_b_f_reply
-		set	good = (select good from tbl_b_f_reply where b_f_r_no = #{b_f_r_no}) +1
-		where b_f_r_no = #{b_f_r_no}
+		update tbl_reply
+		set	likes = (select likes from tbl_reply where replyno = #{replyno}) +1
+		where replyno = #{replyno}
 	</update>
 </mapper>

@@ -1,14 +1,14 @@
-package com.teamproject.www.Lee.mapper;
+package com.teamproject.www.Lee.mapper.board;
 
 import java.util.List;
 
-import com.teamproject.www.Lee.domain.InsertReplyDto;
-import com.teamproject.www.Lee.domain.ReplyListDto;
-import com.teamproject.www.Lee.domain.UpdateReplyDto;
+import com.teamproject.www.Lee.domain.reply.ReplyInsertDto;
+import com.teamproject.www.Lee.domain.reply.ReplyListDto;
+import com.teamproject.www.Lee.domain.reply.ReplyUpdateDto;
 
 public interface ReplyMapper {
 	// 댓글달기
-	public int insertReply(InsertReplyDto dto);
+	public int insertReply(ReplyInsertDto dto);
 	// 댓글리스트 가져오기
 //	public List<> getList();
 	public List<ReplyListDto> getList(int b_f_no);
@@ -17,7 +17,7 @@ public interface ReplyMapper {
 	public int delete(int b_f_r_no);
 	
 	// 댓글수정
-	public int update(UpdateReplyDto dto);
+	public int update(ReplyUpdateDto dto);
 	
 	// 댓글 좋아요
 	public int like(int b_f_r_no);
