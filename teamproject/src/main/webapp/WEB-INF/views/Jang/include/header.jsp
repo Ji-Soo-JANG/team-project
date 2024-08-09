@@ -46,6 +46,11 @@
 			// window.updateLoginButtons();
 		});
 		
+		// 메타버스 클릭
+		$("#metaverse").click(function(e){
+			e.preventDefault();
+			window.open('/Jang/metaverse/main');
+		});
 		
 	});
 </script>
@@ -105,7 +110,7 @@
                     <li class="sub-nav-item"><a href="/board/market/sell" class="sub-nav-link">팝니다</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="/board/metaverse" class="nav-link">메타버스</a></li>
+            <li id="metaverse" class="nav-item"><a href="#" class="nav-link">메타버스</a></li>
             <li class="nav-item"><a href="/board/report" class="nav-link">신고하기</a></li>
         </ul>
     </nav>
