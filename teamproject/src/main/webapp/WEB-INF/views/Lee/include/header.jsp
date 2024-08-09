@@ -53,13 +53,8 @@ $(function(){
                 <a href="/Jang/board/notice/list" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
-<<<<<<< HEAD
                     <li class="sub-nav-item"><a href="/Lee/board/list/join" class="sub-nav-link">가입인사</a></li>
                     <li class="sub-nav-item"><a href="/Lee/board/list/check" class="sub-nav-link">출석체크</a></li>
-=======
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
->>>>>>> refs/heads/JiSoo-branch
                 </ul>
             </li>
             <li class="nav-item">
