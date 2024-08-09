@@ -89,11 +89,11 @@ $(function(){
     	<div class="login-profile-box">
     		<div class="login-profile">
     			<c:choose>
-	    			<c:when test="${login != null}">
+	    			<c:when test="${loginSessionDto != null}">
 					    <a href="#"><img class="img-mail" alt="" src="/resources/Lee/image/mail.png"></a>
-					    <a href="/user/profile" class="bold-800 ml-10">${login.nickname}</a>
+					    <a href="/user/profile" class="bold-800 ml-10">${loginSessionDto.nickname}</a>
 						<span class="reply-count ml-20">레벨</span>
-				   		<span class="ml-5">${login.userlevel}</span>
+				   		<span class="ml-5">${loginSessionDto.userlevel}</span>
 		    		</c:when>
 		    		<c:otherwise>
 		    			<span class="reply-count ml-20">차박차박</span>
@@ -103,12 +103,12 @@ $(function(){
 			<div class="ml-10">
 				<!-- 로그인/로그아웃 버튼 로그인 시 display 처리 -->
 				<c:choose>
-	            	<c:when test="${login == null}">
+	            	<c:when test="${loginSessionDto == null}">
 			            <a class="btn2 btn-yellow" href="/Lee/user/login">로그인</a>
 	            	</c:when>
 	            	<c:otherwise>
 			            <a class="btn2 btn-yellow mb-10"  id="btnLogout" href="/Lee/user/logout">로그아웃</a>
-			            <a class="btn2 btn-yellow" href="/Lee/user/profile/${login.userid}">설정</a>
+			            <a class="btn2 btn-yellow" href="/Lee/user/profile/${loginSessionDto.userid}">설정</a>
 	            	</c:otherwise>
             	</c:choose>
             	

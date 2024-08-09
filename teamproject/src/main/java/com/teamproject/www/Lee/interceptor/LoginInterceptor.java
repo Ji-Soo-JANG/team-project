@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			modelAndView.setViewName("redirect:/");
 		}else {
 			HttpSession session = request.getSession();
-			session.setAttribute("login", obj);
+			session.setAttribute("loginSessionDto", obj);
 			String location = "/";
 	
 			String targetLocation = (String)session.getAttribute("targetLocation");
