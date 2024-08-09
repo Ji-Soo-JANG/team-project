@@ -11,7 +11,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class AuthInterceptor extends HandlerInterceptorAdapter{
 		@Override
-		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+		public boolean preHandle(HttpServletRequest request, HttpServletResponse response,  Object handler)
 				throws Exception {
 			
 			log.info("AuthInterceptor ...............................................");

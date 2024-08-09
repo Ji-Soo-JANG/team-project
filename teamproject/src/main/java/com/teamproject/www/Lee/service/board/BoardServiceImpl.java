@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.teamproject.www.Lee.Util.MyFileUtil;
 import com.teamproject.www.Lee.domain.AttachFileDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
@@ -84,12 +85,55 @@ public class BoardServiceImpl implements BoardService{
 	@Transactional
 	@Override
 	public boolean delete(int boardno) {
-		// 댓글삭제 , 댓글 없는경우는 어떻게됨?
-		int result = replyMapper.deleteByBoardNo(boardno);
-		result += boardMapper.delete(boardno);
+		// 게시글삭제
+		// 댓글삭제
+		System.out.println("delete..........................................");
+		System.out.println("boardno : " + boardno);
+		System.out.println("replyMapper.getCountByBoardno..........................................");
+		int replyCount = replyMapper.getCountByBoardno(boardno);
+		if(replyCount>0) {
+			//댓글존재	
+			System.out.println("replyMapper.deleteByBoardNo..........................................");
+			int replyResult = replyMapper.deleteByBoardNo(boardno);
+			if(replyResult>0) {
+				System.out.println("댓글 삭제성공");
+			}else {
+				System.out.println("댓글 삭제실패");
+				return false;
+			}
+		}
+		// 이미지보드 삭제
+		System.out.println("attachMapper.getCountByBoardno..........................................");
+		int attachCount = attachMapper.getCountByBoardno(boardno);
+		if(attachCount>0) {
+			//이미지존재
+			//이미지 삭제
+			System.out.println("attachMapper.getPathListByBoardNo..........................................");
+			List<String> imgPathList = attachMapper.getPathListByBoardNo(boardno);
+			boolean isDelImg = MyFileUtil.deleImg(imgPathList);
+			if(isDelImg) {
+				System.out.println("이미지 삭제 성공");
+			}else {
+				System.out.println("이미지 삭제 실패");
+				return false;
+			}
+			//이미지 테이블 삭제
+			System.out.println("attachMapper.getPathListByBoardNo..........................................");
+			int AttachResult = attachMapper.deleteByBoardNo(boardno);
+			if(AttachResult>0) {
+				System.out.println("이미지 보드 삭제성공");
+			}else {
+				System.out.println("이미지 보드 삭제실패");
+				return false;
+			}
+		}
+		int result = boardMapper.delete(boardno);
 		
-		if(result==2) {return true;};
+		if(result>0) {
+			return true;
+		};
 		return false;
+	
 	}
 
 	// 글 수정

@@ -86,7 +86,8 @@ public class UserController {
 	public String logout(HttpSession session, HttpServletRequest req) {
 		BoardTypeVo vo = (BoardTypeVo)session.getAttribute("boardtype");
 		session.invalidate();
-		session.setAttribute("boardtype", vo);
+		HttpSession newSession = req.getSession(true);
+		newSession.setAttribute("boardtype", vo);
 		String uri = req.getHeader("Referer");
 		
 		return "redirect:"+uri;

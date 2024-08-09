@@ -56,13 +56,15 @@ public class BoardController {
 		vo.setBoardtype(bt);
 //		criteria.setBoardtype(btno);
 		session.setAttribute("boardtype", vo);
-		
+		log.info(session.getAttribute("boardtype"));
+		log.info("criteria : " + criteria);
 		int allCount = boardService.getAllCount(criteria);
 		PageDto pageMaker = new PageDto(criteria, allCount);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
 		log.info("criteria : " + criteria);
 		log.info("list : " + list);
+		log.info("boardtype : " + vo);
 		return "Lee/board/list";
 	}
 	
@@ -115,6 +117,7 @@ public class BoardController {
 //		attr.addAttribute("amount", criteria.getAmount());
 //		attr.addAttribute("type", criteria.getType());
 //		attr.addAttribute("keyword", criteria.getKeyword());
+		log.info("boardno : " + boardno);
 		BoardTypeVo vo = (BoardTypeVo)session.getAttribute("boardtype");
 		String boardtype = vo.getBoardtype();
 		model.addAttribute("criteria", criteria);

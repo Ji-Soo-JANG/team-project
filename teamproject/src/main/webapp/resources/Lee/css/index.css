@@ -132,6 +132,15 @@ body{
 /* modal end */
 
 /* header */
+header{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    max-width: 52%;
+    min-width: 1000px;
+    margin: 0 auto;
+}
 .header-Container{
     display: flex;
     align-items: center;
@@ -139,7 +148,7 @@ body{
     height: 50px;
     max-width: 52%;
     min-width: 1000px;
-    margin: 0 auto;
+    margin: 0 auto 1rem;
 }
 
 /* logoDiv */
@@ -172,7 +181,7 @@ body{
     /* background-color: #333; */
     max-width: 52%;
     min-width: 1000px;
-    margin: 0 auto;
+    margin: 0 auto 1rem;
 }
 
 .nav-list {

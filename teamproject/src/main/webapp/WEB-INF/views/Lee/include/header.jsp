@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>차박차박</title>
 <link rel="stylesheet" href="/resources/Lee/css/index.css">
-<!--   <link rel="stylesheet" href="/resources/Lee/css/detail.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>												
 <script src="/resources/Lee/js/index.js" defer></script>
     

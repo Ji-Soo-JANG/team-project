@@ -70,7 +70,7 @@
 	<!-- 게시글 총갯수 가져오기 -->
 	<select id="getAllCount" resultType="int">
 		select count(*)
-		from tbl_board
+		from tbl_board where boardtypeno = #{boardtypeno}
 			<where>
 				<if test="type != null">
 					<trim prefix="(" suffix=")" prefixOverrides="or">
