@@ -99,7 +99,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">중고장터</a>
+                <a href="/Jang/board/market/list" class="nav-link">중고장터</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/board/market/buy" class="sub-nav-link">삽니다</a></li>
                     <li class="sub-nav-item"><a href="/board/market/sell" class="sub-nav-link">팝니다</a></li>
