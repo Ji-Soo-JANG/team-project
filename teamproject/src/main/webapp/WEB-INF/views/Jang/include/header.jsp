@@ -103,14 +103,19 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">중고장터</a>
+                <a href="/Jang/board/market/list" class="nav-link">중고장터</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Lee/board/list/buy" class="sub-nav-link">삽니다</a></li>
                     <li class="sub-nav-item"><a href="/Lee/board/list/sell" class="sub-nav-link">팝니다</a></li>
                 </ul>
             </li>
+<<<<<<< HEAD
             <li class="nav-item"><a href="/board/metaverse" class="nav-link">메타버스</a></li>
             <li class="nav-item"><a href="/Lee/board/list/report" class="nav-link">신고하기</a></li>
+=======
+            <li id="metaverse" class="nav-item"><a href="#" class="nav-link">메타버스</a></li>
+            <li class="nav-item"><a href="/board/report" class="nav-link">신고하기</a></li>
+>>>>>>> refs/heads/JiSoo-branch
         </ul>
     </nav>
     <section class="section-Container">
