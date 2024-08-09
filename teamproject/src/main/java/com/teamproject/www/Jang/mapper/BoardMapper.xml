@@ -11,7 +11,7 @@
 	<select id="getNoticeList" resultType="NoticeDto">
 		select boardNo, title,content, nickname, regdate
 		from tbl_board 
-		where boardType = 1
+		where boardTypeNo = 1
 	</select>
 
 	<!-- 공지사항 입력하기 -->
@@ -20,7 +20,7 @@
 			select seq_board.nextval from dual
 		</selectKey>
 		
-		insert into tbl_board(boardNo, title, content, nickname, boardType)
+		insert into tbl_board(boardNo, title, content, nickname, boardTypeNo)
 		values(#{boardNo}, #{title}, #{content}, #{nickname}, 1)
 	</insert>
 	
@@ -28,7 +28,7 @@
 	<select id="getNotice" resultType="NoticeDto">
 		select boardNo, title, content, nickname, regdate, views
 		from tbl_board
-		where boardType = 1
+		where boardTypeNo = 1
 		and boardNo = #{boardNo}
 	</select>
 	
@@ -80,8 +80,8 @@
 		    from 
 		        tbl_board
 		    where 
-		         <!-- 공지사항 : boardType = 1 -->
-		        boardType = 1
+		         <!-- 공지사항 : boardTypeNo = 1 -->
+		        boardTypeNo = 1
 		        <if test="type != null">
 		        	<choose>
 		        		<when test="type == 'T'.toString()">
