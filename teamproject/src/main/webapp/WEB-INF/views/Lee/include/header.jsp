@@ -50,7 +50,7 @@ $(function(){
     <nav class="navbar mt-10">
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="#" class="nav-link">공지사항</a>
+                <a href="/Jang/board/notice/list" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
                     <li class="sub-nav-item"><a href="/Lee/board/list/join" class="sub-nav-link">가입인사</a></li>

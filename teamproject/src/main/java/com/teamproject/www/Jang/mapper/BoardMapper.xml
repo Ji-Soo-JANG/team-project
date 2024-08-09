@@ -9,10 +9,9 @@
 	
 	<!-- 리스트 가져오기 -->
 	<select id="getNoticeList" resultType="NoticeDto">
-		select b.boardNo, b.title, b.content, u.userId, b.regdate
-		from tbl_board b
-		join tbl_user u on b.userId = u.userNo
-		where b.boardType = 1
+		select boardNo, title,content, nickname, regdate
+		from tbl_board 
+		where boardTypeNo = 1
 	</select>
 
 	<!-- 공지사항 입력하기 -->
@@ -21,15 +20,15 @@
 			select seq_board.nextval from dual
 		</selectKey>
 		
-		insert into tbl_board(boardNo, title, content, nickname, boardType)
-		values(#{boardNo}, #{title}, #{content}, #{nickname}, 0)
+		insert into tbl_board(boardNo, title, content, nickname, boardTypeNo)
+		values(#{boardNo}, #{title}, #{content}, #{nickname}, 1)
 	</insert>
 	
 	<!-- 공지사항 하나 가져오기 -->
 	<select id="getNotice" resultType="NoticeDto">
 		select boardNo, title, content, nickname, regdate, views
 		from tbl_board
-		where boardType = 0
+		where boardTypeNo = 1
 		and boardNo = #{boardNo}
 	</select>
 	
@@ -81,8 +80,8 @@
 		    from 
 		        tbl_board
 		    where 
-		         <!-- 공지사항 : boardType = 1 -->
-		        boardType = 0
+		         <!-- 공지사항 : boardTypeNo = 1 -->
+		        boardTypeNo = 1
 		        <if test="type != null">
 		        	<choose>
 		        		<when test="type == 'T'.toString()">
