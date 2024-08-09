@@ -23,7 +23,7 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override // 김세영 정보공유 댓글등록
 	public boolean register(InformationReplyVo vo) {
 		int count = replyMapper.insert(vo);
-		count += boardMapper.updateReplyCntKsy(vo.getB_i_no(), 1);
+		count += boardMapper.updateReplyCntKsy(vo.getBoardNo(), 1);
 		return (count == 2) ? true : false;
 	}
 

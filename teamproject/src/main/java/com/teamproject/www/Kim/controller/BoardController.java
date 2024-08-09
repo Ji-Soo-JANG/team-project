@@ -103,15 +103,15 @@ public class BoardController {
 	public String read(@RequestParam("b_i_no") Long b_i_no, @ModelAttribute InformationCriteria criteria, Model model, 
 			@RequestParam(value = "type", required = false) String type,
 	        @RequestParam(value = "keyword", required = false) String keyword,
-	        @RequestParam(value = "sort", required = false) String sort,
-	        @RequestParam(value = "category", required = false) String category) {
+	        @RequestParam(value = "sort", required = false) String sort
+	        /*@RequestParam(value = "category", required = false) String category*/) {
 		InformationBoardVo boardVo = boardService.get(b_i_no);
 		model.addAttribute("boardVo", boardVo);
 		
 		criteria.setType(type);
 	    criteria.setKeyword(keyword);
 	    criteria.setSort(sort);
-	    criteria.setCategory(category);
+	    //criteria.setCategory(category);
         
         // 게시판 리스트 불러오기
 	    List<InformationBoardVo> list = boardService.getListKsy(criteria);

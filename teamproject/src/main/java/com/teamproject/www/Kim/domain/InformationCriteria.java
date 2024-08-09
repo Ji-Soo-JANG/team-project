@@ -13,7 +13,7 @@ public class InformationCriteria {
     private String type; // 검색항목(제목/내용/작성자)
     private String keyword; // 검색어(사용자 입력값)
     private String sort;
-    private String category; // 카테고리
+    //private String category; // 카테고리
 
     public InformationCriteria() {
         this(1, 10); // 1페이지, 10개 (기본 페이지)

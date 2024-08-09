@@ -1,5 +1,8 @@
 package com.teamproject.www.Kim.service;
 
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.sql.Clob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class BoardServiceImpl implements BoardService{
     public List<InformationBoardVo> getListKsy(InformationCriteria criteria) {
 		System.out.println("getInfoList...");
 		List<InformationBoardVo> list = boardMapper.getListWithPagingKsy(criteria);
+		
+		
         return list;
 	}
 	
@@ -63,23 +68,25 @@ public class BoardServiceImpl implements BoardService{
 		List<AttachBoardDto> list = vo.getAttachList();
 		if (list != null && list.size() > 0) {
 			list.forEach(dto -> {
-				dto.setB_i_no(vo.getB_i_no());
+				dto.setB_i_no(vo.getBoardNo());
 				attachMapper.insertKsy(dto);
 			});
 		}
 		
 		
 		if (count > 0) {
-			return vo.getB_i_no();
+			return vo.getBoardNo();
 		}
 		return 0L;
 	}
 	// 김세영 글보기
 	@Override
 	public InformationBoardVo get(Long bno) {
-		System.out.println("get...");
-		InformationBoardVo vo = boardMapper.selectByBnoKsy(bno);
-		return vo;
+	    System.out.println("get...");
+	    InformationBoardVo vo = boardMapper.selectByBnoKsy(bno);
+	    
+	    
+	    return vo;
 	}
 
 	@Override
@@ -91,13 +98,13 @@ public class BoardServiceImpl implements BoardService{
 	    List<AttachBoardDto> attachList = vo.getAttachList();
 	    if (attachList != null && attachList.size() > 0) {
 	        attachList.forEach(dto -> {
-	            dto.setB_i_no(vo.getB_i_no());
+	            dto.setB_i_no(vo.getBoardNo());
 	            attachMapper.insertKsy(dto);
 	        });
 	    }
 	    
 	    if (count > 0) {
-	        return vo.getB_i_no();
+	        return vo.getBoardNo();
 	    }
 	    return 0L;
 	}
@@ -107,5 +114,7 @@ public class BoardServiceImpl implements BoardService{
 	public void delete(Long b_i_no) {
 	    boardMapper.deleteKsy(b_i_no);
 	}
+	
+
 
 }
