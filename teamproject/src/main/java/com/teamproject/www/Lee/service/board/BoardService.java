@@ -3,10 +3,10 @@ package com.teamproject.www.Lee.service.board;
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.BoardLikeDto;
-import com.teamproject.www.Lee.domain.UpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
 import com.teamproject.www.Lee.domain.board.BoardListDto;
 import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.BoardUpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardInsertDto;
 
 public interface BoardService {
@@ -26,7 +26,7 @@ public interface BoardService {
 	public boolean delete(int boardno);
 	
 	// 글 수정
-	public boolean update(UpdateDto dto);
+	public boolean update(BoardUpdateDto dto);
 	
 	// 조회수 증가
 	public boolean plusViews(int b_f_no);

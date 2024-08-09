@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 public class ReplyVo {
-	private Integer b_f_r_no;
-	private Integer b_f_no;
-	private String reply;
-	private String replyer;
-	private Integer good;
+	private Integer replyno;
+	private Integer boardno;
+	private String comments;
+	private String userid;
+	private String nickname;
+	private Integer likes;
 	private Date replydate;
 	private Date updatedate;
 }

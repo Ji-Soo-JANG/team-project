@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.mapper.board;
+package com.teamproject.www.Lee.mapper.reply;
 
 import java.util.List;
 

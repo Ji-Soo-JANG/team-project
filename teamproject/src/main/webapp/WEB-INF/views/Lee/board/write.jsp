@@ -5,7 +5,7 @@
 
 <!-- 에디터 -->
 <link rel="stylesheet" href="/resources/Lee/css/edite.css">
-<link rel="stylesheet" href="/resources/Lee/js/editeClickHandler.js">
+<!-- <link rel="stylesheet" href="/resources/Lee/js/editeClickHandler.js"> -->
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/simple-upload-adapter/simple-upload-adapter.js"></script>
 <!-- 에디터 -->
@@ -196,13 +196,19 @@
 	    	$("#postForm").prepend(inputTag);
 	     }//setInputByPaths	
 		
+	     $("#btn-write-cancle").click(function(){
+	    	console.log("글쓰기 취소버튼");
+// 	    	let boardtype = `${criteria.boardtype}`;
+	    	let url = "/Lee/board/list/" + `${boardtype.boardtype}`;
+	    	console.log("url : " + url);
+	    	$("#actionForm").attr("action", url).submit();
+	     });
 	});
 </script>
 
 <!-- write start -->
 <div class="write-container">
 	<h3 class="board-title">글쓰기 게시판입니다</h3>
-
 	<!-- post form -->	
 	<form action="/Lee/board/writeRun" class="write-from" id="postForm" method="post">
 		 
@@ -210,8 +216,11 @@
       	 <!-- 숨겨진 input -->
 		 <textarea id="hidden-content" name="content" style="display:none;" ></textarea>
 <!-- 		 style="display:none;" -->
-      	 <input type="hidden" class="input-write" name="userid" style="width: 200px;" value="${login.userid}">
-         <input type="hidden" class="input-write" name="nickname" style="width: 200px;" value="${login.nickname}">
+      	 <input type="hidden" class="input-write" name="userid" style="width: 200px;" value="${loginSessionDto.userid}">
+         <input type="hidden" class="input-write" name="nickname" style="width: 200px;" value="${loginSessionDto.nickname}">
+         <input type="text" class="input-write" name="boardtypeno" style="width: 200px;" value="${boardtype.boardtypeno}">
+         
+         
 		 <div id="div_src">
    		 </div>	 
       	 <!-- 숨겨진 input -->
@@ -242,7 +251,7 @@
 		 
 		 </div>
          <div class="btn-container">
-         	<a class="btn" href="/Lee/board/list/${criteria.boardtype}">취소</a>
+         	<button type="button" class="btn" id="btn-write-cancle">취소</button>
             <button type="button" class="btn" id="btn-write-done">작성완료</button>
          </div>
     </form>
@@ -252,4 +261,5 @@
 
 
 
+<%@ include file="/WEB-INF/views/Lee/include/actionForm.jsp"%>
 <%@ include file="/WEB-INF/views/Lee/include/footer.jsp"%>

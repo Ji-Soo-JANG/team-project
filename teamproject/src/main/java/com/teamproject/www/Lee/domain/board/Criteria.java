@@ -13,8 +13,6 @@ public class Criteria {
 	private String keyword;
 	private String type;
 	private Integer boardtypeno;
-	private String boardtype;
-	
 	public Criteria() {
 		this(1, 20);
 	}

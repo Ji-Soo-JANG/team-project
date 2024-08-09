@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.service.boardtype;
+package com.teamproject.www.Lee.service.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,11 @@ public class BoardTypeServiceImpl implements BoardTypeService{
 	private BoardTypeMapper boardtypemapper;
 	@Override
 	public String getBoardType(int boardtypeno) {
-		boardtypemapper.getBoardType(boardtypeno);
-		return null;
+		return boardtypemapper.getBoardType(boardtypeno);
+	}
+	@Override
+	public int getBoardTypeNo(String boardtype) {
+		return boardtypemapper.getBoardTypeNo(boardtype);
 	}
 	
 }

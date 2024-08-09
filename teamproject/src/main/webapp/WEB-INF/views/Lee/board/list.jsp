@@ -52,6 +52,12 @@ $(function(){
 			$("#typeTW").prop("selected", true);
 			break;
 	}
+	
+	//글쓰기 버튼 클릭
+// 	$("#btnWirte").click(function(){
+// 		console.log("글쓰기 버튼 클릭!");
+// 		$("#actionForm").attr("action", "/Lee/board/write").submit();
+// 	});
 });
 	
 </script>
@@ -59,6 +65,7 @@ $(function(){
 	<div class="table-Container">
      	<h3 class="board-title">자유게시판</h3> 
 <%--      	${list} --%>
+		   <span>boardtype : ${boardtype}</span>
            <table class="table mt-10" border="1">
                <tr>
                    <th class="table-head">번호</th>
@@ -109,7 +116,7 @@ $(function(){
             </div>
 
 <!--             <div class="search-Container"> -->
-            	<form action="/Lee/board/list" class="search-Container">
+            	<form action="/Lee/board/list/${boardtype.boardtype}" class="search-Container">
 	                <select name="type" id="selectSearch">
 	                    <option value="T" id="typeT">제목</option>
 	                    <option value="C" id="typeC">내용</option>
@@ -119,10 +126,6 @@ $(function(){
 	                    <option value="TW" id="typeTW">제목+삭성자</option>
 	                </select>
 	                <input type="text" name="keyword" value="${criteria.keyword}">
-	                <span>boardtypeno : </span>
-	                <input type= "text" name="boardtype" value="${criteria.boardtypeno}">
-	                <span>boardtype : </span>
-	                <input type= "text" name="boardtype" value="${criteria.boardtype}">
 	                <button class="btn btn-yellow" type="submit">검색</button>
             	</form>
 <!--             </div> -->
