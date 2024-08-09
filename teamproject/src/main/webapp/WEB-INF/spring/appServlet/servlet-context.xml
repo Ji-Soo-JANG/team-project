@@ -40,6 +40,7 @@
 	
 	<beans:bean id="loginInterceptor" class="com.teamproject.www.Lee.interceptor.LoginInterceptor"/>
 	<beans:bean id="authInterceptor" class="com.teamproject.www.Lee.interceptor.AuthInterceptor"/>
+	<beans:bean id="unAuthInterceptor" class="com.teamproject.www.Lee.interceptor.UnAuthInterceptor"/>
 	
 	<!-- interceptor -->
 	<interceptors>
@@ -51,7 +52,7 @@
 		<interceptor>
 		    <!-- /* 매핑하면 ckEditor로 이미지 못불러오는 경우가 생기는듯 -->
 <!-- 			<mapping path="/*"/> -->
-			<mapping path="/user/*"/>
+<!-- 			<mapping path="/user/*"/> -->
 			<mapping path="/write"/>
 			<mapping path="/metaverse"/>
 			<mapping path="/report"/>
@@ -67,20 +68,33 @@
 			<exclude-mapping path="/display?fileName=/D:/upload/board-img/*/*/*/*"/>
 
 			<!-- ** user ** -->
-			<exclude-mapping path="/user/login"/>
-			<exclude-mapping path="/user/checkUser"/>
-			<exclude-mapping path="/user/loginRun"/>
+<!-- 			<exclude-mapping path="/user/login"/> -->
+<!-- 			<exclude-mapping path="/user/checkUser"/> -->
+<!-- 			<exclude-mapping path="/user/loginRun"/> -->
 		
 			<!-- 프로필 -->
-			<exclude-mapping path="/user/updatePassword"/>
+<!-- 			<exclude-mapping path="/user/updatePassword"/> -->
 			
 			<!-- 회원가입 -->	
-			<exclude-mapping path="/user/join"/>
-			<exclude-mapping path="/user/joinRun"/>
-			<exclude-mapping path="/user/checkEmail"/>
-			<exclude-mapping path="/user/forgot-id"/>
-			<exclude-mapping path="/user/forgot-password"/>
+<!-- 			<exclude-mapping path="/user/join"/> -->
+<!-- 			<exclude-mapping path="/user/joinRun"/> -->
+<!-- 			<exclude-mapping path="/user/checkEmail"/> -->
+<!-- 			<exclude-mapping path="/user/forgot-id"/> -->
+<!-- 			<exclude-mapping path="/user/forgot-password"/> -->
 			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/Lee/user/login"/>
+			<mapping path="/Lee/user/checkUser"/>
+			<mapping path="/Lee/user/loginRun"/>
+			<mapping path="/Lee/user/updatePassword"/>
+			<mapping path="/Lee/user/join"/>
+			<mapping path="/Lee/user/joinRun"/>
+			<mapping path="/Lee/user/forgot-id"/>
+			<mapping path="/Lee/user/forgot-password"/>
+			<mapping path="/Lee/user/resetPassword"/>
+			<beans:ref bean="unAuthInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

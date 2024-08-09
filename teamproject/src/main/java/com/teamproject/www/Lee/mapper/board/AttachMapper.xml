@@ -16,7 +16,12 @@
 	</select>
 	<!-- getPathListByBoardNo -->
 	<select id="getPathListByBoardNo" resultType="String">
-		select at_url from tbl_attach
+		select uploadpath from tbl_attach
+		where boardno = #{boardno}
+	</select>
+	<!-- getCountByBoardno -->
+	<select id="getCountByBoardno" resultType="int">
+		select count(*) from tbl_attach
 		where boardno = #{boardno}
 	</select>
 	<!-- deleteByBoardNo -->
@@ -24,9 +29,4 @@
 		delete from tbl_attach
 		where boardno = #{boardno}
 	</delete>
-	<!-- deleteByUpdate -->
-<!-- 	<delete id=""> -->
-	
-<!-- 	</delete> -->
-	
 </mapper>

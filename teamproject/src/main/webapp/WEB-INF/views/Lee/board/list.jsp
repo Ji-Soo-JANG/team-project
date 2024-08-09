@@ -27,12 +27,15 @@ $(function(){
 	
 	//페이지 링크 클릭
 	$(".page-link").click(function(e){
+		let boardtype = `${boardtype.boardtype}`;
+		console.log("boardtype : " + boardtype);
+		url = "/Lee/board/list/" + boardtype;
 		console.log("링크 클릭");
 		e.preventDefault();
 		let pageNum = $(this).attr("href");
 		console.log("pageNum : " + pageNum);
 		$("#inputPageNum").val(pageNum);
-		$("#actionForm").submit();
+		$("#actionForm").attr("action", url).submit();
 	});
 	
 	//제목클릭
@@ -77,7 +80,7 @@ $(function(){
 	<div class="table-Container">
      	<h3 class="board-title" id="boardname">자유게시판</h3> 
 <%--      	${list} --%>
-<%-- 		   <span>boardtype : ${boardtype}</span> --%>
+		   <span>boardtype : ${boardtype}</span>
            <table class="table mt-10" border="1">
                <tr>
                    <th class="table-head">번호</th>
