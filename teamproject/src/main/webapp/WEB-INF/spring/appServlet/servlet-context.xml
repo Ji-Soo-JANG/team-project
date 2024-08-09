@@ -51,36 +51,13 @@
 		
 		<interceptor>
 		    <!-- /* 매핑하면 ckEditor로 이미지 못불러오는 경우가 생기는듯 -->
-<!-- 			<mapping path="/*"/> -->
-<!-- 			<mapping path="/user/*"/> -->
-			<mapping path="/write"/>
-			<mapping path="/metaverse"/>
-			<mapping path="/report"/>
-			<exclude-mapping path="/"/>
-			<exclude-mapping path="/board/*"/>
-			<exclude-mapping path="/board/*/*"/>
-			<exclude-mapping path="/board/*/free"/>
-			<exclude-mapping path="/board/*/free/*"/>
-			<exclude-mapping path="/board/*/detail"/>
-			<exclude-mapping path="/board/*/detail/**"/>
-			<exclude-mapping path="/display?fileName=/*"/>
-			<exclude-mapping path="/display?fileName=/**"/>
-			<exclude-mapping path="/display?fileName=/D:/upload/board-img/*/*/*/*"/>
-
-			<!-- ** user ** -->
-<!-- 			<exclude-mapping path="/user/login"/> -->
-<!-- 			<exclude-mapping path="/user/checkUser"/> -->
-<!-- 			<exclude-mapping path="/user/loginRun"/> -->
-		
-			<!-- 프로필 -->
-<!-- 			<exclude-mapping path="/user/updatePassword"/> -->
-			
-			<!-- 회원가입 -->	
-<!-- 			<exclude-mapping path="/user/join"/> -->
-<!-- 			<exclude-mapping path="/user/joinRun"/> -->
-<!-- 			<exclude-mapping path="/user/checkEmail"/> -->
-<!-- 			<exclude-mapping path="/user/forgot-id"/> -->
-<!-- 			<exclude-mapping path="/user/forgot-password"/> -->
+			<mapping path="/Lee/board/**"/>
+			<mapping path="/Lee/upload/**"/>
+			<mapping path="/Lee/metaverse/**"/>
+			<exclude-mapping path="/Lee/board/list/**"/>
+			<exclude-mapping path="/Lee/board/detail/**"/>
+			<exclude-mapping path="/Lee/board/reply/list/*"/>
+			<exclude-mapping path="/Lee/upload/display/**"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 		
