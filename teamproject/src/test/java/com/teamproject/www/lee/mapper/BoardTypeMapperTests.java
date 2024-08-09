@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teamproject.www.Lee.domain.board.BoardTypeVo;
-import com.teamproject.www.Lee.mapper.boardtype.BoardTypeMapper;
+import com.teamproject.www.Lee.mapper.board.BoardTypeMapper;
 
 import lombok.extern.log4j.Log4j;
 

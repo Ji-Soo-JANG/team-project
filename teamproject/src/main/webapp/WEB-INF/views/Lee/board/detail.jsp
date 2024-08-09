@@ -101,7 +101,7 @@ $(function(){
 		console.log("checkReply", checkReply);
 		let formReply = that.parent().parent(); 
 		let boardno = ${dto.boardno};
-		let reply = formReply.children(".reply").val();
+		let comments = formReply.children(".comments").val();
 		let replyer = formReply.children(".replyer").val();
 		let replyno = that.attr("data-replyno");
 		let isReply = that.attr("data-isreply");
@@ -113,14 +113,14 @@ $(function(){
 			console.log("댓글일때");
 			sData = {
 					"boardno" : boardno,
-					"reply" : reply,
+					"comments" : comments,
 					"replyer" : replyer
 			};
 		}else{
 			console.log("덧글일때");
 			sData = {
 					"boardno" : boardno,
-					"reply" : reply,
+					"comments" : comments,
 					"replyer" : replyer,
 					"replyno" : replyno
 			};
@@ -133,7 +133,7 @@ $(function(){
 			contentType: "application/json; charset=utf-8",
 			success : function(rData){
 				console.log(rData);
-				$("#reply").val("");
+				$("#comments").val("");
 				showReplys();
 			}
 		});
@@ -191,7 +191,7 @@ $(function(){
 	$("#reply-ul").on("click", ".rereply", function(e){
 		let that = $(this);
 		let isReply = that.attr("data-isreply");
-		let b_f_r_no = that.attr("data-replyno");
+		let replyno = that.attr("data-replyno");
 		let li = that.parent().parent().parent().parent();
 		let ul = li.parent();
 		let rereplyClone = $(".rereply-ul > li").clone().css("list-style", "none");
@@ -223,7 +223,7 @@ $(function(){
 		$("#reply-ul").empty();
 		$.ajax({
 			type : "get",
-			url : "/Lee/board/free/list/${dto.boardno}",
+			url : "/Lee/board/reply/list/${dto.boardno}",
 			success : function(rData){
 				let btnReply = `<li class="list-style-none mb-10">
 									<div>
@@ -282,8 +282,12 @@ $(function(){
 		
 	};//show reply
 	
-	
-	
+	//글쓰기 버튼 클릭
+	$("#btnWirte").click(function(){
+		console.log("글쓰기 버튼 클릭!");
+		$("#actionForm").attr("action", "/Lee/board/write").submit();
+	});
+
 });
 
 </script>
@@ -298,7 +302,7 @@ $(function(){
             <button class="reply-delete-btn reply-delete-btn-r" id="btnReplyDeleteOk">삭제</button>
         </div>
     </div>
-    <input type="hidden" id="repyno" name="replyno">
+    <input type="hidden" id="replyno" name="replyno">
 </div>
 <!-- 댓글 삭제 모달 end -->
 
@@ -369,7 +373,7 @@ $(function(){
 		        		<button type="button" id="btnUpdateOk" class="btn mr-10" style="display:none">수정완료</button>
 		        		<button type="button" id="btnUpdateCancle" class="btn mr-10"  style="display:none">취소</button>
 	        	</c:if>
-		        <a class="btn" href="/Lee/board/write">글쓰기</a>
+		        <button type="button" class="btn" id="btnWirte">글쓰기</button>
 		    </div>
          </div>
     </form>

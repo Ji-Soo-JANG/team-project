@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamproject.www.Lee.domain.InsertReplyDto;
-import com.teamproject.www.Lee.domain.ReplyListDto;
-import com.teamproject.www.Lee.domain.UpdateReplyDto;
-import com.teamproject.www.Lee.mapper.ReplyMapper;
+import com.teamproject.www.Lee.domain.reply.ReplyInsertDto;
+import com.teamproject.www.Lee.domain.reply.ReplyListDto;
+import com.teamproject.www.Lee.domain.reply.ReplyUpdateDto;
 import com.teamproject.www.Lee.mapper.board.BoardMapper;
+import com.teamproject.www.Lee.mapper.board.ReplyMapper;
 
 @Service("LeeReplyService")
 public class ReplyServiceImpl implements ReplyService{
@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	// 댓글달기
 	@Override
-	public boolean registerReply(InsertReplyDto dto, int b_f_no) {
+	public boolean registerReply(ReplyInsertDto dto, int b_f_no) {
 		int result = replyMapper.insertReply(dto);
 		boardMapper.updateReplyCount(b_f_no);
 		if(result>0) {return true;};
@@ -43,7 +43,7 @@ public class ReplyServiceImpl implements ReplyService{
 
 	// 댓글 수정
 	@Override
-	public boolean update(UpdateReplyDto dto) {
+	public boolean update(ReplyUpdateDto dto) {
 		int result = replyMapper.update(dto);
 		if(result>0) {return true;};
 		return false;

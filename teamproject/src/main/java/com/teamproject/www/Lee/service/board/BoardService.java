@@ -2,7 +2,6 @@ package com.teamproject.www.Lee.service.board;
 
 import java.util.List;
 
-import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
@@ -24,7 +23,7 @@ public interface BoardService {
 	public int getAllCount(Criteria criteria);
 	
 	// 자게 글 삭제
-	public boolean delete(BoardDelDto dto);
+	public boolean delete(int boardno);
 	
 	// 글 수정
 	public boolean update(UpdateDto dto);

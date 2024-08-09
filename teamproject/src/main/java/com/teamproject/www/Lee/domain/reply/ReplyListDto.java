@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.domain;
+package com.teamproject.www.Lee.domain.reply;
 
 
 
@@ -8,13 +8,13 @@ import lombok.Data;
 
 @Data
 public class ReplyListDto {
-	private Integer b_f_no;
-	private Integer b_f_r_no;
-	private String reply;
+	private Integer boardno;
+	private Integer replyno;
+	private String comments;
 	private String replyer;
-	private Integer good;
+	private Integer likes;
 	private Date replydate;
 	private Date updatedate;
-	private Integer rereply_no;
+	private Integer parentreplyno;
 	private Integer reply_level;
 }

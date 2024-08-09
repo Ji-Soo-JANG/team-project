@@ -3,7 +3,7 @@ package com.teamproject.www.Lee.service.boardtype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamproject.www.Lee.mapper.boardtype.BoardTypeMapper;
+import com.teamproject.www.Lee.mapper.board.BoardTypeMapper;
 
 @Service("LeeBoardTypeService")
 public class BoardTypeServiceImpl implements BoardTypeService{

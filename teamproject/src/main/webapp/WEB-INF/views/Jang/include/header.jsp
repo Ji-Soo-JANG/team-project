@@ -76,49 +76,36 @@
             <li class="nav-item">
                 <a href="/Jang/board/notice/list" class="nav-link">공지사항</a>
                 <ul class="sub-nav-list">
-<<<<<<< HEAD
-                    <li class="sub-nav-item"><a href="/board/notice/list" class="sub-nav-link">공지사항</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">가입인사</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">출석체크</a></li>
-=======
                     <li class="sub-nav-item"><a href="/Jang/board/notice/list" class="sub-nav-link">공지사항</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/greeting" class="sub-nav-link">가입인사</a></li>
-                    <li class="sub-nav-item"><a href="/board/announce/check" class="sub-nav-link">출석체크</a></li>
->>>>>>> branch 'master' of https://github.com/Ji-Soo-JANG/team-project.git
+                    <li class="sub-nav-item"><a href="/Lee/board/list/join" class="sub-nav-link">가입인사</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/check" class="sub-nav-link">출석체크</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="/Lee/board/list/free" class="nav-link">커뮤니티</a>
                 <ul class="sub-nav-list">
                     <li class="sub-nav-item"><a href="/Lee/board/list/free" class="sub-nav-link">자유게시판</a></li>
-<<<<<<< HEAD
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정보공유</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">리뷰</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">질문게시판</a></li>
-=======
-                    <li class="sub-nav-item"><a href="/board/community/information" class="sub-nav-link">정보공유</a></li>
-                    <li class="sub-nav-item"><a href="/board/community/review" class="sub-nav-link">리뷰</a></li>
-                    <li class="sub-nav-item"><a href="/board/community/qna" class="sub-nav-link">질문게시판</a></li>
->>>>>>> branch 'master' of https://github.com/Ji-Soo-JANG/team-project.git
+                    <li class="sub-nav-item"><a href="/Lee/board/list/info" class="sub-nav-link">정보공유</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/review" class="sub-nav-link">리뷰</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/qna" class="sub-nav-link">질문게시판</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">모임</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">정모 공지</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">벙캠/동행</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">모임후기</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/meet" class="sub-nav-link">벙캠/동행</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/meetReview" class="sub-nav-link">모임후기</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">중고장터</a>
                 <ul class="sub-nav-list">
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">삽니다</a></li>
-                    <li class="sub-nav-item"><a href="#" class="sub-nav-link">팝니다</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/buy" class="sub-nav-link">삽니다</a></li>
+                    <li class="sub-nav-item"><a href="/Lee/board/list/sell" class="sub-nav-link">팝니다</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a href="/board/metaverse" class="nav-link">메타버스</a></li>
-            <li class="nav-item"><a href="/board/report" class="nav-link">신고하기</a></li>
+            <li class="nav-item"><a href="/Lee/board/list/report" class="nav-link">신고하기</a></li>
         </ul>
     </nav>
     <section class="section-Container">

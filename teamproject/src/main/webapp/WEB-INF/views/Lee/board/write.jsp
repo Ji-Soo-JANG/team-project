@@ -208,10 +208,11 @@
 		 
       	 <input type="text" class="input-write" name="title" placeholder=" 제목을 입력 해 주세요."  required>
       	 <!-- 숨겨진 input -->
-		 <textarea id="hidden-content" name="content"></textarea>
+		 <textarea id="hidden-content" name="content" style="display:none;" ></textarea>
 <!-- 		 style="display:none;" -->
+      	 <input type="hidden" class="input-write" name="userid" style="width: 200px;" value="${login.userid}">
+         <input type="hidden" class="input-write" name="nickname" style="width: 200px;" value="${login.nickname}">
 		 <div id="div_src">
-      	 
    		 </div>	 
       	 <!-- 숨겨진 input -->
 		 
@@ -242,11 +243,6 @@
 		 </div>
          <div class="btn-container">
          	<a class="btn" href="/Lee/board/list/${criteria.boardtype}">취소</a>
-         
-            <input type="text" class="input-write" name="userid" style="width: 200px;" value="${login.userid}">
-            <input type="text" class="input-write" name="nickname" style="width: 200px;" value="${login.nickname}">
-            <input type="text" class="input-wirte" name="boardtype" style="width: 200px;" value="${criteria.boardtype}">
-            <span>criteria : ${criteria}</span>
             <button type="button" class="btn" id="btn-write-done">작성완료</button>
          </div>
     </form>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
 import com.teamproject.www.Lee.domain.PageDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
@@ -49,6 +48,7 @@ public class BoardController {
 //		log.info("boardtype : " + boardtype);
 		List<BoardListDto> list = boardService.getList(criteria, boardtype);
 		
+		// 타입 입력
 		criteria.setBoardtype(boardtype);
 		int allCount = boardService.getAllCount(criteria);
 		PageDto pageMaker = new PageDto(criteria, allCount);
@@ -100,14 +100,13 @@ public class BoardController {
 	
 	//글삭제
 	@PostMapping("/freeDelRun")
-	public String delete(BoardDelDto dto, Criteria criteria, RedirectAttributes attr) {
-		System.out.println("dto : " + dto);
+	public String delete(int boardno, Criteria criteria, RedirectAttributes attr) {
 		System.out.println("criteria : " + criteria);
 		attr.addAttribute("pageNum", criteria.getPageNum());
 		attr.addAttribute("amount", criteria.getAmount());
 		attr.addAttribute("type", criteria.getType());
 		attr.addAttribute("keyword", criteria.getKeyword());
-		boolean result = boardService.delete(dto);
+		boolean result = boardService.delete(boardno);
 		System.out.println("del, result : " + result);
 		return "redirect:/board/community/free";
 	}

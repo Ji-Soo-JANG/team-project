@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.teamproject.www.Lee.Util.MyFileUtil;
 import com.teamproject.www.Lee.domain.AttachFileDto;
-import com.teamproject.www.Lee.domain.BoardDelDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
 import com.teamproject.www.Lee.domain.UpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
@@ -18,8 +16,9 @@ import com.teamproject.www.Lee.domain.board.Criteria;
 import com.teamproject.www.Lee.domain.board.BoardInsertDto;
 import com.teamproject.www.Lee.mapper.AttachMapper;
 import com.teamproject.www.Lee.mapper.BoardLikeMapper;
-import com.teamproject.www.Lee.mapper.ReplyMapper;
 import com.teamproject.www.Lee.mapper.board.BoardMapper;
+import com.teamproject.www.Lee.mapper.board.BoardTypeMapper;
+import com.teamproject.www.Lee.mapper.board.ReplyMapper;
 
 @Service("LeeBoardService")
 public class BoardServiceImpl implements BoardService{
@@ -31,6 +30,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardLikeMapper boardLikeMapper;
 	@Autowired
 	private AttachMapper attachMapper;
+	@Autowired
+	private BoardTypeMapper boardTypeMapper;
 	
 	//*** 자유게시판 ***--------------------------------------------------------
 	// 자유게시판 글등록
@@ -60,11 +61,7 @@ public class BoardServiceImpl implements BoardService{
 		System.out.println("boardtype : " + boardtype);
 		System.out.println("criteria : " + criteria);
 		int boardtypeno = 0 ;
-		switch(boardtype) {
-			case "free" : 
-				boardtypeno = 1;
-				break;
-		}
+		boardtypeno = boardTypeMapper.getBoardTypeNo(boardtype);
 		criteria.setBoardtypeno(boardtypeno);
 		List<BoardListDto> list = boardMapper.getListWithPaging(criteria);
 		System.out.println("list : " + list);
@@ -86,20 +83,10 @@ public class BoardServiceImpl implements BoardService{
 	// 글 삭제
 	@Transactional
 	@Override
-	public boolean delete(BoardDelDto dto) {
-		int b_f_no = dto.getB_f_no();
-		
-		// 이미지 삭제
-		char isImg = dto.getB_f_img();
-		if(isImg=='Y') {
-			List<String> paths = attachMapper.getPathListByBoardNo(b_f_no);
-			MyFileUtil.deleImg(paths);
-			attachMapper.deleteByBoardNo(b_f_no);
-		}
-		
+	public boolean delete(int boardno) {
 		// 댓글삭제 , 댓글 없는경우는 어떻게됨?
-		int result = replyMapper.deleteByBoardNo(b_f_no);
-		result += boardMapper.delete(b_f_no);
+		int result = replyMapper.deleteByBoardNo(boardno);
+		result += boardMapper.delete(boardno);
 		
 		if(result==2) {return true;};
 		return false;

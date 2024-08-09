@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.domain;
+package com.teamproject.www.Lee.domain.reply;
 
 import java.util.Date;
 
