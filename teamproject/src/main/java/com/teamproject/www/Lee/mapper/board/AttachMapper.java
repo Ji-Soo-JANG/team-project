@@ -17,7 +17,8 @@ public interface AttachMapper {
 	// deleteByBoardNo
 	public int deleteByBoardNo(int boardno);
 	
-	// 
+	//getCountByBoardno
+	public int getCountByBoardno(int boardno);
 	// deleteByUpdate
 	public int deleteByUpdate(List<String> updatePaths);
 }

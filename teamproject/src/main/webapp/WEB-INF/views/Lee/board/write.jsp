@@ -215,11 +215,8 @@
       	 <input type="text" class="input-write" name="title" placeholder=" 제목을 입력 해 주세요."  required>
       	 <!-- 숨겨진 input -->
 		 <textarea id="hidden-content" name="content" style="display:none;" ></textarea>
-<!-- 		 style="display:none;" -->
       	 <input type="hidden" class="input-write" name="userid" style="width: 200px;" value="${loginSessionDto.userid}">
          <input type="hidden" class="input-write" name="nickname" style="width: 200px;" value="${loginSessionDto.nickname}">
-         <input type="text" class="input-write" name="boardtypeno" style="width: 200px;" value="${boardtype.boardtypeno}">
-         
          
 		 <div id="div_src">
    		 </div>	 

@@ -91,16 +91,19 @@ public class MyFileUtil {
 	
 
 	//이미지삭제
-	public static void deleImg(List<String> imgPaths) {
+	public static boolean deleImg(List<String> imgPaths) {
+		boolean result = false;
 		for(String imgPath : imgPaths) {
 			File imgFile = new File(imgPath);
-			boolean result = imgFile.delete();
-			if(result) {
+			result = imgFile.delete();
+			if(!result) {
 				log.info("이미지 삭제 성공.");
 			}else {
 				log.info("이미지 삭제 실패.");
+				break;
 			}
-		}	
+		}
+		return result;
 	}
 	
 	// 컨텐트로 이미지 경로 가져오기
