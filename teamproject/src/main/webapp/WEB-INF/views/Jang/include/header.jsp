@@ -46,6 +46,11 @@
 			// window.updateLoginButtons();
 		});
 		
+		// 메타버스 클릭
+		$("#metaverse").click(function(e){
+			e.preventDefault();
+			window.open('/Jang/metaverse/main');
+		});
 		
 	});
 </script>
