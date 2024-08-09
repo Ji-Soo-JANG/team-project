@@ -6,6 +6,24 @@
 			
 <script>
 $(function(){
+	let boardtypeno = parseInt(`${boardtype.boardtypeno}`);
+// 	console.log("boardtypeno : " + boardtypeno);
+	const map = new Map();
+	map.set(1, "공지사항");
+	map.set(2, "가입인사");
+	map.set(3, "출석체크");
+	map.set(4, "자유게시판");
+	map.set(5, "정보게시판");
+	map.set(6, "리뷰게시판");
+	map.set(7, "질문게시판");
+	map.set(8, "벙박/동행");
+	map.set(9, "모임후기");
+	map.set(10, "삽니다");
+	map.set(11, "팝니다");
+	map.set(12, "신고게시판");
+	
+	let boardname = map.get(boardtypeno);
+	$("#boardname").html(boardname);
 	
 	//페이지 링크 클릭
 	$(".page-link").click(function(e){
@@ -52,20 +70,14 @@ $(function(){
 			$("#typeTW").prop("selected", true);
 			break;
 	}
-	
-	//글쓰기 버튼 클릭
-// 	$("#btnWirte").click(function(){
-// 		console.log("글쓰기 버튼 클릭!");
-// 		$("#actionForm").attr("action", "/Lee/board/write").submit();
-// 	});
 });
 	
 </script>
  	<!-- 게시판 테이블 start -->
 	<div class="table-Container">
-     	<h3 class="board-title">자유게시판</h3> 
+     	<h3 class="board-title" id="boardname">자유게시판</h3> 
 <%--      	${list} --%>
-		   <span>boardtype : ${boardtype}</span>
+<%-- 		   <span>boardtype : ${boardtype}</span> --%>
            <table class="table mt-10" border="1">
                <tr>
                    <th class="table-head">번호</th>
