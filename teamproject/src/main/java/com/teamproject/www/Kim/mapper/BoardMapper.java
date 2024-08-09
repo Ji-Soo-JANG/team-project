@@ -31,7 +31,7 @@ public interface BoardMapper {
 	public int insertSelectKeyKsy(InformationBoardVo vo);
 	
 	// 김세영 글보기
-	public InformationBoardVo selectByBnoKsy(Long bno);
+	public InformationBoardVo selectByBnoKsy(Long boardno);
 	
 	// 김세영 댓글 갯수 갱신(댓글 등록/삭제)
 	public int updateReplyCntKsy(@Param("b_i_no") Long b_i_no, 

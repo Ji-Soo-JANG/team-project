@@ -8,11 +8,11 @@ public interface AttachMapper {
 
 	public int insertKsy(AttachBoardDto dto);
 	
-	public List<AttachBoardDto> getAttachListKsy(Long bno);
+	public List<AttachBoardDto> getAttachListKsy(Long boardNo);
 	
-	public int deleteKsy(Long bno);
+	public int deleteKsy(Long boardNo);
 
 	public List<AttachBoardDto> getOldAttachListKsy();
 	
-	int updateBnoForNullFiles(Long b_i_no);
+	//int updateBoardNoForNullFiles(Long boardNo);
 }

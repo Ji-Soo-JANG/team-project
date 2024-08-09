@@ -63,14 +63,14 @@ public class BoardServiceImpl implements BoardService{
 		List<AttachBoardDto> list = vo.getAttachList();
 		if (list != null && list.size() > 0) {
 			list.forEach(dto -> {
-				dto.setB_i_no(vo.getB_i_no());
+				dto.setB_i_no(vo.getBoardNo());
 				attachMapper.insertKsy(dto);
 			});
 		}
 		
 		
 		if (count > 0) {
-			return vo.getB_i_no();
+			return vo.getBoardNo();
 		}
 		return 0L;
 	}
@@ -91,13 +91,13 @@ public class BoardServiceImpl implements BoardService{
 	    List<AttachBoardDto> attachList = vo.getAttachList();
 	    if (attachList != null && attachList.size() > 0) {
 	        attachList.forEach(dto -> {
-	            dto.setB_i_no(vo.getB_i_no());
+	            dto.setB_i_no(vo.getBoardNo());
 	            attachMapper.insertKsy(dto);
 	        });
 	    }
 	    
 	    if (count > 0) {
-	        return vo.getB_i_no();
+	        return vo.getBoardNo();
 	    }
 	    return 0L;
 	}

@@ -8,25 +8,25 @@
 	
 <!-- 상단 공지 게시물 2개 노출 김세영 -->
 <select id="getLatestAnnounce" resultType="InformationBoardVo">
-    SELECT *
-    FROM ( 
+    SELECT * FROM (
         SELECT
-        	<!--  --> 
-            B_R_NO as b_a_no,
-            B_R_TITLE as title,
-            B_R_WRITER as writer,
-            B_R_REGDATE as regdate,
-            B_R_UPDATEDATE as updatedate,
-            B_R_CATEGORY as category,
-            B_R_RECOMMENDED as recommended,
-            B_R_VIEWS as views,
-            REPLYCNT as replycnt,
-            '리뷰' as boardName
-        FROM TBL_BOARD_review
-        ORDER BY B_R_REGDATE DESC
+            boardno, 
+            title, 
+            nickname, 
+            regdate, 
+            updatedate, 
+            -- category
+            likes, 
+            views, 
+            replycount, 
+            '공지' as boardtype
+        FROM TBL_BOARD
+        WHERE BOARDTYPENO = 6 
+        ORDER BY regdate DESC
     ) 
-    WHERE ROWNUM &lt;= 2 
+    WHERE ROWNUM &lt;= 2
 </select>
+
 	
    <!-- 김세영 글 목록 (페이징) -->
 <select id="getListWithPagingKsy" resultType="InformationBoardVo">

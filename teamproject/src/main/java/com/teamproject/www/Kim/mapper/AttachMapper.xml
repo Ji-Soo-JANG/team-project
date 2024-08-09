@@ -5,20 +5,18 @@
 
 <mapper namespace="com.teamproject.www.Kim.mapper.AttachMapper">
 	<insert id="insertKsy">
-		insert into tbl_attach_info
-			(uuid, fileName, uploadPath, image, b_i_no)
-		values
-			(#{uuid}, #{fileName}, #{uploadPath}, #{image}, #{b_i_no,jdbcType=INTEGER})
+		insert into tbl_attach(fileno, boardno, uploadpath)
+		values(seq_attach.nextval, #{boardno}, #{uploadPath})
 	</insert>
 	
 	<select id="getAttachListKsy" resultType="AttachBoardDto">
-		select * from tbl_attach_info
-		where b_i_no = #{b_i_no}
+		select * from tbl_attach
+		where boardno = #{boardno}
 	</select>
 	
 	<delete id="deleteKsy">
-		delete from tbl_attach_info
-		where b_i_no = #{b_i_no}
+		delete from tbl_attach
+		where boardno = #{boardno}
 	</delete>
 	
 	<select id="getOldAttachListKsy" resultType="AttachBoardDto">
@@ -29,10 +27,10 @@
 	    ]]>
 	</select>
 	
-	<update id="updateBnoForNullFiles">
-        UPDATE tbl_attach_info
-        SET b_i_no = #{b_i_no}
-        WHERE b_i_no IS NULL
-    </update>
+<!-- 	<update id="updateBoardNoForNullFiles"> -->
+<!--         UPDATE tbl_attach -->
+<!--         SET boardno = #{boardno} -->
+<!--         WHERE boardno IS NULL -->
+<!--     </update> -->
 	
 </mapper>
