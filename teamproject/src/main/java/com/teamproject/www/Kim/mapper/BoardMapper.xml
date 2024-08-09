@@ -32,67 +32,68 @@
 <select id="getListWithPagingKsy" resultType="InformationBoardVo">
     SELECT * FROM (
         SELECT 
-            ROWNUM rn,
-            B_I_NO as b_i_no,
-            B_I_TITLE as b_i_title,
-            B_I_WRITER as b_i_writer,
-            B_I_REGDATE as b_i_regdate,
-            B_I_UPDATEDATE as b_i_updatedate,
-            B_I_CATEGORY as b_i_category,
-            B_I_RECOMMENDED as b_i_recommended,
-            B_I_VIEWS as b_i_views,
-            REPLYCNT
+            ROWNUM rn, 
+            boardno,  
+            title, 
+            content, 
+            userid, 
+            nickname,  
+            regdate, 
+            updatedate, 
+            views,  
+            likes, 
+            replycount
+            --category   
         FROM (
             SELECT 
-                B_I_NO,
-                B_I_TITLE,
-                B_I_WRITER,
-                B_I_REGDATE,
-                B_I_UPDATEDATE,
-                B_I_CATEGORY,
-                B_I_RECOMMENDED,
-                B_I_VIEWS,
-                REPLYCNT
+                boardno, 
+                title, 
+                content,  
+                userid, 
+                nickname, 
+                regdate,  
+                updatedate, 
+                views, 
+                likes, 
+                replycount 
+                --category
             FROM 
-                TBL_BOARD_info
-            <where>
-                <!-- 검색 조건 -->
+                TBL_BOARD
+            WHERE 
+                BOARDTYPENO = 5
                 <if test="type != null and keyword != null">
+                    AND (
                     <trim prefix="(" suffix=")" prefixOverrides="or">
                         <foreach item="type" collection="typeArr">
                             <trim prefix="or">
                                 <choose>
                                     <when test="type == 'T'.toString()">
-                                        B_I_TITLE like '%' || #{keyword} || '%'
+                                        title like '%' || #{keyword} || '%'
                                     </when>
                                     <when test="type == 'C'.toString()">
-                                        B_I_CONTENT like '%' || #{keyword} || '%'
+                                        content like '%' || #{keyword} || '%'
                                     </when>
                                     <when test="type == 'W'.toString()">
-                                        B_I_WRITER like '%' || #{keyword} || '%'
+                                        nickname like '%' || #{keyword} || '%'
                                     </when>
                                 </choose>
                             </trim>
                         </foreach>
                     </trim>
+                    )
                 </if>
-                <!-- 카테고리 조건 -->
-                <if test="category != null and category != ''">
-                    AND B_I_CATEGORY = #{category}
-                </if>
-            </where>
             <choose>
-                <when test="sort == 'recommended'">
-                    ORDER BY B_I_RECOMMENDED DESC
+                <when test="sort == 'likes'">
+                    ORDER BY likes DESC
                 </when>
                 <when test="sort == 'views'">
-                    ORDER BY B_I_VIEWS DESC
+                    ORDER BY views DESC
                 </when>
                 <when test="sort == 'recent'">
-                    ORDER BY B_I_NO DESC
+                    ORDER BY boardno DESC
                 </when>
                 <otherwise>
-                    ORDER BY B_I_NO DESC
+                    ORDER BY boardno DESC
                 </otherwise>
             </choose>
         ) 
@@ -100,6 +101,8 @@
     ) 
     WHERE rn &gt; (#{pageNum} - 1) * #{amount}
 </select>
+
+
 
 <!-- 김세영 getTotalKsy 쿼리 정의 -->
 <select id="getTotalCountKsy" resultType="int" parameterType="InformationCriteria">
@@ -222,10 +225,24 @@
 	</insert>
 	
 	<!-- 글보기 김세영 -->
-	<select id="selectByBnoKsy" parameterType="long" resultType="InformationBoardVo">
-		select * from tbl_board_info
-		where b_i_no = #{b_i_no}
-	</select>
+	<select id="selectByBnoKsy" resultType="InformationBoardVo">
+    SELECT 
+        boardNo,
+        title,
+        content, 
+        userId,
+        nickName,
+        boardTypeNo,
+        regdate,
+        updatedate,
+        views,
+        likes,
+        replycount
+    FROM 
+        TBL_BOARD
+    WHERE 
+        boardNo = #{boardno}
+</select>
 
 		<!-- 댓글 갯수 갱신 김세영 -->
 	<update id="updateReplyCntKsy">
