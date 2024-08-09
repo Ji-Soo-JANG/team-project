@@ -7,5 +7,6 @@ public class ReplyInsertDto {
 	private Integer boardno;
 	private Integer replyno;
 	private String comments;
-	private String replyer;
+	private String userid;
+	private String nickname;
 }

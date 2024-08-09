@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.mapper;
+package com.teamproject.www.Lee.mapper.board;
 
 import com.teamproject.www.Lee.domain.BoardLikeDto;
 

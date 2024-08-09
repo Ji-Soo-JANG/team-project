@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.mapper;
+package com.teamproject.www.Lee.mapper.board;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ public interface AttachMapper {
 	public int insertAttach(AttachFileDto dto);
 	
 	// getYesterdayPathList
-	public List<String> getYesterdayAt_url();
+	public List<String> getYesterdayUploadpath();
 	
 	// getPathListByBoardNo
-	public List<String> getPathListByBoardNo(int b_f_no);
+	public List<String> getPathListByBoardNo(int boardno);
 	
 	// deleteByBoardNo
-	public int deleteByBoardNo(int b_f_no);
+	public int deleteByBoardNo(int boardno);
 	
 	// 
 	// deleteByUpdate

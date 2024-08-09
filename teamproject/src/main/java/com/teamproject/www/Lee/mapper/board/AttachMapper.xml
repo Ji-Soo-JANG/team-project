@@ -3,26 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamproject.www.Lee.mapper.AttachMapper">
+<mapper namespace="com.teamproject.www.Lee.mapper.board.AttachMapper">
 	<!-- insertAttach -->
 	<insert id="insertAttach">
-		insert into tbl_attach(at_no, b_f_no, at_url)
-		values(seq_attach.nextval, #{b_f_no}, #{at_url})
+		insert into tbl_attach(fileno, boardno, uploadpath)
+		values(seq_attach.nextval, #{boardno}, #{uploadpath})
 	</insert>
 	<!-- getYesterdayPathList -->
-	<select id="getYesterdayAt_url" resultType="String">
-		select at_url from tbl_attach
+	<select id="getYesterdayUploadpath" resultType="String">
+		select uploadpath from tbl_attach
 		where trunc(regdate) = trunc(sysdate-1)
 	</select>
 	<!-- getPathListByBoardNo -->
 	<select id="getPathListByBoardNo" resultType="String">
 		select at_url from tbl_attach
-		where b_f_no = #{b_f_no}
+		where boardno = #{boardno}
 	</select>
 	<!-- deleteByBoardNo -->
 	<delete id="deleteByBoardNo">
 		delete from tbl_attach
-		where b_f_no = #{b_f_no}
+		where boardno = #{boardno}
 	</delete>
 	<!-- deleteByUpdate -->
 <!-- 	<delete id=""> -->

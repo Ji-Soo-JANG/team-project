@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.reply;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.teamproject.www.Lee.domain.reply.ReplyUpdateDto;
 
 public interface ReplyService {
 	// 댓글달기
-	public boolean registerReply(ReplyInsertDto dto, int b_f_no);
+	public boolean registerReply(ReplyInsertDto dto);
 	
 	// 댓글LIST 가져오기
 	public List<ReplyListDto> getList(int b_f_no);

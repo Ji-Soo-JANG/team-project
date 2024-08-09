@@ -1,10 +1,10 @@
 $(function(){
 	
 	//취소버튼 클릭
-	$("#btnList").click(function(){
-		console.log("취소버튼");
-		$("#actionForm").submit();
-	});
+	//$("#btnList").click(function(){
+	//	console.log("취소버튼");
+	//	$("#actionForm").submit();
+	//});
 		
 	//삭제버튼 클릭
 	$("#btnDelete").click(function(){

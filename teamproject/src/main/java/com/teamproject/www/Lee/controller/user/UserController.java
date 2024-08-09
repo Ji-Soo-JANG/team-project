@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teamproject.www.Lee.domain.board.BoardTypeVo;
 import com.teamproject.www.Lee.domain.user.JoinDto;
 import com.teamproject.www.Lee.domain.user.LoginDto;
 import com.teamproject.www.Lee.domain.user.ProfileDto;
@@ -83,7 +84,9 @@ public class UserController {
 	// 로그아웃 처리
 	@GetMapping("/logout")
 	public String logout(HttpSession session, HttpServletRequest req) {
+		BoardTypeVo vo = (BoardTypeVo)session.getAttribute("boardtype");
 		session.invalidate();
+		session.setAttribute("boardtype", vo);
 		String uri = req.getHeader("Referer");
 		
 		return "redirect:"+uri;

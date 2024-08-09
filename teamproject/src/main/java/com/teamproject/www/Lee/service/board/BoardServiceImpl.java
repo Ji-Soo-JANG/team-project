@@ -9,16 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.teamproject.www.Lee.domain.AttachFileDto;
 import com.teamproject.www.Lee.domain.BoardLikeDto;
-import com.teamproject.www.Lee.domain.UpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
 import com.teamproject.www.Lee.domain.board.BoardListDto;
 import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.BoardUpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardInsertDto;
-import com.teamproject.www.Lee.mapper.AttachMapper;
-import com.teamproject.www.Lee.mapper.BoardLikeMapper;
+import com.teamproject.www.Lee.mapper.board.AttachMapper;
+import com.teamproject.www.Lee.mapper.board.BoardLikeMapper;
 import com.teamproject.www.Lee.mapper.board.BoardMapper;
 import com.teamproject.www.Lee.mapper.board.BoardTypeMapper;
-import com.teamproject.www.Lee.mapper.board.ReplyMapper;
+import com.teamproject.www.Lee.mapper.reply.ReplyMapper;
 
 @Service("LeeBoardService")
 public class BoardServiceImpl implements BoardService{
@@ -95,27 +95,31 @@ public class BoardServiceImpl implements BoardService{
 	// 글 수정
 	@Transactional
 	@Override
-	public boolean update(UpdateDto dto) {
+	public boolean update(BoardUpdateDto dto) {
 		System.out.println("board service........................");
 		System.out.println("dto : " + dto);
-		int boardno = dto.getB_f_no();
+		int boardno = dto.getBoardno();
 		List<AttachFileDto> getPathList = dto.getPathList();
 		List<String> pathList = new ArrayList<String>();
-		
-		for(AttachFileDto pathDto : getPathList) {
-			pathList.add(pathDto.getUploadpath());
+		if(getPathList != null && getPathList.size()  > 0) {
+			for(AttachFileDto pathDto : getPathList) {
+				pathList.add(pathDto.getUploadpath());
+			}
+			for(String path : pathList) {
+				AttachFileDto attachDto = new AttachFileDto();
+				attachDto.setBoardno(boardno); 
+				attachDto.setUploadpath(path);
+				attachMapper.insertAttach(attachDto);
+			}
+		}else {
+			
 		}
 		// attach 수정
 		// 삭제
 		attachMapper.deleteByBoardNo(boardno);
 		
 		// 입력
-		for(String path : pathList) {
-			AttachFileDto attachDto = new AttachFileDto();
-			attachDto.setBoardno(boardno); 
-			attachDto.setUploadpath(path);
-			attachMapper.insertAttach(attachDto);
-		}
+		
 		
 		//수정
 		int result = boardMapper.update(dto);

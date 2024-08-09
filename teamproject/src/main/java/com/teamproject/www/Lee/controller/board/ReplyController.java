@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.teamproject.www.Lee.domain.reply.ReplyInsertDto;
 import com.teamproject.www.Lee.domain.reply.ReplyListDto;
 import com.teamproject.www.Lee.domain.reply.ReplyUpdateDto;
-import com.teamproject.www.Lee.service.ReplyService;
+import com.teamproject.www.Lee.service.reply.ReplyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -32,8 +32,7 @@ public class ReplyController {
 	@PostMapping("/register")
 	public boolean register(@RequestBody ReplyInsertDto dto) {
 		log.info("reply register, dto : " + dto);
-		int boardno = dto.getBoardno();
-		return replyService.registerReply(dto, boardno);
+		return replyService.registerReply(dto);
 //		return false;
 	}
 	//댓글 리스트 가져오기

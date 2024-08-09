@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.teamproject.www.Lee.Util.MyFileUtil;
-import com.teamproject.www.Lee.mapper.AttachMapper;
+import com.teamproject.www.Lee.mapper.board.AttachMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -23,7 +23,7 @@ public class CleanImagesTask {
 		log.info("************************* cleanImgs *************************");
 		//DB 어제날자 이미지들
 		log.info(attachMapper);
-		List<String>yesterdayPaths = attachMapper.getYesterdayAt_url();
+		List<String>yesterdayPaths = attachMapper.getYesterdayUploadpath();
 		
 		MyFileUtil.cleanImgTask(yesterdayPaths);
 		log.info("yesterDayPahts : " + yesterdayPaths);

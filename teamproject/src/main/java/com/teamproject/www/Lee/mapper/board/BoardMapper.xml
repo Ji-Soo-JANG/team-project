@@ -15,8 +15,8 @@
 		<selectKey keyProperty="boardno" order="BEFORE" resultType="int">
 			select seq_board.nextval from dual
 		</selectKey>
-		insert into tbl_board(boardno, title, content, userid, nickname, boardtype)
-		values(#{boardno}, #{title}, #{content}, #{userid}, #{nickname}, #{boardtype})
+		insert into tbl_board(boardno, title, content, userid, nickname, boardtypeno)
+		values(#{boardno}, #{title}, #{content}, #{userid}, #{nickname}, #{boardtypeno})
 	</insert>
 	
 	<!-- 자유게시판 글 리스트 가져오기 -->
@@ -94,8 +94,8 @@
 			</where>
 	</select>
 	
-	<!-- 컨텐츠 가져오기 by b_f_no -->
-	<select id="getContentByB_f_no" resultType="string">
+	<!-- 컨텐츠 가져오기 by boardno -->
+	<select id="getContentByBoardno" resultType="string">
 		select content from tbl_board
 		where boardno = #{boardno}
 	</select>
@@ -109,7 +109,7 @@
 	<!-- 글 수정 -->
 	<update id="update">
 		update tbl_board
-		set btitle = #{title}, content = #{content}, updatedate = sysdate,
+		set title = #{title}, content = #{content}, updatedate = sysdate
 		where boardno = #{boardno}
 	</update>
 	

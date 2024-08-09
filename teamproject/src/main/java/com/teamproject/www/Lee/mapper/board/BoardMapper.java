@@ -3,10 +3,10 @@ package com.teamproject.www.Lee.mapper.board;
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.ClobVo;
-import com.teamproject.www.Lee.domain.UpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardDetailDto;
 import com.teamproject.www.Lee.domain.board.BoardListDto;
 import com.teamproject.www.Lee.domain.board.Criteria;
+import com.teamproject.www.Lee.domain.board.BoardUpdateDto;
 import com.teamproject.www.Lee.domain.board.BoardInsertDto;
 
 public interface BoardMapper {
@@ -23,30 +23,30 @@ public interface BoardMapper {
 	public List<BoardListDto> getListWithPaging(Criteria criteria);
 	
 	// 게시글 상세정보 가져오기 with b_f_no
-	public BoardDetailDto getDetail(int b_f_no);
+	public BoardDetailDto getDetail(int boardno);
 	
 	// 총갯수 가져오기
 	public int getAllCount(Criteria criteria);
 	
 	// 컨텐츠 가져오기 by b_f_no
-	public String getContentByB_f_no(int b_f_no);
+	public String getContentByBoardno(int boardno);
 	
 	// 자게 글 삭제
-	public int delete(int b_f_no);
+	public int delete(int boardno);
 	
 	// 자게 글 수정
-	public int update(UpdateDto dto);
+	public int update(BoardUpdateDto dto);
 	
 	// 조회수 증가
-	public int pluseViews(int b_f_no);
+	public int pluseViews(int boardno);
 	
 	// 추천하기
-	public int commend(int b_f_no);
+	public int commend(int boardno);
 	// 추천수 가져오기
-	public int getCommend(int b_f_no);
+	public int getCommend(int boardno);
 	
 	// 댓글수 업데이트
-	public int updateReplyCount(int b_f_no);
+	public int updateReplyCount(int boardno);
 	
 	// 어제 날짜 게시글 컨텐츠들 가져오기
 	public List<ClobVo> getYesterdayContents();

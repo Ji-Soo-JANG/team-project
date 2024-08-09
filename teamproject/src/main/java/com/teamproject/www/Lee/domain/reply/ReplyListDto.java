@@ -11,7 +11,8 @@ public class ReplyListDto {
 	private Integer boardno;
 	private Integer replyno;
 	private String comments;
-	private String replyer;
+	private String userid;
+	private String nickname;
 	private Integer likes;
 	private Date replydate;
 	private Date updatedate;

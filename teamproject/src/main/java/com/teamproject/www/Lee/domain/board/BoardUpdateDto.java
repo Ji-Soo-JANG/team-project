@@ -1,6 +1,5 @@
 package com.teamproject.www.Lee.domain.board;
 
-
 import java.util.List;
 
 import com.teamproject.www.Lee.domain.AttachFileDto;
@@ -8,12 +7,9 @@ import com.teamproject.www.Lee.domain.AttachFileDto;
 import lombok.Data;
 
 @Data
-public class BoardInsertDto {
-	private Integer boardno;
+public class BoardUpdateDto {
+	private int boardno;
 	private String title;
 	private String content;
-	private String userid;
-	private String nickname;
-	private Integer boardtypeno;
 	private List<AttachFileDto> pathList;
 }

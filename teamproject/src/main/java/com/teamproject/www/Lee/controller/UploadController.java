@@ -46,7 +46,7 @@ public class UploadController {
 	            // URL 만들기
 	            String uuid = UUID.randomUUID().toString();
 	            String savedFileName = uuid + "_" + uploadFile.getOriginalFilename();
-	            String url = "/display?fileName=/" + uploadPath + "/" + savedFileName;
+	            String url = "/Lee/upload/display?fileName=/" + uploadPath + "/" + savedFileName;
 	            File file = new File(uploadPath, savedFileName);
 	            
 	            // 이미지 폴더에 저장

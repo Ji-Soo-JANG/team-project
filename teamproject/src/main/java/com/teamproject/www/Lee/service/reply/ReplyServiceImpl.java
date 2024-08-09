@@ -1,4 +1,4 @@
-package com.teamproject.www.Lee.service;
+package com.teamproject.www.Lee.service.reply;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import com.teamproject.www.Lee.domain.reply.ReplyInsertDto;
 import com.teamproject.www.Lee.domain.reply.ReplyListDto;
 import com.teamproject.www.Lee.domain.reply.ReplyUpdateDto;
 import com.teamproject.www.Lee.mapper.board.BoardMapper;
-import com.teamproject.www.Lee.mapper.board.ReplyMapper;
+import com.teamproject.www.Lee.mapper.reply.ReplyMapper;
 
 @Service("LeeReplyService")
 public class ReplyServiceImpl implements ReplyService{
@@ -20,23 +20,27 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	// 댓글달기
 	@Override
-	public boolean registerReply(ReplyInsertDto dto, int b_f_no) {
+	public boolean registerReply(ReplyInsertDto dto) {
+		System.out.println("reply service......................");
+		System.out.println("registerReply......................");
+		System.out.println("dto : " + dto);
 		int result = replyMapper.insertReply(dto);
-		boardMapper.updateReplyCount(b_f_no);
+		int boardno = dto.getBoardno();
+		boardMapper.updateReplyCount(boardno);
 		if(result>0) {return true;};
 		return false;
 	}
 
 	// 댓글 list 가져오기
 	@Override
-	public List<ReplyListDto> getList(int b_f_no) {
-		return replyMapper.getList(b_f_no);
+	public List<ReplyListDto> getList(int boardno) {
+		return replyMapper.getList(boardno);
 	}
 
 	// 댓글 삭제
 	@Override
-	public boolean delete(int b_f_r_no) {
-		int result = replyMapper.delete(b_f_r_no);
+	public boolean delete(int replyno) {
+		int result = replyMapper.delete(replyno);
 		if(result>0) {return true;};
 		return false;
 	}
@@ -51,8 +55,8 @@ public class ReplyServiceImpl implements ReplyService{
 
 	// 댓글 좋아요
 	@Override
-	public boolean like(int b_f_r_no) {
-		int result = replyMapper.like(b_f_r_no);
+	public boolean like(int boardno) {
+		int result = replyMapper.like(boardno);
 		if(result>0) {return true;};
 		return false;
 	}
