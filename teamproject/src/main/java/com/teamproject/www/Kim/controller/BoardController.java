@@ -32,14 +32,12 @@ public class BoardController {
     private AttachMapper attachMapper;
 
 	// 정보공유 게시판 (김세영)
-	// 깃테스트
-	// 깃테스트2
 	@GetMapping("/information")
 	public void informationBoard(Model model, InformationCriteria criteria,
 	        @RequestParam(value = "type", required = false) String type,
 	        @RequestParam(value = "keyword", required = false) String keyword,
-	        @RequestParam(value = "sort", required = false) String sort,
-	        @RequestParam(value = "category", required = false) String category) {
+	        @RequestParam(value = "sort", required = false) String sort
+	        /*@RequestParam(value = "category", required = false) String category*/) {
 	    if (criteria.getPageNum() == 0) {
 	        criteria.setPageNum(1);
 	    }
@@ -49,7 +47,7 @@ public class BoardController {
 	    criteria.setType(type);
 	    criteria.setKeyword(keyword);
 	    criteria.setSort(sort);
-	    criteria.setCategory(category);
+//	    criteria.setCategory(category);
 
 	    List<InformationBoardVo> list = boardService.getListKsy(criteria);
 	    int total = boardService.getTotalKsy(criteria);
